@@ -1,0 +1,99 @@
+<html>
+<head>
+<style>
+p {
+  margin: 0px;
+}  
+
+p.note {
+  color: #cdcdcd;
+  font-size: 85%;
+}
+input {
+  border: 1px solid silver;
+  border-radius: 4px;
+  background: white;
+  padding: 5px 10px;
+}
+
+.dirty {
+  border-color: #5A5;
+  background: #EFE;
+}
+
+.dirty:focus {
+  outline-color: #8E8;
+}
+
+.error {
+  border-color: red;
+  background: #FDD;
+}
+
+.error:focus {
+  outline-color: #F99;
+}
+
+</style>
+</head>
+<body>
+<div id="app">
+  <form>
+    <div>
+      　<p>ID＊：</p>
+        <input type="text" v-model="$v.text.$model" :class="status($v.text)">
+        <p class="note">{{ $v.text.$params.minLength.min }}文字以上</p>
+        <div v-if="$v.text.$dirty">
+            <div class="error" v-if="!$v.text.required">IDは必須入力です。</div>
+            <div class="error" v-if="!$v.text.minLength">IDは{{ $v.text.$params.minLength.min }}文字以上で入力してください。</div>
+        </div>
+    </div>
+    <div>
+        <p>パスワード＊：</p>
+        <input type="password" v-model="$v.password.$model" :class="status($v.password)">
+        <p class="note">{{ $v.password.$params.minLength.min }}文字以上{{ $v.password.$params.maxLength.max }}文字以内で入力</p>
+        <div v-if="$v.password.$dirty">
+            <div class="error" v-if="!$v.password.required">パスワードは必須入力です。</div>
+            <div class="error" v-if="!$v.password.minLength">パスワードは{{ $v.password.$params.minLength.min }}文字以上で入力してください。</div>
+            <div class="error" v-if="!$v.password.maxLength">パスワードは{{ $v.password.$params.maxLength.max }}文字以内で入力してください。</div>    
+        </div>
+    </div>
+  </form>  
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="./node_modules/vuelidate/dist/vuelidate.min.js"></script>
+<script src="./node_modules/vuelidate/dist/validators.min.js"></script>
+
+<script>
+Vue.use(window.vuelidate.default);
+const { required, minLength, maxLength } = window.validators
+
+new Vue({
+   el: '#app',
+   data: {
+  	text: '',
+    password: ''
+  },
+  validations: {
+  	text: {
+    	required,
+      minLength: minLength(5)
+    },
+    password: {
+      required,
+      minLength: minLength(4),
+      maxLength: maxLength(8),
+    }
+  },
+  methods: {
+  	status(validation) {
+    	return {
+      	error: validation.$error,
+        dirty: validation.$dirty
+      }
+    }
+  }
+ })
+ </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+<head>
+  <style>
+    #app {
+      height: 100Vh;
+    }
+    .content {
+      height: 300px;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+    <parallax direction="down" fixed="true">
+        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
+    </parallax>
+    <div class="content"></div>
+    <parallax>
+        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
+    </parallax>
+    <div class="content"></div>
+    <parallax parallax="false">
+        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
+    </parallax>
+    <div class="content"></div>
+    <parallax>
+        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
+    </parallax>
+    <div class="content"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue-parallaxy@1.1.1/dist/vue-parallaxy.min.js"></script>
+
+<script>
+  console.log(window);
+Vue.component(VueParallaxy);
+new Vue({
+  el: '#app',
+  components: {
+    parallax: VueParallaxy
+  }
+})
+</script>
+</body>
+</html>

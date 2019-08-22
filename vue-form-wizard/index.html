@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+  <form-wizard  @on-complete="onComplete" @on-validate="handleValidation" next-button-text="次へ" back-button-text="前へ" finish-button-text="完了" step-size="xs">
+    <tab-content title="メールアドレスを入力">
+      <div class="form-group">
+        <label for="exampleInputEmail1">メールアドレス</label>
+        <input type="email" v-model="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="メールアドレスを入力">
+      </div>
+    </tab-content>
+    <tab-content title="パスワードを入力">
+      <div class="form-group">
+        <label for="exampleInputPassword1">パスワード</label>
+        <input type="password" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="パスワード">
+      </div>
+    </tab-content>
+    <tab-content title="確認">
+      <div class="form-group">
+        <label for="exampleInputEmail1">メールアドレス</label>
+        <input type="email" v-model="mail" readonly  class="form-control-plaintext" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">パスワード</label>
+        <input type="password" v-model="password" readonly  class="form-control-plaintext" id="exampleInputPassword1" placeholder="">
+      </div>
+    </tab-content>
+  </form-wizard>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-form-wizard/dist/vue-form-wizard.js"></script>
+<script src="https://unpkg.com/vue-swal"></script>
+<script>
+  console.log(window);
+
+const FormWizard = VueFormWizard.FormWizard;
+const TabContent = VueFormWizard.TabContent;
+
+new Vue({
+  el: '#app',
+  data: {
+    mail: '',
+    password: ''
+  },
+  components: {
+    'form-wizard': FormWizard,
+    'tab-content': TabContent
+  },
+  methods: {
+    onComplete: function() {
+      this.$swal('入力完了', "入力お疲れさまでした。", 'success')
+    },
+    handleValidation: function(isValid, tabIndex){
+      console.log('Tab: '+tabIndex+ ' valid: '+isValid)
+    },
+  }
+})
+</script>
+</body>
+</html>

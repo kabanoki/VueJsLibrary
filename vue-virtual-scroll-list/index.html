@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-virtual-scroll-list@1.4.1/dist/index.min.js"></script>
+    <style>
+        #app {
+            margin-top: 10px;
+            margin-left: 250px;
+        }
+        #app .v-list {
+            border: 1px solid #dcdcdc;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <v-list two-line>
+        <v-list-item-group
+            v-model="selected"
+            active-class="pink--text"
+        >
+            <virtual-list :size="15" :remain="25">    
+            <template v-for="(item, index) in items" :key="item.id">
+                <v-list-item>
+                    <v-list-item-content>
+                        <v-list-item-title v-text="item.title"></v-list-item-title>
+                        <v-list-item-subtitle class="text--primary" v-text="item.headline"></v-list-item-subtitle>
+                        <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+    
+                <v-divider
+                    v-if="index + 1 < items.length"
+                    :key="index"
+                ></v-divider>
+            </template>
+            </virtual-list>
+        </v-list-item-group>
+    </v-list>
+        
+</div>
+<script>
+    console.log(window);
+var items = [];
+
+for(var i=1;i<=1000;i++)
+{
+    items.push({
+        id: i,
+        title: 'タイトル'+ i,
+        headline: 'カテゴリー',
+        subtitle: "本文を入力します。"
+    });
+}
+
+Vue.component('virtual-list', VirtualList);
+
+new Vue({
+    el: "#app",
+    vuetify: new Vuetify(),
+    data: {
+        items: items,
+        selected: ''
+    }
+})
+</script>
+</body>
+</html>

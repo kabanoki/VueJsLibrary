@@ -1,0 +1,19 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://unpkg.com/mavon-editor@2.7.4/dist/css/index.css">
+</head>
+<body>
+<div id="app">
+    <mavon-editor :language="'ja'"></mavon-editor>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/mavon-editor@2.7.4/dist/mavon-editor.js"></script>
+
+<script>
+Vue.use(window['MavonEditor'])
+ new Vue({
+   el: '#app',
+ })
+ </script>
+</body>
+</html>

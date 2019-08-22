@@ -1,0 +1,57 @@
+<html>
+<head>
+<link rel="stylesheet" href="./node_modules/hooper/dist/hooper.css">
+<style>
+  .hooper-slide {
+    background-color: #62caaa;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 30px;
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <hooper :auto-play="true" :play-speed="3000">
+    <slide>
+      slide 1
+    </slide>
+    <slide>
+      slide 2
+    </slide>
+    <slide>
+      slide 3
+    </slide>
+    <slide>
+      slide 4
+    </slide>
+
+    <hooper-progress slot="hooper-addons"></hooper-progress>
+    <hooper-navigation slot="hooper-addons"></hooper-navigation>
+    <hooper-pagination slot="hooper-addons" ></hooper-pagination>
+  </hooper>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="./node_modules/hooper/dist/hooper.min.js"></script>
+
+<script>
+ new Vue({
+   el: '#app',
+   components: {
+      Hooper: window.Hooper.Hooper,
+      Slide: window.Hooper.Slide,
+      HooperNavigation: window.Hooper.Navigation,
+      HooperPagination: window.Hooper.Pagination,
+      HooperProgress: window.Hooper.Progress,
+      Icons: window.Hooper.Icons
+  }
+ })
+ </script>
+</body>
+</html>

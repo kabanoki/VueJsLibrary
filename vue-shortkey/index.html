@@ -1,0 +1,59 @@
+<html>
+<head>
+  <style>
+  #app {
+    padding-top: 150px;
+    padding-left: 250px;
+  }
+  p {
+    margin-top:15px;
+    margin-bottom:0px;
+    font-weight: 800;
+  }
+  </style>
+</head>
+<body>
+<div id="app">
+    <p>イベント：[ctrl + alt + b]</p>
+    <button v-shortkey="['ctrl', 'alt', 'b']" @shortkey="theAction()">Open</button>
+    <p>マルチイベント：[arrowup] もしくは [arrowdown]</p>
+    <button v-shortkey="{up: ['arrowup'], down: ['arrowdown']}" @shortkey="theActionArrow">Joystick</button>
+    <p>フォーカス：[alt + i]</p>
+    <input type="text" v-shortkey.focus="['alt', 'i']" v-model="name" />
+
+    <div @click="theAction">
+      <p>test</p>
+      
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-shortkey@3.1.7/dist/index.min.js"></script>
+
+<script>
+console.log(VueShortkey);  
+Vue.use(VueShortkey);
+ new Vue({
+   el: '#app',
+   data: {
+    name: ''
+   },
+   methods: {
+    theAction: function(){
+      alert("['ctrl', 'alt', 'b']");
+    },
+    theActionArrow:function(event){
+      switch (event.srcKey) {
+      case 'up':
+        alert('up');
+        break;
+      case 'down':
+        alert('down');
+        break;
+      }
+    }
+   }
+ })
+ </script>
+</body>
+</html>

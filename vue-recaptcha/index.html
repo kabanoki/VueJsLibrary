@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+      #app {
+        margin-top: 150px;
+        margin-left: 150px;
+      }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="content">
+        <div class="col-5">
+            <form class="form" method="POST" action="">
+                    <div class="form-group">
+                            <label for="formGroupExampleInput">Example label</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                          </div>
+                          <div class="form-group">
+                            <label for="formGroupExampleInput2">Another label</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                          </div>
+                          <div class="form-group">
+                             <vue-recaptcha 
+                                sitekey="6LdRo7MUAAAAAFh3y-XvBdue3T_S6SUPcE5rbmp9" 
+                                ref="invisibleRecaptcha"
+                            >
+                            </vue-recaptcha>
+                          </div>
+                    
+                    <button type="submit" class="btn btn-primary">送信</button>
+            </form>
+        </div>    
+    </div>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
+    <script src="https://unpkg.com/vue-recaptcha@latest/dist/vue-recaptcha.min.js"></script>
+    
+
+<script>
+console.log(window);
+
+
+const VueRecaptcha = window.VueRecaptcha;
+
+new Vue({
+    el: "#app",
+    components: { 
+      'vue-recaptcha': VueRecaptcha
+    }
+});
+</script>
+</body>
+</html>

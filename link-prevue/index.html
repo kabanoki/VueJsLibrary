@@ -1,0 +1,34 @@
+<html>
+<head>
+</head>
+<body>
+<div id="app">
+    <div>
+      <input type="url" v-model="previewInput">
+      <button @click="preview">preview</button>
+    </div>
+    <link-prevue :url="url"></link-prevue>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/link-prevue@1.1.3/dist/link-prevue.min.js"></script>
+
+<script>
+ new Vue({
+   el: '#app',
+   components: {
+    LinkPrevue: window.LinkPrevue.default
+   },
+   data: {
+     url: 'https://vuejs.org/',
+     previewInput: ''
+   },
+   methods: {
+     preview: function(){
+       this.url = this.previewInput
+     }
+   }
+ })
+ </script>
+</body>
+</html>

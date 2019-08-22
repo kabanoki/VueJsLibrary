@@ -1,0 +1,44 @@
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+<div id="app">
+  <diagram :model="diagramData"></diagram>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-diagrams@0.0.1-development/dist/vue-diagrams.min.js"></script>
+<script>
+  console.log(window);
+
+const Diagram  = window['vue-diagrams'].default;
+const diagramModel = new Diagram.DiagramModel();
+
+const node1 = diagramModel.addNode("user", 300, 200);
+const inPort = node1.addInPort("no");
+node1.addInPort("name");
+node1.color = "#cc6600";
+
+const node2 = diagramModel.addNode("skills", 10, 300, 144, 80);
+const node2OutPort = node2.addOutPort("userNo");
+node2.addOutPort("skill");
+
+const node3 = diagramModel.addNode("jobs", 10, 100, 72, 100);
+const node3OutPort = node3.addOutPort("userNo");
+node3.addOutPort("job");
+
+diagramModel.addLink(node2OutPort, inPort);
+diagramModel.addLink(node3OutPort, inPort);
+  
+new Vue({
+  el: '#app',
+  data: {
+    diagramData: diagramModel
+  }
+})
+</script>
+</body>
+</html>

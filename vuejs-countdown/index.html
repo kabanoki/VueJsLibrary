@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuejs-countdown@0.2.1/dist/vuejs-countdown.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2>{{day7}}</h2>
+    <p v-text="deadline()"></p>
+    <countdown :deadline="deadline()"></countdown>
+</div>
+<script>
+console.log(window);
+
+var today = new Date();
+var day7 = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
+const Countdown = window['vuejs-countdown'].default;
+
+new Vue({
+    el: "#app",
+    data: {
+        today: today,
+        day7: day7,
+    },
+    methods: {
+        deadline: function() {
+            return day7.toGMTString();
+        }
+    },
+    components: {
+        'countdown' : Countdown
+    },
+})
+</script>
+</body>
+</html>

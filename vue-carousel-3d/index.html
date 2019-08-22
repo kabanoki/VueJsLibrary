@@ -1,0 +1,34 @@
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+<div id="app">
+  <carousel-3d :controls-visible="true" :clickable="false" :autoplay="true">
+      <slide v-for="(slide, i) in slides" :index="i">
+        <img src="https://placehold.it/360x270">
+      </slide>
+  </carousel-3d>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-carousel-3d@0.2.0/dist/vue-carousel-3d.min.js"></script>
+
+<script>
+  console.log(window);
+
+ new Vue({
+   el: '#app',
+   data: {
+    slides: 5
+  },
+  components: {
+    'carousel-3d': Carousel3d.Carousel3d,
+    'slide': Carousel3d.Slide
+  }
+ })
+ </script>
+</body>
+</html>

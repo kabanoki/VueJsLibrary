@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body>
+<div id="app">
+  <button @click="alert">alert!</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="./node_modules/vue-swal/dist/vue-swal.min.js"></script>
+
+<script>
+ new Vue({
+   el: '#app',
+   methods: {
+    alert: function() {
+      this.$swal('Hello word!')
+    }
+  }
+ })
+ </script>
+</body>
+</html>

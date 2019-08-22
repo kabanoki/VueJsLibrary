@@ -1,0 +1,40 @@
+<html>
+<head>
+  <style>
+    #app {
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="container">
+    <input type="text" v-model="message">
+    <button type="button"
+      v-clipboard:copy="message"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">Copy!</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/link-prevue@1.1.3/dist/link-prevue.min.js"></script>
+
+<script>
+console.log(window);
+ new Vue({
+   el: '#app',
+   data: {
+    message: 'Copy These Text'
+   },
+   methods: {
+    onCopy: function (e) {
+      alert('You just copied: ' + e.text)
+    },
+    onError: function (e) {
+      alert('Failed to copy texts')
+    }
+  }
+ })
+ </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-awesome@3.5.4/dist/vue-awesome.js"></script>
+</head>
+<body>
+<div id="app">
+    <p><v-icon name="beer"/></p>
+    <p><v-icon name="pager"/></p>
+    <p><v-icon name="arrow-alt-circle-right"/></p>
+    <p><v-icon name="sync" scale="2" spin/></p>
+    <p><v-icon name="comment" flip="horizontal"/></p>
+    <p><v-icon name="code-branch" label="Forked Repository"/></p>
+    
+
+</div>
+<script>
+    console.log(window.VueAwesome);
+    
+    Vue.component('v-icon', window.VueAwesome);
+    new Vue({
+        el: "#app",
+    })
+</script>
+</body>
+</html>

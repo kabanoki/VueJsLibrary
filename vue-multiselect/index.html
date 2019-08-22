@@ -1,0 +1,78 @@
+<html>
+<head>
+  <link rel="stylesheet" href="./node_modules/vue-multiselect/dist/vue-multiselect.min.css">
+</head>
+<body>
+<div id="app">
+  <h2>通常セレクタ</h2>
+  <multiselect
+    v-model="selected"
+    :options="options"
+    :searchable="false"
+    :close-on-select="false"
+    :allow-empty="false"
+    placeholder="通常セレクタ">
+  </multiselect>
+
+  <h2>サーチフィルタ付きセレクタ</h2>
+  <multiselect
+    v-model="selected2"
+    :options="options"
+    :close-on-select="true"
+    :clear-on-select="false"
+    placeholder="サーチフィルタ付きセレクタ">
+  </multiselect>  
+
+  <h2>サーチフィルタ付き複数選択セレクタ</h2>
+  <multiselect
+    v-model="selected3"
+    :options="options"
+    :multiple="true"
+    :close-on-select="true"
+    placeholder="サーチフィルタ付き複数選択セレクタ">
+  </multiselect>  
+
+  <h2>tag追加セレクタ</h2>
+  <multiselect
+    v-model="taggingSelected"
+    :options="taggingOptions"
+    :multiple="true"
+    :taggable="true"
+    label="name"
+    track-by="code"
+    @tag="addTag"
+    tag-placeholder="Add this as new tag"
+    placeholder="tagを追加できます">
+  </multiselect>  
+</div>
+      
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="./node_modules/vue-multiselect/dist/vue-multiselect.min.js"></script>
+
+<script>
+  Vue.component('Multiselect', window.VueMultiselect.default);
+
+new Vue({
+  el: "#app",
+  data: {
+    selected: null,
+    selected2: null,
+    selected3: null,
+    taggingOptions: [],
+    taggingSelected: [],
+    options: ['list', 'of', 'options']
+  },
+  methods: {
+    addTag: function(newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      }
+      this.taggingOptions.push(tag)
+      this.taggingSelected.push(tag)
+    },
+  }
+})
+ </script>
+</body>
+</html>

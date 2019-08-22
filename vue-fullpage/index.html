@@ -1,0 +1,41 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/fullpage.js/dist/fullpage.min.css"></link>
+<style>
+
+</style>
+</head>
+<body>
+<div id="app">
+    <div>
+        <full-page ref="fullpage" :options="options" id="fullpage">
+        <div class="section">
+          First section ...
+        </div>
+        <div class="section">
+          Second section ...
+        </div>
+      </full-page>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-fullpage.js/dist/vue-fullpage.min.js"></script>
+<script>
+  console.log(window);
+  Vue.use(VueFullpageJs);
+
+new Vue({
+  el: '#app',
+  data: {
+    options: {
+        licenseKey: 'YOUR_KEY_HEERE',
+        menu: '#menu',
+        anchors: ['page1', 'page2', 'page3'],
+        sectionsColor: ['#41b883', '#ff5f45', '#0798ec']
+      },
+  }
+})
+</script>
+</body>
+</html>

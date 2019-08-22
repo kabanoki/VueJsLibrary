@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-qriously@1.1.1/dist/vue-qriously.min.js"></script>
+        <style>
+            #app {
+                margin-top: 150px;
+            }
+
+        </style>
+</head>
+<body>
+<div id="app">
+    <div class="content">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-4 justify-content-md-center">
+                <input type="text" class="form-control" v-model="url" placeholder="テキストを入力">
+                <qriously class="text-center" :value="url" :size="200" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    console.log(window);
+    
+
+    Vue.use(window['vue-qriously']);
+new Vue({
+    el: "#app",
+    data: {
+        url:null
+    }
+})
+</script>
+</body>
+</html>

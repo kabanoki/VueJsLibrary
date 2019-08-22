@@ -1,0 +1,50 @@
+<html>
+<head>
+    <link rel="stylesheet" href="./node_modules/quill/dist/quill.core.css"/>
+    <link rel="stylesheet" href="./node_modules/quill/dist/quill.snow.css"/>
+    <link rel="stylesheet" href="./node_modules/quill/dist/quill.bubble.css"/>
+    <style>
+      #editor{
+        height: 250px;
+      }
+      #editor .quill-editor {
+        height: 100%
+      }
+      #editor .quill-editor .ql-container {
+        height: 60%
+      }
+    </style>
+</head>
+<body>
+<div id="app">
+  <div id="editor">
+      <quill-editor v-model="content" 
+                   ref="quillEditor"
+                   options="editorOption"></vue-quill-editor>
+  </div>
+  <div v-html="content">
+
+  </div>
+</div>
+      
+<script type="text/javascript" src="./node_modules/quill/dist/quill.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="./node_modules/vue-quill-editor/dist/vue-quill-editor.js"></script>
+
+<script>
+Vue.use(VueQuillEditor);
+new Vue({
+  el: "#app",
+  data: {
+    content: 'Hellow contents',
+    editorOption: {
+        theme: 'snow'
+    }
+  },
+  methods: {
+
+  }
+})
+ </script>
+</body>
+</html>

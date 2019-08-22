@@ -1,0 +1,55 @@
+<html>
+<head>
+  <style>
+    #app {
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <scroller 
+    ref="my_sroller"
+    :on-refresh="refresh"
+    :on-infinite="infinite"
+    :refresh-text="'更新します'">
+    <ul>
+      <li v-for="item in items">{{item}}</li>
+    </ul>
+  </scroller>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="./node_modules/vue-scroller/dist/vue-scroller.min.js"></script>
+
+<script>
+var items = [];
+
+for(var i=0; i<100; i++){
+  items.push('test-'+i);
+}
+
+
+Vue.use(window.VueScroller);
+ new Vue({
+   el: '#app',
+   data: {
+     items: items
+   },
+   methods: {
+    refresh: function(){
+      for(var i=0; i<10; i++){
+        this.items.push('refresh-'+i);
+      }
+      this.$refs.my_sroller.triggerPullToRefresh();
+    },
+    infinite: function(){
+      for(var i=0; i<10; i++){
+        this.items.push('infinite-'+i);
+      }
+      this.$refs.my_scroller.finishInfinite();
+    }
+   }
+ })
+ </script>
+</body>
+</html>

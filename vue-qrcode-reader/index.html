@@ -1,0 +1,63 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-qrcode-reader@2.0.3/dist/vue-qrcode-reader.css">
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+    <p class="error">{{ error }}</p>
+    <p class="decode-result">Last result: <b>{{ result }}</b></p>
+    <qrcode-stream @decode="onDecode" @init="onInit" />
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue-qrcode-reader@2.0.3/dist/vue-qrcode-reader.browser.js"></script>
+
+<script>
+  console.log(window);
+  const QrcodeStream = window.VueQrcodeReader.QrcodeStream;
+  const QrcodeDropZone = window.VueQrcodeReader.QrcodeDropZone;
+  const QrcodeCapture = window.VueQrcodeReader.QrcodeCapture;
+
+new Vue({
+  el: '#app',
+  components: {
+    'qrcode-stream':QrcodeStream,
+    'qrcode-drop-zone':QrcodeDropZone,
+    'qrcode-capture':QrcodeCapture
+  },
+  data: {
+    result: '',
+    error: ''
+  },
+  methods: {
+    onDecode (result) {
+      this.result = result
+    },
+
+    async onInit (promise) {
+      try {
+        await promise
+      } catch (error) {
+        if (error.name === 'NotAllowedError') {
+          this.error = "ERROR: you need to grant camera access permisson"
+        } else if (error.name === 'NotFoundError') {
+          this.error = "ERROR: no camera on this device"
+        } else if (error.name === 'NotSupportedError') {
+          this.error = "ERROR: secure context required (HTTPS, localhost)"
+        } else if (error.name === 'NotReadableError') {
+          this.error = "ERROR: is the camera already in use?"
+        } else if (error.name === 'OverconstrainedError') {
+          this.error = "ERROR: installed cameras are not suitable"
+        } else if (error.name === 'StreamApiNotSupportedError') {
+          this.error = "ERROR: Stream API is not supported in this browser"
+        }
+      }
+    }
+  }
+})
+</script>
+</body>
+</html>

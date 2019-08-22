@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/vue-touch-ripple@3.0.0/dist/vue-touch-ripple.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-touch-ripple@3.0.0/dist/vue-touch-ripple.js"></script>
+    <style>
+        #app {
+            margin-top: 200px;
+            margin-left: 250px;
+        }
+        button {
+            background-color: #fff;
+            border-block: solid 1px #ddccdd;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <touch-ripple class="h1-box">
+        <h1 class="h1">h1タグにrippleを設定</h1>
+    </touch-ripple>
+    <ul>
+        <li v-for="item in items">
+            <touch-ripple class="li-box">
+            item-{{item.id}}
+            </touch-ripple>
+        </li>
+    </ul>
+    
+        
+    <div class="examples">
+        <div class="example">
+        <div class="button-group">
+            <touch-ripple class="button-group-box" color="#3c763d">
+            <button class="button b-2">rippleの色を変更</button>
+            </touch-ripple>
+            <touch-ripple class="button-group-box" :speed="2">
+            <button class="button b-3">rippleのスピードを変更</button>
+            </touch-ripple>
+        </div>
+        </div>
+    </div>
+    </div>
+<script>
+    console.log(window);
+
+Vue.use(VueTouchRipple, {
+  speed: 1.1,
+  color: '#000',
+  opacity: 0.2
+})
+
+new Vue({
+    el: "#app",
+    data: {
+        items: [
+            {id:1},
+            {id:2},
+            {id:3},
+            {id:4},
+            {id:5},
+            {id:6},
+            {id:7},
+            {id:8},
+            {id:90},
+            {id:10},
+            {id:11},
+            {id:12},
+        ]
+    }
+})
+</script>
+</body>
+</html>

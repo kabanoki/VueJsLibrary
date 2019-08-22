@@ -1,0 +1,45 @@
+<html>
+<head>
+  <style>
+    #app {
+      margin-top:200px;
+      margin-left:150px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <password 
+    v-model="password"
+    :secureLength="10"
+    :toggle="true"
+    @score="showScore"
+    @feedback="showFeedback"></password>
+    <p>{{password}}</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/zxcvbn@4.4.2/dist/zxcvbn.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-password-strength-meter@1.4.2/dist/vue-password-strength-meter.min.js"></script>
+
+<script>
+console.log(window);
+Vue.component('password', Password);  
+
+new Vue({
+  el: '#app',
+  data: {
+    password: null
+  },
+  methods: {
+    showFeedback ({suggestions, warning}) {
+      console.log('🙏', suggestions)
+      console.log('⚠', warning)
+    },
+    showScore (score) {
+      console.log('💯', score)
+    }
+  }
+})
+</script>
+</body>
+</html>

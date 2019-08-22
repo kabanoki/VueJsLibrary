@@ -1,0 +1,76 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/vue2-animate/dist/vue2-animate.min.css"/>
+  <style>
+    li {
+      cursor:pointer;
+      padding: 10px;
+      border: solid #ddd 1px;
+      text-decoration: none;
+      background-color: #fff;
+    }
+    .del {
+      color: #f00;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <select name="effect" class="form-control" v-model="effect"><optgroup label="Bounce"><option value="bounce">bounce</option> <option value="bounceDown">bounceDown</option> <option value="bounceLeft">bounceLeft</option> <option value="bounceRight">bounceRight</option> <option value="bounceUp">bounceUp</option></optgroup> <optgroup label="Fade"><option value="fade">fade</option> <option value="fadeDown">fadeDown</option> <option value="fadeDownBig">fadeDownBig</option> <option value="fadeLeft">fadeLeft</option> <option value="fadeLeftBig">fadeLeftBig</option> <option value="fadeRight">fadeRight</option> <option value="fadeRightBig">fadeRightBig</option> <option value="fadeUp">fadeUp</option> <option value="fadeUpBig">fadeUpBig</option></optgroup> <optgroup label="Rotate"><option value="rotate">rotate</option> <option value="rotateDownLeft">rotateDownLeft</option> <option value="rotateDownRight">rotateDownRight</option> <option value="rotateUpLeft">rotateUpLeft</option> <option value="rotateUpRight">rotateUpRight</option></optgroup> <optgroup label="Slide"><option value="slideDown">slideDown</option> <option value="slideLeft">slideLeft</option> <option value="slideRight">slideRight</option> <option value="slideUp">slideUp</option></optgroup> <optgroup label="Zoom"><option value="zoom">zoom</option> <option value="zoomDown">zoomDown</option> <option value="zoomLeft">zoomLeft</option> <option value="zoomRight">zoomRight</option> <option value="zoomUp">zoomUp</option></optgroup></select>
+  <button @click="doAdd">追加</button>
+  <transition-group :name="effect" tag="ul">
+      <li v-for="item, index in myList" :key="item.no">
+          {{item.name}}-(No.{{item.no}})
+          <span class="del" v-on:click="doDelete(item, index, '')">[削除]</span>
+      </li>    
+  </transition-group>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+
+<script>
+ new Vue({
+   el: '#app',
+   data: {
+    effect: 'fadeLeft', 
+    items:[
+      {no:1, name:'キャベツ', categoryNo:'1'},
+      {no:2, name:'ステーキ', categoryNo:'2'},
+      {no:3, name:'リンゴ', categoryNo:'3'}
+    ],
+    newNo: 4
+   },
+  computed: {
+    myList: {
+      get() {
+        return this.items;
+      },
+      set(value) {
+        this.items = value;
+      }
+    }
+  },
+  methods: {
+    doAdd:function(){
+      var self = this;
+      var no = 0;
+          　
+      if(self.items.concat().length > 0){
+        no =  Math.max.apply(null,self.items.concat().map(function(item){return item.no;})) +1;
+        self.newNo = self.newNo < no ? no:self.newNo;
+      }
+
+      this.items.push({
+        no:　this.newNo,
+        name:'追加リスト'+ this.newNo,
+        categoryNo:'5'
+      });
+    },
+    doDelete: function(item, index){
+      this.items.splice(index, 1);
+    }
+  }
+ })
+ </script>
+</body>
+</html>

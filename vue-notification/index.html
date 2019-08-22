@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    #app {
+       margin-left: 100px;
+       margin-top: 200px;  
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="onClick('top-right', 'warn')">【warn】top right</button>
+    <button @click="onClick('top-center', 'error')">【error】top center</button>
+    <button @click="onClick('bottom-center', 'success')">【success】bottom center</button>
+    <button @click="onClick('bottom-left', 'warn')">【warn】bottom left</button>
+    <notifications group="top-right"></notifications>
+    <notifications group="top-center" position="top center"></notifications>
+    <notifications group="bottom-center" position="bottom center"></notifications>
+    <notifications group="bottom-left" position="bottom left"></notifications>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script type="text/javascript">
+    window.vue = window.Vue;
+</script>
+<script type="text/javascript" src="https://unpkg.com/vue-notification"></script>
+<script type="text/javascript">
+    window.vueNotification = window["vue-notification"].default;
+    Vue.use(vueNotification);
+
+    console.log(window);
+    new Vue({
+        el: "#app",
+        methods: {
+            onClick: function(position, type){
+                this.$notify({
+                    title: 'メッセージです。',
+                    text: 'click to ' + position ,
+                    duration:100,
+                    group: position,
+                    type: type
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

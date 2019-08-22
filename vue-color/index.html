@@ -1,0 +1,45 @@
+<html>
+<head>
+
+</head>
+<body>
+<div id="app">
+    <photoshop-picker v-model="colors" />
+    <material-picker v-model="colors" />
+    <compact-picker v-model="colors" />
+    <swatches-picker v-model="colors" />
+    <slider-picker v-model="colors" />
+    <sketch-picker v-model="colors" />
+    <chrome-picker v-model="colors" />
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-color@2.7.0/dist/vue-color.min.js"></script>
+
+<script>
+const VueColor = window.VueColor;
+
+new Vue({
+   el: '#app',
+   components: {
+    'chrome-picker': VueColor.Chrome,
+    'material-picker': VueColor.Material,
+    'compact-picker': VueColor.Compact,
+    'swatches-picker': VueColor.Swatches,
+    'slider-picker': VueColor.Slider,
+    'sketch-picker': VueColor.Sketch,
+    'chrome-picker': VueColor.Chrome,
+    'photoshop-picker': VueColor.Photoshop
+  },
+  data: {
+    colors: {
+      hex: '#194d33',
+      hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
+      hsv: { h: 150, s: 0.66, v: 0.30, a: 1 },
+      rgba: { r: 25, g: 77, b: 51, a: 1 },
+      a: 1
+    }
+  }
+ })
+ </script>
+</body>
+</html>

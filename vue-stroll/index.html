@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    div {
+      float: left;
+      display: block;
+      padding: 15px;
+    }
+    h3 {
+      text-align: center
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+    <div v-for="effect in effects">
+      <h3>{{effect}}</h3>  
+      <vue-stroll :el="el" :collection="items" :effect="effect"></vue-stroll>
+    </div>  
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-stroll@0.5.0/dist/vue-stroll.min.js"></script>
+<script>
+console.log(window);
+
+var VueStroll = window['vue-stroll'];
+
+var items =[];
+
+for(var i=0;i<100;i++){
+  items.push('item-'+i);
+}
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    el: '#app ul',
+    effects: ['cards', 'grow', 'flip', 'fly', 'fly-simplified', 'fly-reverse', 'skew', 'helix', 'wave', 'fan', 'tilt', 'curl', 'papercut', 'zipper', 'fade', 'twirl'],
+    items: items
+  },
+  components: { VueStroll }
+});
+ </script>
+</body>
+</html>

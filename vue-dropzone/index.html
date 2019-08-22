@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="./node_modules/vue2-dropzone/dist/vue2Dropzone.js"></script>
+</head>
+<body>
+<div id="app">
+    <vue-dropzone :options="dropzoneOptions"></vue-dropzone>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            dropzoneOptions: {
+                url: 'https://httpbin.org/post',
+                thumbnailWidth: 150,
+                maxFilesize: 0.5,
+                dictDefaultMessage:'ファイルをドロップしてください',
+                addRemoveLinks: 'true',
+                dictRemoveFile:'削除'
+            }
+        },
+        components: {
+            vueDropzone: window.vue2Dropzone
+        }
+    })
+</script>
+</body>
+</html>

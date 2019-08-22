@@ -1,0 +1,47 @@
+<html>
+<head>
+  <style>
+    #app {
+      margin-left: 200px;
+      padding-top:150px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <toggle-button @change="onChangeEventHandler"></toggle-button>
+
+  <toggle-button v-model="myDataVariable"></toggle-button>
+  
+  <toggle-button :value="false"
+                 color="#82C7EB"
+                 height="40"
+                 width="84"
+                 :sync="true"
+                 :labels="true"></toggle-button>
+  
+  <toggle-button :value="true"
+                 :labels="{checked: 'Foo', unchecked: 'Bar'}"></toggle-button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-js-toggle-button@1.3.2/dist/index.min.js"></script>
+
+
+<script>
+  console.log(window);
+  Vue.use(window['vue-js-toggle-button'].default)
+new Vue({
+   el: '#app',
+   data: {
+    myDataVariable: ''
+   },
+   methods: {
+    onChangeEventHandler: function(){
+      console.log('onChangeEventHandler');
+    }
+   }
+})
+</script>
+</body>
+</html>

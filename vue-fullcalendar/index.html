@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.css" rel='stylesheet'>
+  <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.css" rel='stylesheet'>
+  <link href="https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.css" rel='stylesheet'>
+</head>
+<body>
+<div id="app">
+    <script type="text/x-template" id="calender">
+      <fullCalendar 
+      @dateClick="handleDateClick"
+      ref="fullCalendar"
+      default-view="dayGridMonth" 
+      :plugins="calendarPlugins" 
+      :locale="'ja'" 
+      :events="events" 
+      :header="header"
+      :buttonText="buttonText"
+      :customButtons="customButtons"
+      />
+    </script>
+    <calender />
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@babel/polyfill@7.4.4/dist/polyfill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.3.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/vue@4.2.2/main.umd.min.js"></script>
+
+
+<script>
+console.log(window);
+
+var today = new Date();
+var day1 = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1);
+var day2 = new Date(today.getFullYear(), today.getMonth(), today.getDate()+2);
+var day3 = new Date(today.getFullYear(), today.getMonth(), today.getDate()+3);
+
+const dayGridPlugin = window.FullCalendarDayGrid.default;
+const FullCalendarInteraction = window.FullCalendarInteraction.default;
+
+console.log(FullCalendarInteraction);
+
+Vue.component('calender', {
+  template: '#calender',
+  data() {
+    return {
+      calendarPlugins: [ 
+        dayGridPlugin, 
+        FullCalendarInteraction 
+      ],
+      events: [
+        { title: 'event 1', date: day1 },
+        { title: 'event 2', date: day2 }
+      ],
+      header:{
+        left:   'title',
+        center: 'addPostButton',
+        right:  'today prev,next'
+      },
+      buttonText: {
+        today: '今日'
+      },
+      customButtons: {
+        addPostButton: {
+          text: '追加!',
+          click: function() {
+            app.$children[0].events.push({
+              title: 'event 3', 
+              date: day3
+            });
+          }
+        }
+      },
+    }
+  },
+  methods: {
+      handleDateClick: function(info) {
+        console.log(info);
+        alert('click day :' + info.dateStr);
+      },
+      addPost: function(){
+        this.events.push({
+          title: 'event 3', 
+          date: '2019-08-03'
+        });
+      },
+      gotoPast: function() {
+        let calendarApi = this.$refs.fullCalendar.getApi(); // from the ref="..."
+        calendarApi.gotoDate("2019-09-03"); // call a method on the Calendar object
+      }
+  }
+});
+
+let app = new Vue({
+  el: '#app',
+});
+ </script>
+</body>
+</html>

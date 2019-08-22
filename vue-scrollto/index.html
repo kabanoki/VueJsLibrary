@@ -1,0 +1,36 @@
+<html>
+<head>
+  <style>
+    #app {
+      height: 1200px;
+      padding-left: 200px;
+    }
+    #middle {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div id="top">top</div>
+  <a href="#" v-scroll-to="toBottom">Scroll to bottom</a>
+  <div id="middle">middle</div>
+  <a href="#" v-scroll-to="toTop">Scroll to top</a>
+  <div id="bottom">bottom</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-scrollto"></script>
+
+<script>
+  console.log(window);
+Vue.use(VueScrollTo)
+new Vue({
+  el: '#app',
+  data: {
+    toBottom: '#bottom',
+    toTop: '#top'
+  }
+})
+</script>
+</body>
+</html>

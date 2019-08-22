@@ -1,0 +1,107 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-instant@1.0.4/dist/vue-instant.css"></link>
+</head>
+<body>
+<div id="app">
+    <vue-instant :suggestOnAllWords="true"
+                 :suggestion-attribute="suggestionAttribute" 
+                 v-model="value" 
+                 :disabled="false" 
+                 :show-autocomplete="true" 
+                 :autofocus="false" 
+                 :suggestions="suggestions" 
+                 name="customName" 
+                 placeholder="custom placeholder" 
+                 type="google"
+                 @input="changed" 
+                 @click-input="clickInput" 
+                 @click-button="clickButton" 
+                 @selected="selected"  
+                 @enter="enter" 
+                 @key-up="keyUp" 
+                 @key-down="keyDown" 
+                 @key-right="keyRight" 
+                 @clear="clear"  
+                 @escape="escape"
+                 ></vue-instant>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-clickaway@2.1.0/dist/vue-clickaway.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-instant@1.0.4/dist/vue-instant.browser.js"></script>
+<script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
+
+<script>
+  console.log(window);
+ new Vue({
+   el: '#app',
+   components: {
+    'vue-instant': VueInstant.VueInstant
+   },
+   data: {
+      value: '',
+      suggestionAttribute: 'original_title',
+      suggestions: [
+        
+      ],
+      selectedEvent: ""
+   },
+   methods: {
+      clickInput: function() {
+          this.selectedEvent = 'click input'
+      },
+      clickButton: function() {
+          this.selectedEvent = 'click button'
+      },
+      selected: function() {
+          this.selectedEvent = 'selection changed'
+      },
+      enter: function() {
+          this.selectedEvent = 'enter'
+      },
+      keyUp: function() {
+          this.selectedEvent = 'keyup pressed'
+      },
+      keyDown: function() {
+          this.selectedEvent = 'keyDown pressed'
+      },
+      keyRight: function() {
+          this.selectedEvent = 'keyRight pressed'
+      },
+      clear: function() {
+          this.selectedEvent = 'clear input'
+      },
+      escape: function() {
+          this.selectedEvent = 'escape'
+      },
+      changed: function() {
+          var that = this
+          this.suggestions = [];
+          // axios.get('https://api.themoviedb.org/3/search/movie?api_key=342d3061b70d2747a1e159ae9a7e9a36&query=' + this.value)
+          // .then(function(response) {
+          //     response.data.results.forEach(function(a) {
+          //         console.log(a);
+          //         that.suggestions.push(a)
+          //     })
+          // });
+
+          that.suggestions.push({
+            "title": "ちんこ",
+            "original_title": "うんこ",
+          });
+
+          that.suggestions.push({
+            "title": "うんこ1",
+            "original_title": "うんこ1",
+          });
+          that.suggestions.push({
+            "title": "うんこ2",
+            "original_title": "うんこ2",
+          });
+      }
+   }
+ })
+ </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+<head>
+
+</head>
+<body>
+<div id="app">
+    <vue-editor ng-model="input" @input="inputting"></vue-editor>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/marked@0.3.6/lib/marked.js"></script>
+<script src="https://unpkg.com/vue-md-editor/dist/vue-editor.min.js"></script>
+
+<script>
+
+ new Vue({
+   el: '#app',
+   data: {
+    input: '# hello'
+   },
+   methods: {
+    inputting() {
+    	console.log(input)
+    }
+  }
+ })
+ </script>
+</body>
+</html>

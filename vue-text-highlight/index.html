@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="./node_modules/vue-text-highlight/dist/vue-text-highlight.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="queries">
+    <p>
+       <text-highlight :queries="queries">{{ description }}</text-highlight>
+    </p>
+</div>
+<script>
+    Vue.component('text-highlight', window.VueTextHighlight.default);
+    new Vue({
+        el: "#app",
+        data: {
+          queries: ['birds', 'scatt'],
+          description: 'Tropical birds scattered as Drake veered the Jeep'
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+  <style>
+    #app {
+      margin-top:200px;
+      margin-left:150px;
+    }
+    .tree-view-item-key {
+        color: red;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <tree-view :data="jsonSource" :options="{maxDepth: 3}"></tree-view>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-json-tree-view@2.1.4/dist/vue-json-tree-view.min.js"></script>
+<script>
+console.log(window);
+Vue.use(TreeView);  
+
+new Vue({
+  el: '#app',
+  data: {
+    jsonSource: [
+      {id:1, text:'text1'},
+      {id:2, text:'text2'},
+      {id:3, text:'text3'},
+      {id:4, text:'text4'},
+      {id:5, list:[
+        {id:1, text:'text1'},
+        {id:2, text:'text2'},
+        {id:3, text:'text3'},
+        {id:4, list:[
+          {id:1, text:'text1'},
+          {id:2, text:'text2'},
+          {id:3, text:'text3'},
+        ]},
+      ]}
+    ]
+  }
+})
+</script>
+</body>
+</html>
