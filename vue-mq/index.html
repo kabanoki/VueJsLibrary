@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+      #app {
+        text-align: center;
+        margin: auto;
+        padding-top: 150px;
+      }
+    </style>
+</head>
+<body>
+<div id="app">
+    <mq-layout mq="lg">
+        <span> Display on <span style="color:brown">lg</span> </span>
+    </mq-layout>
+    <mq-layout mq="md+">
+      <span> Display on <span style="color:brown"> md </span> and larger </span>
+    </mq-layout>
+    <mq-layout :mq="['sm', 'lg']">
+      <span> Display on <span style="color:brown"> sm </span> and <span style="color:brown"> lg </span></span>
+    </mq-layout>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-mq@1.0.1/dist/vue-mq.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueMq = window['vueMq'];
+
+Vue.use(VueMq, {
+  breakpoints: {
+    sm: 450,
+    md: 1250,
+    lg: Infinity,
+  },
+  defaultBreakpoint: 'sm'
+})
+let app = new Vue({
+  el: '#app',
+});
+ </script>
+</body>
+</html>

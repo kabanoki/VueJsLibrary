@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+  	#app span {
+    display: inline-block;
+    background-color: #ccc;
+    width: 75px;
+    height: 75px;
+    margin: 5px;
+    line-height: 75px;
+    text-align: center;
+    color: #999;
+    /* border: 1px solid black; */
+    }
+    #app span.isinviewport.isaboveviewport{
+      background-color: #00f;
+      color: #fff;
+    } 
+    #app span.isbelowviewport  {
+      background-color: #0f0;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <script type="text/x-template" id="scrollmonitor">
+    <scroll-container @change="updateState" class="flex">
+        <div class="">
+          <scroll-item v-for="i in items" :id="i" :key="i" @change="onChange">
+            <span v-text="i" :class="`${state[i] && state[i].isFullyInViewport ? '' : ''}`">
+            </span>
+          </scroll-item>
+        </div>
+      </scroll-container>
+  </script>
+  <scrollmonitor />
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-scrollmonitor@0.1.0/dist/vue-scroll-monitor.min.js"></script>
+<script>
+console.log(window);
+
+var items =[];
+
+for(var i=0;i<1000;i++){
+  items.push('item-'+i);
+}
+
+const VueScrollMonitor = window.VueScrollMonitor;
+const ScrollContainer = VueScrollMonitor.ScrollContainer;
+const ScrollItem = VueScrollMonitor.ScrollItem;
+
+Vue.component('scrollmonitor', {
+  template: '#scrollmonitor',
+  data() {
+    return {
+      state: {},
+      items:items
+    }
+  },
+  components: {
+    ScrollContainer,
+    ScrollItem,
+  },
+  methods: {
+    updateState (state) {
+      this.state = state
+    },
+    onChange (state) {
+      console.log('change')
+    },
+  },
+});
+
+let app = new Vue({
+  el: '#app'
+});
+ </script>
+</body>
+</html>

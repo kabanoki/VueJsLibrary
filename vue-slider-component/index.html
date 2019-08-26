@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 80%;
+      margin: auto;
+      padding-top: 150px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div>
+    <vue-slider
+      ref="slider"
+      v-model="divWidth"
+      v-bind="options"
+    ></vue-slider>
+  </div>
+  <p :style="{'word-break': 'break-all','width': getWidth}">
+      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  </p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
+<script>
+console.log(window);
+
+const vueSlider = window[ 'vue-slider-component' ];
+
+let app = new Vue({
+  el: '#app',
+  components: {
+    'vueSlider': vueSlider,
+  },
+  data: {
+    options: {
+        dotSize: 14,
+        width: 'auto',
+        height: 4,
+        contained: false,
+        direction: 'ltr',
+	      data: null,
+        min: 0,
+        max: 100,
+        interval: 1,
+        disabled: false,
+        clickable: true,
+        duration: 0.5,
+        adsorb: false,
+        lazy: false,
+        tooltip: 'focus',
+        tooltipPlacement: 'top',
+        tooltipFormatter: void 0,
+        useKeyboard: false,
+        enableCross: true,
+        fixed: false,
+        minRange: void 0,
+        maxRange: void 0,
+        order: true,
+        marks: false,
+        dotOptions: void 0,
+        process: true,
+        dotStyle: void 0,
+        railStyle: void 0,
+        processStyle: void 0,
+        tooltipStyle: void 0,
+        stepStyle: void 0,
+        stepActiveStyle: void 0,
+        labelStyle: void 0,
+        labelActiveStyle: void 0,
+    },
+    divWidth:100
+  },
+  computed: {
+    getWidth: function(){
+      return this.divWidth + '%';
+    }
+  }
+});
+ </script>
+</body>
+</html>
