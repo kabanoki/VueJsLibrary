@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+    }
+
+    .swiper-container {
+      height: 300px;
+      width: 100%;
+      border-bottom: 2px solid #fff;
+      margin-bottom: 30px;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 38px;
+      font-weight: 700;
+      background-color: #eee;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      border-left:1px solid #fff;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+    <swiper :options="swiperOption1" ref="mySwiper1">
+      <swiper-slide v-for="(item, index) in items" :key="index">{{item.title}}</swiper-slide>
+      <div class="swiper-pagination"  slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+    <swiper :options="swiperOption2" ref="mySwiper2">
+      <swiper-slide v-for="(item, index) in items" :key="index">{{item.title}}</swiper-slide>
+      <div class="swiper-pagination"  slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+    <swiper :options="swiperOption3" ref="mySwiper3">
+      <swiper-slide v-for="(item, index) in items" :key="index">{{item.title}}</swiper-slide>
+      <div class="swiper-pagination"  slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+    <swiper :options="swiperOption4" ref="mySwiper4">
+      <swiper-slide v-for="(item, index) in items" :key="index">{{item.title}}</swiper-slide>
+      <div class="swiper-pagination"  slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+    <swiper :options="swiperOption5" ref="mySwiper5">
+      <swiper-slide v-for="(item, index) in items" :key="index">{{item.title}}</swiper-slide>
+      <div class="swiper-pagination"  slot="pagination"></div>
+    </swiper>    
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@5.0.2/css/swiper.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@5.0.2/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-awesome-swiper@3.1.3/dist/vue-awesome-swiper.min.js"></script>
+
+<script>
+console.log(window);
+
+let items = [];
+
+for(let i=1; i<=5; i++)
+{
+  items.push({
+    no: i,
+    title: 'title' + i
+  });
+}
+
+const VueAwesomeSwiper = window.VueAwesomeSwiper;
+
+Vue.use(VueAwesomeSwiper);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    items:items,
+    swiperOption1: {
+      autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+      pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    },
+    swiperOption2: {
+      effect: 'fade',
+      autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
+      },
+      pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    },
+    swiperOption3: {
+      slidesPerView: 3,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false
+      },
+      pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    },
+    swiperOption4: {
+      effect: 'cube',
+      grabCursor: true,
+      autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+      pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    },
+    swiperOption5: {
+      direction: 'vertical',
+      mousewheel: true,
+      autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+      pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    },
+  },
+  methods: {
+  }
+});
+ </script>
+</body>
+</html>

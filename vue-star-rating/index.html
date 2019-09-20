@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 80%;
+      margin: auto;
+      padding-top: 150px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h2>basic</h2>
+  <star-rating v-model="rating"></star-rating>
+  <h2>Half Stars</h2>
+  <star-rating :increment="0.5"></star-rating>
+  <h2>Small Stars</h2>
+  <star-rating :star-size="20"></star-rating>
+  <h2>Big Stars</h2>
+  <star-rating :star-size="90"></star-rating>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+<script>
+console.log(window);
+
+const StarRating  = window.VueStarRating.default;
+
+console.log(StarRating );
+
+Vue.component('star-rating', StarRating );
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    rating: 0
+  }
+});
+ </script>
+</body>
+</html>

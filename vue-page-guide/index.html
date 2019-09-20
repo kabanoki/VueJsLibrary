@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+#app {
+  text-align: center;
+}
+
+.v-page-guide__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+}
+
+
+.v-page-guide__text {
+  margin: 0;
+}
+
+
+.v-page-guide__tooltip {
+  position: relative;
+  background-color: #fff;
+  border-radius: 3px;
+  margin: 10px;
+  padding: 10px;
+  z-index: 100;
+  -webkit-filter: drop-shadow(0 10px 20px rgba(0,0,0,0.19)) drop-shadow( 0 6px 6px rgba(0,0,0,0.23));
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.19)) drop-shadow( 0 6px 6px rgba(0,0,0,0.23));
+}
+
+.v-page-guide__tooltip[x-placement^="bottom"]:after{
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-bottom-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.v-page-guide__tooltip[x-placement^="top"]:after{
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-top-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.v-page-guide__tooltip[x-placement^="left"]:after{
+  left: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-left-color: #fff;
+  border-width: 10px;
+  margin-top: -10px;
+}
+
+.v-page-guide__tooltip[x-placement^="right"]:after{
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-right-color: #fff;
+  border-width: 10px;
+  margin-top: -10px;
+}
+
+
+.v-page-guide__fade-enter-active, .v-page-guide__fade-leave-active {
+  transition: opacity 0.10s ease-out;
+}
+.v-page-guide__fade-enter, .v-page-guide__fade-leave-to {
+  opacity: 0;
+}
+
+.my-elm {
+  width: 33%;
+  border: #ddd 1px solid;
+  float: left;
+  word-break: break-all;
+  height: 100px;
+}
+.btn {
+  padding: 10px;
+  margin-bottom: 10px;
+  clear: both;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <button class="btn" @click="guideOn">ガイドスタート</button>
+  <div>
+    <div 
+      class="my-elm"
+      v-page-guide.bottom="'ツールチップを表示'"
+    >
+    area1
+    </div>
+    <div 
+    class="my-elm"
+    v-page-guide.bottom="'ツールチップを表示'"
+    >
+    area2
+    </div>
+    <div 
+    class="my-elm"
+    v-page-guide.bottom="'ツールチップを表示'"
+    >
+    area3
+    </div>
+    <div 
+    class="my-elm"
+    v-page-guide.right="'ツールチップを表示'"
+    >
+    area4
+    </div>
+    <div 
+    class="my-elm"
+    v-page-guide.top="'ツールチップを表示'"
+    >
+    area5
+    </div>
+    <div 
+    class="my-elm"
+    v-page-guide.left="'ツールチップを表示'"
+    >
+    area6
+    </div>
+  </div>
+  
+
+  <v-page-guide v-model="showGuide"></v-page-guide> 
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-page-guide@0.2.0/dist/vue-page-guide.umd.min.js"></script>
+<script>
+console.log(window);
+
+const VPageGuide  = window['vue-page-guide'].default;
+Vue.use(VPageGuide);
+
+console.log(VPageGuide);
+
+
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    showGuide:false
+  },
+  methods: {
+    guideOn: function(){
+      this.showGuide = true;
+    }
+  }
+});
+ </script>
+</body>
+</html>

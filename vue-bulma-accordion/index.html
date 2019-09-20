@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet"></link>
+  <style>
+    #app {
+      width: 50%;
+      margin: auto;
+      padding-top:150px;
+    }
+    .demo-box {
+      min-height: 100vh
+    }
+    .body-content {
+      padding: .7em 0
+    }
+  </style>
+  
+</head>
+<body>
+<div id="app">
+  <bulma-accordion initial-open-item="1">
+      <bulma-accordion-item>
+        <h4 slot="title">タブ１</h4>
+      </bulma-accordion-item>
+      <bulma-accordion-item>
+        <h4 slot="title">タブ２</h4>
+        <p slot="content">
+         タブの文章はここ
+        </p>
+      </bulma-accordion-item>
+      <bulma-accordion-item>
+          <h4 slot="title">タブ3</h4>
+          <p slot="content">
+              タブの文章はここ
+          </p>
+        </bulma-accordion-item>
+  </bulma-accordion>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-bulma-accordion@0.4.8/dist/vue-bulma-accordion.umd.min.js"></script>
+<script>
+console.log(window);
+
+const BulmaAccordion = window.BulmaAccordion.BulmaAccordion;
+const BulmaAccordionItem  = window.BulmaAccordion.BulmaAccordionItem;
+
+let app = new Vue({
+  el: '#app',
+  data: {
+
+  },
+  components: {
+      BulmaAccordion,
+      BulmaAccordionItem
+  }
+});
+ </script>
+</body>
+</html>

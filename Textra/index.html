@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 80%;
+      margin: auto;
+      padding-top: 150px;
+    }
+    .mainTextra {
+      font-size: 3em
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <select v-model="selectFilter">
+    <option v-for="type in filterType" >{{type}}</option>
+  </select>　
+  <textra :data='words' :timer="1.5"　:infinite="true" :filter="selectFilter" />
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/vue-textra@latest/dist/textra.min.js'></script>
+<script>
+console.log(window);
+
+const Textra  = window.Textra;
+
+console.log(Textra);
+
+Vue.use(Textra);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    filterType: ['simple','bottom-top','top-bottom','right-left','left-right','press','scale','flash','flip'],
+    selectFilter: 'flash',
+    words: ['カバの樹','モモの樹','ミカンの樹','リンゴの樹']
+  }
+});
+ </script>
+</body>
+</html>

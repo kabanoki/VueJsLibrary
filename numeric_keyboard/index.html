@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+#box {
+  font-size: 17px;
+}  
+h2 {
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+}
+#app {
+  padding:10px;
+  font-size: 4rem;
+}
+#app label {
+  font-size: 2rem;
+  font-weight: bold;
+}
+#app .numeric-input {
+  border-bottom: 2px solid #dddddd;
+  width: 100%;
+}
+  </style>
+  
+</head>
+<body>
+<h2>金額を入力</h2>  
+<div id="app">
+    <div class="input">
+      <label>合計</label>
+      <numeric-input 
+        placeholder="タッチして金額を入力" 
+        v-model="amount"></numeric-input>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/numeric-keyboard@0.7.0/dist/numeric_keyboard.vue.js"></script>
+
+
+<script>
+console.log(window);
+
+const NumericInput  = window.NumericKeyboard.NumericInput;
+const NumericKeyboard  = window.NumericKeyboard.NumericKeyboard;
+
+let app = new Vue({
+  el: '#app',
+  components: {
+    NumericInput,
+    NumericKeyboard
+  },
+  data: {
+    amount: ''
+  },
+  methods: {
+    press:function(key) 
+    {
+      
+    }
+  }
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 50%;
+      margin: auto;
+      padding-top:150px;
+    }
+  </style>
+  
+</head>
+<body>
+<div id="app">
+    <script type="text/x-template" id="hotkey">
+    <span v-hotkey.prevent.stop="keymap" 
+          v-show="show"
+          v-text="text"></span>
+    </script>
+    <hotkey></hotkey>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/v-hotkey@0.6.0/index.min.js"></script>
+<script>
+console.log(window);
+
+const VueHotkey = window.VueHotkey;
+
+Vue.use(VueHotkey);
+Vue.component('hotkey', {
+  template: '#hotkey',
+  data() {
+    return {
+      show: true,
+      text: '[enter]を押すと消えて、離すと表示されます。[ctrl+a]を押すとこのテキストが倍になります。',
+    }
+  },
+  methods: {
+    doToggle:function () {
+      this.show = !this.show
+    },
+    doShow:function () {
+      this.show = true
+    },
+    doHide:function () {
+      this.show = false
+    },
+    addList: function() {
+      this.text = this.text + this.text;
+    }
+  },
+  computed: {
+    keymap: function() {
+      return {
+        'ctrl+esc': this.doToggle,
+        'enter': {
+          keydown: this.doHide,
+          keyup: this.doShow
+        },
+        'ctrl+a': this.addList
+      }
+    }
+  }
+});
+let app = new Vue({
+  el: '#app',
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+    <v-selectmenu :data="menu"
+                  type="regular">
+      <template #row="{ row }">
+        <span>
+          <fa-icon class="fa-lg mr-2" :icon="row.icon.split(',')" v-if="row.icon"></fa-icon>
+          <span v-html="row.content"></span>
+        </span>
+      </template>
+      <button type="button" class="sm-default-btn"><span>メニュー</span><span class="sm-caret sm-caret-down"></span></button>
+    </v-selectmenu>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/v-selectmenu@2.0.1/dist/v-selectmenu.min.js"></script>
+<script>
+console.log(window);
+
+const vSelectMenu  = window['vSelectMenu'].default;
+
+Vue.use(vSelectMenu);
+
+console.log(vSelectMenu);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    value: '',
+    menu: [
+        { content: '163 NetEase', url: 'http://www.163.com' },
+        { content: 'Sina', url: 'http://www.sina.com' },
+        { content: 'sm-divider' },
+        { content: 'GitHub', icon: 'fab,github', url: 'https://github.com' },
+        { content: 'Reddit', icon: 'fab,reddit', url: 'https://www.reddit.com' },
+        { content: 'Facebook', icon: 'fab,facebook', url: 'https://www.facebook.com', disabled: true },
+        { content: 'Twitter', icon: 'fab,twitter', url: 'https://twitter.com', disabled: true },
+        { content: 'sm-divider' },
+        { content: 'Click this menu item to trigger your callback', callback: this.doSome }
+      ]
+  }
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-simple-spinner></vue-simple-spinner>
+  <vue-simple-spinner size="10"></vue-simple-spinner>
+  <vue-simple-spinner size="40" message="message" font-size="18" line-bg-color="#ccddcc" line-fg-color="#f00"	></vue-simple-spinner>
+  <vue-simple-spinner speed="5"></vue-simple-spinner>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-simple-spinner@1.2.8/dist/vue-simple-spinner.min.js"></script>
+
+<script>
+console.log(window);
+
+const Spinner = window.VueSimpleSpinner;
+
+let app = new Vue({
+  el: '#app',
+  components: {
+    Spinner
+  }
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 80%;
+      margin: auto;
+      padding-top: 150px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/vuecsv/dist/vuecsv.min.css">
+</head>
+<body>
+<div id="app">
+  <csv-download :title=title :data-json=d></csv-download>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/vuecsv/dist/vuecsv.min.js"></script>
+<script>
+console.log(window);
+
+Vue.component("csv-download", VueCSV.CsvDownload)
+new Vue({
+  el: "#app",
+  data: {
+    title: 'download csv',
+    d: [{
+      'a': 1,
+      'b': 2
+    }, {
+      'a': 3,
+      'b': 4
+    }]
+  }
+})
+
+ </script>
+</body>
+</html>
