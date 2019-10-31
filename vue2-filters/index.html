@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      /* padding: 150px; */
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h2>capitalize</h2>
+  <p><label>変換前：{{msg}}</label></p>
+  <p>
+    変換後：{{ msg | capitalize }}<br>
+    <pre v-pre>{{ msg | capitalize }}</pre>
+  </p>
+  <p>
+    変換後(onlyFirstLetter: true)：{{ msg | capitalize({ onlyFirstLetter: true }) }}<br>
+    <pre v-pre>{{ msg | capitalize({ onlyFirstLetter: true }) }}</pre>
+  </p>
+
+
+  <h2>uppercase</h2>
+  <p><label>変換前：{{msg}}</label></p>
+  <p>
+    変換後：{{ msg | uppercase  }}<br>
+    <pre v-pre>{{ msg | uppercase  }}</pre>
+  </p>
+
+
+  <h2>lowercase</h2>
+  <p><label>変換前：{{msg}}</label></p>
+  <p>
+    変換後：{{ msg | lowercase }}<br>
+    <pre v-pre>{{ msg | lowercase }}</pre>
+  </p>
+
+
+  <h2>placeholder</h2>
+  <p><label>変換前：{{msg}}</label></p>
+  <p>
+    変換後：{{ msg | placeholder('Text if msg is missing') }}<br>
+    <pre v-pre>{{ msg | placeholder('Text if msg is missing') }}</pre>
+  </p>
+
+
+  <h2>truncate</h2>
+  <p><label>変換前：{{msg}}</label></p>
+  <p>
+    変換後：{{ msg | truncate(10) }}<br>
+    <pre v-pre>{{ msg | truncate(10) }}</pre>
+  </p>
+
+
+  <h2>currency</h2>
+  <p><label>変換前：{{amount }}</label></p>
+  <p>
+    変換後：{{ amount  | currency }}<br>
+    <pre v-pre>{{ amount  | currency }}</pre>
+  </p>
+  <p>
+    変換後(currency('￥'))：{{ amount | currency('￥') }}<br>
+    <pre v-pre>{{ amount | currency('￥') }}</pre>
+  </p>
+
+
+  <h2>pluralize</h2>
+  <p><label>変換前：{{mixNum}}</label></p>
+  <p>
+    変換後：{{ mixNum | pluralize('item') }}<br>
+    <pre v-pre>{{ mixNum  | pluralize('item') }}</pre>
+  </p>
+
+
+  <h2>ordinal</h2>
+  <p><label>変換前：{{mixNum}}</label></p>
+  <p>
+    <ul>
+      <li v-for="c in mixNum">変換後：{{ c }}{{ c | ordinal }} </li>
+    </ul>
+    <pre v-pre>v-for="c in mixNum" {{ c }}{{ c | ordinal }} </pre>
+  </p>
+
+
+  <h2>limitBy</h2>
+  <p><label>変換前：{{arr}}</label></p>
+  <p>
+    <ul>
+      <li v-for="item in limitBy(arr, 2)">変換後：{{ item }}</li>
+    </ul>
+    <pre v-pre><div v-for="item in limitBy(arr, 2)">{{ item }}</div></pre>
+  </p>
+
+  <h2>filterBy</h2>
+  <p><label>変換前：{{mixNum}}</label></p>
+  <p>
+    <ul>
+      <li v-for="item in filterBy(mixNum, 1)">変換後：{{ item }}</li>
+    </ul>
+    <pre v-pre><div v-for="item in filterBy(mixNum, 1)">{{ item }}</div></pre>
+  </p>
+
+
+  <h2>find</h2>
+  <p><label>変換前：{{mixNum}}</label></p>
+  <p>
+    <ul>
+      <li v-for="item in find(mixNum, '1')">変換後：{{ item }}</li>
+    </ul>
+    <pre v-pre><div v-for="item in find(mixNum, 1)">{{ item}}</div></pre>
+  </p>
+
+
+  <h2>orderBy</h2>
+  <p><label>変換前配列：{{mixNum}}</label></p>
+  <p>
+    <ul>
+      <li v-for="item in orderBy(mixNum, true)">変換後：{{ item }}</li>
+    </ul>
+    <pre v-pre><div v-for="item in orderBy(mixNum, true)">{{ item }}</div></pre>
+  </p>
+  <p><label>変換前オブジェクト：{{mixObj}}</label></p>
+  <p>
+    <ul>
+      <li v-for="item in orderBy(mixObj, 'no')">変換後：{{ item }}</li>
+    </ul>
+    <pre v-pre><div v-for="item in orderBy(mixObj, 'no')">{{ item }}</div></pre>
+  </p>
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue2-filters@0.7.2/dist/vue2-filters.min.js"></script>
+
+<script>
+console.log(window);
+
+const Vue2Filters = window.Vue2Filters;
+
+let app = new Vue({
+  el: '#app',
+  mixins: [Vue2Filters.mixin],
+  data: {
+    msg: 'lorem ipsum dolor',
+    amount : 12345,
+    arr: ['item1','item2','item3','item4',],
+    mixNum: [1,5,10,2,3,4,6],
+    mixObj: [
+      {no:1, text:'item1'},
+      {no:5, text:'item5'},
+      {no:4, text:'item4'},
+      {no:10, text:'item10'},
+      {no:3, text:'item3'},
+      {no:2, text:'item2'}
+    ],
+  }
+});
+ </script>
+</body>
+</html>

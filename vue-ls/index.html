@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <p>
+      <button @click="doReload">ページリロード</button>
+      <button @click="doSessionClear">セッションを削除</button>
+  </p>
+  <input type="text" v-model="inputValue"></input>
+  <p>{{getValue()}}</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-ls"></script>
+
+<script>
+console.log(window);
+
+const Storage = window.VueStorage;
+Vue.use(Storage);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    inputValue:''
+  },
+  methods:{
+    doReload: function(){
+      // ページのリロード
+      location.reload();
+    },
+    doSessionClear: function(){
+      // ローカルストレージを削除する
+      if(confirm('セッションを削除します')){
+        Vue.ls.clear();
+      }
+    },
+    getValue: function(){
+      // 初回アクセス時はローカルストレージのデータを読む
+      if(this.inputValue == ''){
+        return Vue.ls.get('lsValue');
+      }
+      return this.inputValue;
+    }
+  },
+  watch: {
+    inputValue: function(value){
+      //inputValueが更新される度にローカルストレージを更新
+      Vue.ls.set('lsValue', value, 60 * 60 * 1000);
+    }
+  }
+});
+ </script>
+</body>
+</html>

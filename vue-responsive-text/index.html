@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      /* padding: 150px; */
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+    <div
+    :style="{
+      width: divWidth + '%',
+      border: '1px solid #222',
+      padding: '50px',
+      marginBottom: '40px',
+      marginTop: '40px'
+    }"
+  >
+  <vue-responsive-text transition="100">{{msg}}</vue-responsive-text>
+  </div>
+  <div>
+    <vue-slider
+      ref="slider"
+      v-model="divWidth"
+    ></vue-slider>
+  </div>
+  
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-responsive-text@0.1.4/dist/vue-responsive-text.umd.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
+
+
+<script>
+console.log(window);
+
+const VueSlider  = window[ 'vue-slider-component' ];
+
+
+const VueResponsiveText = window.vueResponsiveText.default;
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    msg: 'Hellow World',
+    divWidth:50
+  },
+  components: {
+    VueResponsiveText,
+    VueSlider,
+  },
+  computed: {
+    getWidth: function(){
+      return this.divWidth + '%';
+    }
+  }
+});
+ </script>
+</body>
+</html>

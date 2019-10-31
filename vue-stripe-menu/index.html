@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+    }
+    .base-text{
+      padding: 15px;
+    }
+    .base-text__content{
+      padding: 10px;
+    }
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <vsm-menu :menu="menu">
+      <template #default="data">
+        <component
+          :is="data.item.content"
+          class="content"
+        ></component>
+        <component
+          :is="data.item.secondary"
+          class="content--secondary"
+        ></component>
+      </template>
+  </vsm-menu>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-stripe-menu@1.2.1/dist/vue-stripe-menu.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-stripe-menu@1.2.1/dist/vue-stripe-menu.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueStripeMenu  = window['vue-stripe-menu'].default;
+
+const FirstItem = Vue.component('first-item', {
+  template: '<div class="base-text "><div class="base-text__content" v-for="item in items"><a :href="item.link" v-text="item.title"></a></div></div>',
+  data() {
+    return {
+      items: [
+        {title: 'item1', link:'#'},
+        {title: 'item2', link:'#'},
+        {title: 'item3', link:'#'}
+      ]
+    }
+  }
+});
+
+const SecondItem = Vue.component('second-item', {
+  template: '<div class="base-text "><div class="base-text__content">sample title</div></div>',
+})
+
+Vue.use(VueStripeMenu);
+let app = new Vue({
+  el: '#app',
+  data: {
+    menu: [
+        { title: 'First item', dropdown: 'first', content: FirstItem },
+        { title: 'Second item', dropdown: 'second', content: SecondItem },
+        { title: 'No dropdown' }
+      ]
+  }
+});
+ </script>
+</body>
+</html>

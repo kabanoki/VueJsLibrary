@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <button @click="doRestart">スタート</button>
+  <button @click="doStop">ストップ</button>
+  <button @click="doSwitch">[再開]ー[一時停止]</button>
+  <countdown :left-time="3000" :auto-start="false" ref="cnt">
+    <div
+      slot="process"
+      slot-scope="anyYouWantedScopName">{{ `カウント: ${anyYouWantedScopName.timeObj.ceil.s}` }}</div>
+    <div slot="finish">
+      <span>Done!</span>
+    </div>
+  </countdown>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-awesome-countdown@latest"></script>
+
+<script>
+console.log(window);
+
+const vueAwesomeCountdown = window['vue-awesome-countdown'].default;
+Vue.use(vueAwesomeCountdown);
+
+let app = new Vue({
+  el: '#app',
+  methods: {
+    doRestart: function(){
+      this.$refs.cnt.startCountdown(true)
+    },
+    doStop: function(){
+      this.$refs.cnt.stopCountdown()
+    },
+    doSwitch: function(){
+      this.$refs.cnt.switchCountdown()
+    }
+  }
+});
+ </script>
+</body>
+</html>

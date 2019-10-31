@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      /* padding: 150px; */
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <loading 
+    :active.sync="isLoading" 
+    :can-cancel="true" 
+    :on-cancel="onCancel"
+    :is-full-page="fullPage"></loading>
+  
+  <label><input type="checkbox" v-model="fullPage">Full page?</label>
+  <button @click.prevent="doAjax">fetch Data</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
+<link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css" rel="stylesheet">
+
+<script>
+console.log(window);
+
+const Loading = window.VueLoading;
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    isLoading: false,
+    fullPage: true
+  },
+  components: {
+    Loading
+  },
+  methods: {
+    doAjax:function() {
+      let self = this;    
+      self.isLoading = true;
+      // simulate AJAX
+      setTimeout(function(){
+        self.isLoading = false;
+        console.log('load off');
+      }, 1000);
+    },
+    onCancel:function() {
+      console.log('User cancelled the loader.')
+    }
+  }
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+
+    }
+  ul {
+    list-style-type:none
+  }  
+  li {
+    cursor:pointer;
+    padding: 10px;
+    border: solid #ddd 1px;
+  }  
+  </style>
+</head>
+<body>
+<div id="app">
+  <p>
+      <button @click="doReload">ページリロード</button>
+      <button @click="doSessionClear">セッションを削除</button>
+  </p>
+  <draggable tag="ul" v-model="items">
+    <li v-for="item, index in getItems" :key="item.no">{{item.name}}-(No.{{item.no}})</li>
+  </draggable>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-ls"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const Storage = window.VueStorage;
+Vue.use(Storage);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    items:[]
+  },
+  beforeMount: function(){
+    if(Vue.ls.get('lsValue')){
+      // ブラウザストレージデータがある場合
+      this.items =  JSON.parse(Vue.ls.get('lsValue'));
+    } else {
+      this.items =  [
+        {no:1, name:'キャベツ', categoryNo:'1'},
+        {no:2, name:'ステーキ', categoryNo:'2'},
+        {no:3, name:'リンゴ', categoryNo:'3'}
+      ];
+    }
+  },
+  methods:{
+    doReload: function(){
+      // ページのリロード
+      location.reload();
+    },
+    doSessionClear: function(){
+      // ブラウザストレージを削除する
+      if(confirm('セッションを削除します')){
+        Vue.ls.clear();
+      }
+    }
+  },
+  computed:{
+    getItems: {
+      get: function(){
+        return this.items;
+      },
+      set: function(value) {
+        this.items = value;
+      }
+    }
+  },
+  watch: {
+    items: function(value){
+      //inputValueが更新される度にローカルストレージを更新
+      Vue.ls.set('lsValue', JSON.stringify(value), 60 * 60 * 1000);
+    }
+  }
+});
+ </script>
+</body>
+</html>

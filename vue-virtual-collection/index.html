@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+    }
+    body div#app div.vue-virtual-collection {
+      overflow: none;
+    }
+    .cell-container{
+      border: 1px solid #ddd;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <select v-model="n">
+    <option value="50">50</option>
+    <option value="100">100</option>
+    <option value="150">150</option>
+    <option value="500">500</option>
+    <option value="1000">1000</option>
+  </select>
+  <virtual-collection
+      :cell-size-and-position-getter="cellSizeAndPositionGetter"
+      :collection="items"
+      :height="500"
+      :width="800"
+  >
+      <div slot="cell" slot-scope="props">{{props.data}}</div>
+  </virtual-collection>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-virtual-collection@1.3.0/dist/index.min.js"></script>
+
+<script>
+console.log(window);
+
+const VirtualCollection = window["vue-virtual-collection"].default;
+
+Vue.use(VirtualCollection)
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    n:1000,
+    items: new Array(1000).fill(0).map((_, index) => ({ data: '#' + index }))
+  },
+  methods: {
+    cellSizeAndPositionGetter(item, index) {
+            // compute size and position
+            let min = 100 ;
+            let max = 150 ;
+            let random = Math.floor(Math.random() * (max + 1 - min) ) + min ;
+            return {
+                width: 100,
+                height: random,
+                x: (index % 7) * 110,
+                y: parseInt(index / 7) * 160
+            }
+        }
+    },
+    watch: {
+      n: function(value) {
+        this.items = new Array(Number(this.n)).fill(0).map((_, index) => ({ data: '#' + index }));
+      }
+    }
+});
+ </script>
+</body>
+</html>

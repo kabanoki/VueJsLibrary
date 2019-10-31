@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding: 100px;
+    }
+    .item{
+      width: 150px;
+      border: 1px solid #ddd;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+    .item.item1 {
+      height: 50px;
+    }
+    .item.item2 {
+      height: 100px;
+    }
+    .item.item3 {
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <select v-model="n">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+  </select>
+  <div v-masonry="'containerId'" transition-duration="0.3s" item-selector=".item">
+      <div v-masonry-tile class="item" :class="addClass(index)" v-for="(item, index) in Number(n)">
+          {{item}}
+      </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-masonry@0.11.3/dist/vue-masonry-plugin-window.js"></script>
+
+<script>
+console.log(window);
+
+const VueMasonryPlugin = window["vue-masonry-plugin"].VueMasonryPlugin;
+
+Vue.use(VueMasonryPlugin)
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    n: 5
+  },
+  methods: {
+    addClass: function(i){
+      let min = 1 ;
+      let max = 3 ;
+      let random = Math.floor( Math.random() * (max + 1 - min) ) + min ;
+      return 'item' + random;
+    }
+  }
+});
+ </script>
+</body>
+</html>

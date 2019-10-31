@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app{
+      padding: 100px
+    }
+    .filed {
+      padding: 20px;
+      width: 315px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <validation-observer ref="observer" v-slot="observer">
+    <div class="filed">
+        <h2>alpha</h2>
+        <validation-provider name="alpha" rules="alpha">
+          <div slot-scope="{ errors }">
+            <input name="alpha" v-model="alpha">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>alpha_dash</h2>
+        <validation-provider name="alpha_dash" rules="alpha_dash">
+          <div slot-scope="{ errors }">
+            <input name="alpha_dash" v-model="alpha_dash">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>alpha_num</h2>
+        <validation-provider name="alpha_num" rules="alpha_num">
+          <div slot-scope="{ errors }">
+            <input name="alpha_num" v-model="alpha_num">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>alpha_spaces</h2>
+        <validation-provider name="alpha_spaces" rules="alpha_spaces">
+          <div slot-scope="{ errors }">
+            <input name="alpha_spaces" v-model="alpha_spaces">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>between</h2>
+        <validation-provider name="between" rules="between:1,11">
+          <div slot-scope="{ errors }">
+            <input name="between" v-model="between">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+      <validation-observer ref="observer2">  
+        <h2>confirmed</h2>
+        <validation-provider name="confirmed" vid="confirmed" rules="required">
+          <div slot-scope="{ errors }">
+            <input type="text" v-model="confirmed" name="confirmed" rules="required">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+        <validation-provider name="confirmation" vid="confirmation" rules="required|confirmed:confirmed">
+          <div slot-scope="{ errors }">
+            <input type="text" v-model="confirmation" name="confirmation">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+
+      </validation-observer>
+    </div>
+    <div class="filed">
+        <h2>digits</h2>
+        <validation-provider name="digits" rules="digits:3">
+          <div slot-scope="{ errors }">
+            <input name="digits" v-model="digits">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>dimensions</h2>
+        <validation-provider name="dimensions" rules="dimensions:150,150" v-slot="{ errors, validate }">
+          <div>
+            <input type="file" name="dimensions" v-model="dimensions"  @change="validate">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>email</h2>
+        <validation-provider name="email" rules="email">
+          <div slot-scope="{ errors }">
+            <input  v-model="email">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>  
+    <div class="filed">
+        <h2>ext</h2>
+        <validation-provider name="ext" rules="ext:jpg,png" v-slot="{ errors, validate }">
+          <div>
+            <input type="file" name="ext" v-model="ext" @change="validate">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>image</h2>
+        <validation-provider name="image" rules="image" v-slot="{ errors, validate }">
+          <div >
+            <input type="file" name="image" v-model="image" @change="validate">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>oneOf</h2>
+        <validation-provider name="oneOf" rules="oneOf:1,2,3">
+          <div slot-scope="{ errors }">
+              <select v-model="oneOf"> 
+                <option value="1">One</option> 
+                <option value="2">Two</option> 
+                <option value="3">Three</option> 
+                <option value="4">Invalid</option> 
+              </select>
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>is</h2>
+        <validation-provider name="is" rules="is:hello" vid="is">
+          <div slot-scope="{ errors }">
+            <input name="is" v-model="is">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>length</h2>
+        <validation-provider name="length" rules="length:4">
+          <div slot-scope="{ errors }">
+            <input name="length" v-model="length">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>max</h2>
+        <validation-provider name="max" rules="max:4">
+          <div slot-scope="{ errors }">
+            <input name="max" v-model="max">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>max_value</h2>
+        <validation-provider name="max_value" rules="max_value:4">
+          <div slot-scope="{ errors }">
+            <input name="max_value" v-model="max_value">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>mimes</h2>
+        <validation-provider name="mimes" rules="mimes:image/*" v-slot="{ errors, validate }">
+          <div >
+            <input type="file" name="mimes" v-model="mimes" @change="validate">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>min</h2>
+        <validation-provider name="min" rules="min:4">
+          <div slot-scope="{ errors }">
+            <input name="min" v-model="min">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>min_value</h2>
+        <validation-provider name="min_value" rules="min_value:4">
+          <div slot-scope="{ errors }">
+            <input name="min_value" v-model="min_value">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>excluded</h2>
+        <validation-provider name="excluded" rules="excluded:1,2,3,4">
+          <div slot-scope="{ errors }">
+            <input name="excluded" v-model="excluded">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>numeric</h2>
+        <validation-provider name="numeric" rules="numeric">
+          <div slot-scope="{ errors }">
+            <input name="numeric" v-model="numeric">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>regex</h2>
+        <validation-provider name="regex" :rules="{ regex: /^[0-9]+$/ }">
+          <div slot-scope="{ errors }">
+            <input name="regex" v-model="regex">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>required</h2>
+        <validation-provider name="required" rules="required">
+          <div slot-scope="{ errors }">
+            <input name="required" v-model="required">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>required_if</h2>
+        <validation-provider name="required_if" vid="required_if_tmp">
+          <div slot-scope="{ errors }">
+            <select v-model="required_if_tmp">
+              <option value="apple">apple</option>
+              <option value="bag">bag</option>
+              <option value="cook">cook</option>
+            </select>
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+        <validation-provider name="required_if" rules="required_if:required_if_tmp,apple">
+          <div slot-scope="{ errors }">
+            <input name="required_if" v-model="required_if">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+    <div class="filed">
+        <h2>size</h2>
+        <validation-provider name="size" rules="size:20">
+          <div slot-scope="{ errors }">
+            <input type="file" name="size" v-model="size">
+            <p class="error">{{ errors[0] }}</p>
+          </div>
+        </validation-provider>
+    </div>
+  </validation-observer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<!-- コアファイル --> 
+<script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script> 
+<!-- バリデーションパターン --> 
+<script src="https://cdn.jsdelivr.net/npm/vee-validate@3.0.11/dist/rules.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const VeeValidate = window.VeeValidate;
+const VeeValidateRules = window.VeeValidateRules;
+
+const ValidationProvider = VeeValidate.ValidationProvider;
+const ValidationObserver = VeeValidate.ValidationObserver;
+
+const ja = {
+  "code": "ja",
+  "messages": {
+    "alpha": "{_field_}はアルファベットのみ使用できます",
+    "alpha_num": "{_field_}は英数字のみ使用できます",
+    "alpha_dash": "{_field_}は英数字とハイフン、アンダースコアのみ使用できます",
+    "alpha_spaces": "{_field_}はアルファベットと空白のみ使用できます",
+    "between": "{_field_}は{min}から{max}の間でなければなりません",
+    "confirmed": "{_field_}が一致しません",
+    "digits": "{_field_}は{length}桁の数字でなければなりません",
+    "dimensions": "{_field_}は幅{width}px、高さ{height}px以内でなければなりません",
+    "email": "{_field_}は有効なメールアドレスではありません",
+    "excluded": "{_field_}は不正な値です",
+    "ext": "{_field_}は有効なファイル形式ではありません",
+    "image": "{_field_}は有効な画像形式ではありません",
+    "is": "{_field_}が一致しません",
+    "length": "{_field_}は{length}文字でなければなりません",
+    "max_value": "{_field_}は{max}以下でなければなりません",
+    "max": "{_field_}は{length}文字以内にしてください",
+    "mimes": "{_field_}は有効なファイル形式ではありません",
+    "min_value": "{_field_}は{min}以上でなければなりません",
+    "min": "{_field_}は{length}文字以上でなければなりません",
+    "numeric": "{_field_}は数字のみ使用できます",
+    "oneOf": "{_field_}は有効な値ではありません",
+    "regex": "{_field_}のフォーマットが正しくありません",
+    "required": "{_field_}は必須項目です",
+    "required_if": "{_field_}は必須項目です",
+    "size": "{_field_}は{size}KB以内でなければなりません"
+  }
+};
+
+for(let key of Object.keys(ja.messages)) {
+    VeeValidate.extend(key, VeeValidateRules[key]);
+  }
+
+VeeValidate.localize('ja', ja);
+
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    alpha: '',
+    alpha_dash: '',
+    alpha_num: '',
+    alpha_spaces: '',
+    between: '',
+    confirmed: '',
+    digits: '',
+    dimensions: '',
+    email: '',
+    ext: '',
+    image: '',
+    oneOf: '',
+    integer: '',
+    is: '',
+    is_not: '',
+    length: '',
+    max: '',
+    max_value: '',
+    mimes: '',
+    min: '',
+    min_value: '',
+    excluded: '',
+    numeric: '',
+    regex: '',
+    required: '',
+    required_if: '',
+    size: '',
+
+    confirmation: '',
+    required_if_tmp:'',
+  },
+  methods: {
+    submit: function(){
+      alert('送信しました！');
+    }
+  }
+});
+ </script>
+</body>
+</html>

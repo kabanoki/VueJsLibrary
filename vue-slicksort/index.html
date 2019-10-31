@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    ul, .box { list-style-type: none; } 
+    li, .item { cursor: pointer; padding: 10px; border: solid #ddd 1px; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <slick-list lockAxis="y" use-drag-handle="true" v-model="items" class="box">
+    <slick-item v-for="(item, index) in items" :index="index" :key="index" class="item">
+        {{item.title}}
+    </slick-item>
+  </slick-list>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-slicksort@latest/dist/vue-slicksort.min.js"></script>
+
+<script>
+console.log(window);
+
+var items = [];
+
+for(let n=0; n<10; n++)
+{
+  items.push({
+    no:n,
+    title:'title-'+n
+  })
+}
+
+const { SlickList, SlickItem } = window.VueSlicksort;
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    items: items
+  },
+  components: {
+    SlickItem,
+    SlickList
+  },
+});
+ </script>
+</body>
+</html>

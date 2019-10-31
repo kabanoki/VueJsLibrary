@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app{
+      padding: 100px
+    }
+
+    button:disabled {
+      cursor:not-allowed;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <validation-observer ref="obs" v-slot="{invalid, validated, valid}">
+    <div class="filed">
+      <validation-provider name="my_rule" rules="required|my_rule:kabanoki">
+        <div slot-scope="{ errors }">
+          <label v-for="n in 10" :for="'item-'+n">
+            <input :id="'item-'+n" type="checkbox" :name="'my_rule[' + n + ']'" v-model="value" :value="n" :true-value="n" false-value="">{{n}}
+          </label>
+          <p class="error">{{ errors[0] }}</p>
+        </div>
+      </validation-provider>
+      <pre>{{value}}</pre>
+    </div>
+    <button type="button" @click="submit" :disabled="!valid">送信</button>
+  </validation-observer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<!-- コアファイル --> 
+<script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script> 
+<!-- バリデーションパターン --> 
+<script src="https://cdn.jsdelivr.net/npm/vee-validate@3.0.11/dist/rules.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const VeeValidate = window.VeeValidate;
+const VeeValidateRules = window.VeeValidateRules;
+
+const ValidationProvider = VeeValidate.ValidationProvider;
+const ValidationObserver = VeeValidate.ValidationObserver;
+
+const ja = {
+  "code": "ja",
+  "messages": {
+    "alpha": "{_field_}はアルファベットのみ使用できます",
+    "alpha_num": "{_field_}は英数字のみ使用できます",
+    "alpha_dash": "{_field_}は英数字とハイフン、アンダースコアのみ使用できます",
+    "alpha_spaces": "{_field_}はアルファベットと空白のみ使用できます",
+    "between": "{_field_}は{min}から{max}の間でなければなりません",
+    "confirmed": "{_field_}が一致しません",
+    "digits": "{_field_}は{length}桁の数字でなければなりません",
+    "dimensions": "{_field_}は幅{width}px、高さ{height}px以内でなければなりません",
+    "email": "{_field_}は有効なメールアドレスではありません",
+    "excluded": "{_field_}は不正な値です",
+    "ext": "{_field_}は有効なファイル形式ではありません",
+    "image": "{_field_}は有効な画像形式ではありません",
+    "is": "{_field_}が一致しません",
+    "length": "{_field_}は{length}文字でなければなりません",
+    "max_value": "{_field_}は{max}以下でなければなりません",
+    "max": "{_field_}は{length}文字以内にしてください",
+    "mimes": "{_field_}は有効なファイル形式ではありません",
+    "min_value": "{_field_}は{min}以上でなければなりません",
+    "min": "{_field_}は{length}文字以上でなければなりません",
+    "numeric": "{_field_}は数字のみ使用できます",
+    "oneOf": "{_field_}は有効な値ではありません",
+    "regex": "{_field_}のフォーマットが正しくありません",
+    "required": "{_field_}は必須項目です",
+    "required_if": "{_field_}は必須項目です",
+    "size": "{_field_}は{size}KB以内でなければなりません",
+  }
+};
+
+for(let key of Object.keys(ja.messages)) {
+  VeeValidate.extend(key, VeeValidateRules[key]);
+}
+
+VeeValidate.localize('ja', ja);
+
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
+
+const myRule = {
+  params: ['array'],
+  message: '{_field_}は3つ選択してください。',
+  validate(value, {array}) {
+    return value.length == 3
+  }
+};
+
+VeeValidate.extend('my_rule', myRule);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    value: [],
+  },
+  methods: {
+    submit: function(){
+      alert('送信しました！');
+    }
+  }
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      /* padding: 150px; */
+    }
+    pre {
+      background-color:#f6f8fa;
+      padding:10px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h2>Numbers</h2>
+  <pre v-pre>{{ 561739482 | numeral('0,0') }}</pre>
+  {{ 561739482 | numeral('0,0') }}
+
+  <h2>Bytes</h2>
+  <pre v-pre>{{ 10485760 | numeral('0b') }}</pre>
+  {{ 10485760 | numeral('0b') }}
+
+  <h2>Percentages</h2>
+  <pre v-pre>{{ 0.5567 | numeral('0.[00]%') }}</pre>
+  {{ 0.5567 | numeral('0.[00]%') }}
+
+  <h2>Thousands Separator</h2>
+  <pre v-pre>{{ 561739482 | numeral('0,0') }}</pre>
+  {{ 561739482 | numeral('0,0') }}
+
+  <h2>Ordinal</h2>
+  <pre v-pre>{{ 20 | numeral('Oo') }}</pre>
+  {{ 20 | numeral('Oo') }}
+
+  <h2>Abbreviate</h2>
+  <pre v-pre>{{ 1000000 | numeral('0.0a') }}</pre>
+  {{ 1000000 | numeral('0.0a') }}
+
+  <h2>Exponential</h2>
+  <pre v-pre>{{ 123987.202 | numeral('0.[00]e+0') }}</pre>
+  {{ 123987.202 | numeral('0.[00]e+0') }}   
+
+  <h2>Currency</h2>
+  <pre v-pre>{{ 200.42 | numeral('$0,0.00') }}</pre>
+  {{ 200.42 | numeral('$0,0.00') }}
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-numeral-filter@1.1.1/dist/vue-numeral-filter.min.js"></script>
+
+<script>
+console.log(window);
+
+const vueNumeralFilterInstaller = window.vueNumeralFilter;
+
+Vue.use(vueNumeralFilterInstaller, { locale: 'ja' });
+
+let app = new Vue({
+  el: '#app'
+});
+ </script>
+</body>
+</html>

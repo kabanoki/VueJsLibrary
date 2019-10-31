@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      /* padding: 150px; */
+    }
+    ul {
+      margin: 0px
+    }
+    .seamless-warp {
+        height: 229px;
+        overflow: hidden;
+        width: 33%;
+        float: left;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-seamless-scroll :data="listData" class="seamless-warp">
+      <ul class="item">
+          <li v-for="item in listData">
+            {{item.date}} - {{item.title}}
+          </li>
+      </ul>
+  </vue-seamless-scroll>
+  <vue-seamless-scroll :data="listData" :class-option="classOption" class="seamless-warp">
+      <ul class="item">
+          <li v-for="item in listData">
+            {{item.date}} - {{item.title}}
+          </li>
+      </ul>
+  </vue-seamless-scroll>
+  <vue-seamless-scroll :data="listData" :class-option="optionLeft" class="seamless-warp">
+      <ul class="item">
+          <li v-for="item in listData">
+            {{item.date}} - {{item.title}}
+          </li>
+      </ul>
+  </vue-seamless-scroll>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-seamless-scroll@1.1.17/dist/vue-seamless-scroll.min.js"></script>
+
+<script>
+console.log(window);
+
+const vueSeamless  = window.vueSeamlessScroll;
+
+let app = new Vue({
+  el: '#app',
+  components: {
+    vueSeamless
+  },
+  data: {
+    listData: [
+      {
+        'title': 'タイトル1',
+        'date': '2017-12-16'
+      }, {
+        'title': 'タイトル2',
+        'date': '2017-12-16'
+      }, {
+          'title': 'タイトル3',
+          'date': '2017-12-16'
+      }, {
+          'title': 'タイトル4',
+          'date': '2017-12-16'
+      }, {
+          'title': 'タイトル5',
+          'date': '2017-12-16'
+      }, {
+          'title': 'タイトル6',
+          'date': '2017-12-16'
+      }, {
+          'title': 'タイトル7',
+          'date': '2017-12-16'
+      }, {
+          'title': 'タイトル8',
+          'date': '2017-12-16'
+      }, {
+          'title': 'タイトル9',
+          'date': '2017-12-16'
+      }
+    ]
+  },
+  computed: {
+    classOption () {
+      return {
+          direction: 0
+      }
+    },
+    optionLeft () {
+      return {
+        direction: 2,
+        limitMoveNum: 2
+      }
+    }
+  }
+});
+ </script>
+</body>
+</html>

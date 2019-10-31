@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      /* padding: 150px; */
+    }
+    .box {
+      height: 150px;
+      overflow: auto;
+      border:  solid 1px #000;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <button @click="toggoleLook">Scroll Stop! [{{look}}]</button>
+  <div class="box">
+    <h2>アーサー王物語</h2>
+    <div class="box-area" v-scroll-lock="look">
+        <p>
+          我等が尊ふとむ王は我等の良心、<br>
+    我等が重んずる良心は我等の王。<br>
+    邪教を挫き、基督を奉じ。<br>
+    出でゝ人の寃苦を救ひ。<br>
+    誣言を語らず、誣言に聽かず。<br>
+    神の言の如く我言を守り。<br>
+    一人の少女を愛して心移さず、<br>
+    其愛を得るまで、義勇の功幾年を積んで、<br>
+    我戀人に奉ずべし。<br>
+    To reverence the King より as their King まで文字通りにすれば、王が彼等の良心なるが如く王を尊重し、又彼等の良心が彼等の王なる如く良心を尊重すべし<br>
+    To break より the Christ まで譯文の如く別に字解を要せざるが、是れ所謂破邪顯正の誓ひを表明したるもの。<br>
+    　To ride より human wrongs までは文字通りには、人の寃苦を救濟しつゝ遠く騎り出づべし、也。我封建時代と同じく諸侯各所に割據して戰を常とし、治安下に布かず、野武士強盜の類横行して良民堵に安んぜず、殊に老幼婦女の奇禍に罹かるもの頗る多し、武者修行と稱して諸國を遍歴し其の難を救ふを以て心ある武士の務めとなしたり、是れ所謂強きを挫き弱を助くる義侠の精神を表明するもの。
+    　To speak……listen to it は字義の解釋を要せざるべきも、是れ佛教の所謂不妄語戒に含有するものにて、英語に謂ふ justice（不十分ながら、公正とか正義とか譯すべきもの）の精神を表明せるもの也。<br>
+    　To honor より God's に至る一行は、武士に二言なしの精神也。<br>
+    　To love……won her の三行の中、cleave to her は愛する女に我愛を傾けて變わらざるの意、worship her by years of noble deeds は幾年高義の行爲を以て戀人に誠を表すと云ふの義也。此三行は武士の婦人を尊敬する精神且つ一夫一婦の主義を表明したるもの、英詩人 Dryden の Alexander's Feast なる詩中に<br>
+        </p>
+    </div>
+  </div>
+  <div>  
+    <p>
+        我等が尊ふとむ王は我等の良心、<br>
+  我等が重んずる良心は我等の王。<br>
+  邪教を挫き、基督を奉じ。<br>
+  出でゝ人の寃苦を救ひ。<br>
+  誣言を語らず、誣言に聽かず。<br>
+  神の言の如く我言を守り。<br>
+  一人の少女を愛して心移さず、<br>
+  其愛を得るまで、義勇の功幾年を積んで、<br>
+  我戀人に奉ずべし。<br>
+  To reverence the King より as their King まで文字通りにすれば、王が彼等の良心なるが如く王を尊重し、又彼等の良心が彼等の王なる如く良心を尊重すべし<br>
+  To break より the Christ まで譯文の如く別に字解を要せざるが、是れ所謂破邪顯正の誓ひを表明したるもの。<br>
+  　To ride より human wrongs までは文字通りには、人の寃苦を救濟しつゝ遠く騎り出づべし、也。我封建時代と同じく諸侯各所に割據して戰を常とし、治安下に布かず、野武士強盜の類横行して良民堵に安んぜず、殊に老幼婦女の奇禍に罹かるもの頗る多し、武者修行と稱して諸國を遍歴し其の難を救ふを以て心ある武士の務めとなしたり、是れ所謂強きを挫き弱を助くる義侠の精神を表明するもの。
+  　To speak……listen to it は字義の解釋を要せざるべきも、是れ佛教の所謂不妄語戒に含有するものにて、英語に謂ふ justice（不十分ながら、公正とか正義とか譯すべきもの）の精神を表明せるもの也。<br>
+  　To honor より God's に至る一行は、武士に二言なしの精神也。<br>
+  　To love……won her の三行の中、cleave to her は愛する女に我愛を傾けて變わらざるの意、worship her by years of noble deeds は幾年高義の行爲を以て戀人に誠を表すと云ふの義也。此三行は武士の婦人を尊敬する精神且つ一夫一婦の主義を表明したるもの、英詩人 Dryden の Alexander's Feast なる詩中に<br>
+      </p>
+      <p>
+          我等が尊ふとむ王は我等の良心、<br>
+    我等が重んずる良心は我等の王。<br>
+    邪教を挫き、基督を奉じ。<br>
+    出でゝ人の寃苦を救ひ。<br>
+    誣言を語らず、誣言に聽かず。<br>
+    神の言の如く我言を守り。<br>
+    一人の少女を愛して心移さず、<br>
+    其愛を得るまで、義勇の功幾年を積んで、<br>
+    我戀人に奉ずべし。<br>
+    To reverence the King より as their King まで文字通りにすれば、王が彼等の良心なるが如く王を尊重し、又彼等の良心が彼等の王なる如く良心を尊重すべし<br>
+    To break より the Christ まで譯文の如く別に字解を要せざるが、是れ所謂破邪顯正の誓ひを表明したるもの。<br>
+    　To ride より human wrongs までは文字通りには、人の寃苦を救濟しつゝ遠く騎り出づべし、也。我封建時代と同じく諸侯各所に割據して戰を常とし、治安下に布かず、野武士強盜の類横行して良民堵に安んぜず、殊に老幼婦女の奇禍に罹かるもの頗る多し、武者修行と稱して諸國を遍歴し其の難を救ふを以て心ある武士の務めとなしたり、是れ所謂強きを挫き弱を助くる義侠の精神を表明するもの。
+    　To speak……listen to it は字義の解釋を要せざるべきも、是れ佛教の所謂不妄語戒に含有するものにて、英語に謂ふ justice（不十分ながら、公正とか正義とか譯すべきもの）の精神を表明せるもの也。<br>
+    　To honor より God's に至る一行は、武士に二言なしの精神也。<br>
+    　To love……won her の三行の中、cleave to her は愛する女に我愛を傾けて變わらざるの意、worship her by years of noble deeds は幾年高義の行爲を以て戀人に誠を表すと云ふの義也。此三行は武士の婦人を尊敬する精神且つ一夫一婦の主義を表明したるもの、英詩人 Dryden の Alexander's Feast なる詩中に<br>
+        </p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/v-scroll-lock@1.0.1/dist/v-scroll-lock.min.js"></script>
+
+<script>
+console.log(window);
+
+const VScrollLock = window['v-scroll-lock'].default;
+
+Vue.use(VScrollLock);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    look: false
+  },
+  methods: {
+    toggoleLook:function(){
+      if(this.look == true)
+        this.look = false;
+      else
+        this.look = true;  
+    }
+  }
+});
+ </script>
+</body>
+</html>

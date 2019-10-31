@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 55%;
+      margin: auto;
+    }
+  .vue-progress-path path {
+    stroke-width: 12;
+  }
+
+  .vue-progress-path .progress {
+    stroke: red;
+  }
+
+  .vue-progress-path .background {
+    stroke: #edd;
+  }
+
+  .slider-box {
+    margin-top:20px;
+  }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div>
+    <loading-progress
+      :progress="progress"
+      :indeterminate="indeterminate"
+      :counter-clockwise="counterClockwise"
+      :hide-background="hideBackground"
+      size="64"
+      rotate
+      fillDuration="2"
+      rotationDuration="1"
+    ></loading-progress>
+
+    <loading-progress
+      :progress="progress"
+      :indeterminate="indeterminate"
+      :counter-clockwise="counterClockwise"
+      :hide-background="hideBackground"
+      shape="semicircle"
+      size="64"
+    ></loading-progress>
+    
+    <loading-progress
+      :progress="progress"
+      :indeterminate="indeterminate"
+      :counter-clockwise="counterClockwise"
+      :hide-background="hideBackground"
+      shape="line"
+      size="200"
+      width="200"
+      height="6"
+    ></loading-progress>
+
+    <loading-progress
+      :progress="progress"
+      :indeterminate="indeterminate"
+      :counter-clockwise="counterClockwise"
+      :hide-background="hideBackground"
+      shape="square"
+      size="64"
+      fill-duration="2"
+    ></loading-progress>
+
+    <loading-progress
+      :progress="progress"
+      :indeterminate="indeterminate"
+      :counter-clockwise="counterClockwise"
+      :hide-background="hideBackground"
+      shape="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
+      size="180"
+      fill-duration="2"
+    ></loading-progress>
+
+    <loading-progress
+      :progress="progress"
+      :indeterminate="indeterminate"
+      :counter-clockwise="counterClockwise"
+      :hide-background="hideBackground"
+      shape="M50,3l12,36h38l-30,22l11,36l-31-21l-31,21l11-36l-30-22h38z"
+      size="100"
+      fill-duration="2"
+    ></loading-progress>
+  </div>
+  <div class="slider-box">
+    <vue-slider
+      ref="slider"
+      v-model="progressModel"
+      v-bind="options"
+    ></vue-slider>
+  </div>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-progress-path@0.0.2/dist/vue-progress-path.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-progress-path@0.0.2/dist/vue-progress-path.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueProgress = window['vue-progress-path'].default;
+
+Vue.use(VueProgress);
+
+const VueSlider = window[ 'vue-slider-component' ];
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    progress: 0,
+    indeterminate: false,// 自動
+    counterClockwise: false,// プログレスの反転
+    hideBackground: false, //背景の非表示
+
+    options: {
+        dotSize: 14,
+        width: 'auto',
+        height: 4,
+        contained: false,
+        direction: 'ltr',
+	      data: null,
+        min: 0,
+        max: 100,
+        interval: 1,
+        disabled: false,
+        clickable: true,
+        duration: 0.5,
+        adsorb: false,
+        lazy: false,
+        tooltip: 'focus',
+        tooltipPlacement: 'top',
+        tooltipFormatter: void 0,
+        useKeyboard: false,
+        enableCross: true,
+        fixed: false,
+        minRange: void 0,
+        maxRange: void 0,
+        order: true,
+        marks: false,
+        dotOptions: void 0,
+        process: true,
+        dotStyle: void 0,
+        railStyle: void 0,
+        processStyle: void 0,
+        tooltipStyle: void 0,
+        stepStyle: void 0,
+        stepActiveStyle: void 0,
+        labelStyle: void 0,
+        labelActiveStyle: void 0,
+    }
+  },
+  computed: {
+		progressModel: {
+			get () {
+				return this.progress * 100
+			},
+			set (value) {
+				this.progress = value / 100
+			},
+		},
+		progressDisplay () {
+			return `${Math.round(this.progress * 100)}%`
+		},
+  },
+  components: {
+    'vueSlider': VueSlider,
+  }
+});
+ </script>
+</body>
+</html>

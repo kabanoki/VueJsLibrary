@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      /* padding: 150px; */
+    }
+.VueCarousel{
+  height: 300px;
+}
+.VueCarousel-wrapper, .VueCarousel-inner, .VueCarousel-slide{
+  height: 100% !important;
+}
+.VueCarousel-slide .slider-inner {
+  height: 100%;
+  background-color: #62caaa; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  color: #fff; 
+  border: 2px solid #fff;
+  font-size: 30px; 
+  border-radius: 10px;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <carousel autoplay="true" loop="true" >
+    <slide v-for="n in 10">
+      <div class="slider-inner">
+          Slide {{n}} Content
+      </div>
+    </slide>
+  </carousel>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-carousel@0.18.0/dist/vue-carousel.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueCarousel  = window.VueCarousel.default;
+
+Vue.use(VueCarousel);
+
+let app = new Vue({
+  el: '#app'
+});
+ </script>
+</body>
+</html>

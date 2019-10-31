@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+.p {
+  width: 100%;
+  height: 800px;
+}
+.c {
+  width: 200%;
+  height: 1600px;
+  background-color: #dcdcdc;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="p">  
+      <vue-scroll :ops="ops">
+        <div class="c"></div>
+      </vue-scroll>
+  </div> 
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuescroll@4.14.4/dist/vuescroll.min.js"></script>
+
+<script>
+console.log(window);
+
+const vuescroll = window.vuescroll;
+
+Vue.use(vuescroll);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    ops: {
+      rail: {
+        opacity: '0.2',
+        background: undefined,
+        border: '1px solid #cecece',
+        size: '15px'
+      },
+      bar: {
+        background: '#00ff00',
+        keepShow: false,
+        size: '10px',
+        minSize: 0.2
+      },
+      scrollButton: {
+        enable: true,
+        background: '#cecece'
+      },
+      scrollPanel: {
+        easing: 'easeInQuad',
+        speed: 800
+      },
+      vuescroll: {
+        wheelScrollDuration: 0,
+        wheelDirectionReverse: false
+      }
+    },
+  }
+});
+ </script>
+</body>
+</html>
