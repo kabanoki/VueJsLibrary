@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      font-family: Open Sans,sans-serif;
+      position: relative;
+      margin: 150px;
+      padding: 0;
+      height: 100%;
+      color: #333;
+      letter-spacing: 1px;
+      font-weight: 300;
+    }
+    .moveable {
+      font-family: Roboto,sans-serif;
+      position: relative;
+      width: 300px;
+      height: 200px;
+      text-align: center;
+      font-size: 40px;
+      margin: 0 auto;
+      font-weight: 100;
+      letter-spacing: 1px;
+    }
+    .moveable span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      white-space: nowrap;
+    }
+    .buttons {
+      text-align: center;
+      margin-top: 25px;
+      padding: 10px;
+    }
+    .buttons a {
+      position: relative;
+      text-decoration: none;
+      color: #333;
+      border: 1px solid #333;
+      padding: 12px 30px;
+      min-width: 140px;
+      text-align: center;
+      display: inline-block;
+      box-sizing: border-box;
+      margin: 5px;
+      transition: all .5s ease;
+    }
+    .buttons.able a {
+      min-width: auto;
+      padding: 8px 20px;
+    }
+    .buttons a.selected, .buttons a:hover {
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <moveable
+    class="moveable"
+    v-bind="moveable"
+    @drag="handleDrag"
+    @resize="handleResize"
+    @scale="handleScale"
+    @rotate="handleRotate"
+    @warp="handleWarp"
+    @pinch="handlePinch"
+  >
+    <span>Vue Moveable</span>
+  </moveable>
+  <div class="buttons able">
+    <a href="#" :class="moveable.scalable == true ? 'selected':''" @click="changeProp('scalable', $event)">Scalable</a>
+    <a href="#" :class="moveable.resizable == true ? 'selected':''"  @click="changeProp('resizable', $event)">Resizable</a>
+    <a href="#" :class="moveable.warpable == true ? 'selected':''" @click="changeProp('warpable', $event)">Warpable</a>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-moveable@1.0.1/dist/lib/VueMoveable.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const Moveable = window['VueMoveable'];
+
+Vue.component('moveable', Moveable);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    moveable: {
+      draggable: true,
+      scalable: true,
+      resizable: false,
+      warpable :false,
+      throttleDrag: 0,
+      throttleResize: 1,
+      keepRatio: false,
+      throttleScale: 0,
+      rotatable: true,
+      throttleRotate: 0,
+      pinchable: true, // ["draggable", "resizable", "scalable", "rotatable"]
+      origin: false,
+    }
+  },
+  methods: {
+    changeProp:function(prop) {
+      this.moveable.scalable = false;
+      this.moveable.resizable = false;
+      this.moveable.warpable = false;
+
+      this.moveable[prop] = true;
+    },
+    handleDrag({ target, transform }) {
+      target.style.transform = transform;
+    },
+    handleResize({
+      target, width, height, delta,
+    }) {
+      delta[0] && (target.style.width = `${width}px`);
+      delta[1] && (target.style.height = `${height}px`);
+    },
+    handleScale({ target, transform, scale }) {
+      target.style.transform = transform;
+    },
+    handleRotate({ target, dist, transform }) {
+      target.style.transform = transform;
+    },
+    handleWarp({ target, transform }) {
+      target.style.transform = transform;
+    },
+    handlePinch({ target }) {
+    },
+  }
+});
+ </script>
+</body>
+</html>

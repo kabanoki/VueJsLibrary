@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    .h300 {
+      height: 300px;
+    }
+    .box{
+      float:left;
+      height: 150px;
+      width: 22%;
+      margin: 3px;
+      background-color: #62caaa;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 30px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="h300"></div>
+  <div v-inview:animate="'fadeInLeft'">
+      <div class="box">
+          BOX1
+      </div>
+  </div>
+  <div v-inview:animate="'fadeInDownBig'">
+      <div class="box">
+          BOX2
+      </div>
+  </div>
+  <div v-inview:animate="'fadeInRight'">
+      <div class="box">
+          BOX3
+      </div>
+  </div>
+  <div class="h300"></div>
+  <div class="h300"></div>
+  <div v-inview:parent="'animate'">
+    <div :animate-toggle="'fadeInLeft'">
+      <div class="box">
+          BOX4
+      </div>
+    </div>
+    <div :animate-toggle="'fadeIn'">
+      <div class="box" >
+          BOX5
+      </div>
+    </div>
+    <div :animate-toggle-inverse="'fadeInRight'">
+      <div class="box">
+          BOX6
+      </div>
+    </div>
+  </div>
+  <div class="h300"></div>
+  <div class="h300"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vueinview@1.0.5/dist/vue-inview.min.js"></script>
+<!--animate.css-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+<script>
+console.log(window);
+
+const Inview = window.vueinview;
+
+Vue.use(Inview);
+let app = new Vue({
+  el: '#app',
+  methods:{
+    inviewAction($v){
+      $v.enter = function(el){
+
+        
+      }
+      $v.exit = function(el){
+        el.children[0].style.opacity = 0.1;
+        el.children[0].style.backgroundColor = "#fff";
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

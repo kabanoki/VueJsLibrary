@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:15px;
+    }
+    .w70 {
+      width: 70%;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="w70">
+      <info-card
+      :front-title="front.title"
+      :front-data="front.message"
+      :back-title="back.title"
+      :back-data="back.message"></info-card>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-info-card@0.1.3/dist/vue-info-card.js"></script>
+
+<script>
+console.log(window);
+
+const InfoCard  = window['vue-info-card'];
+
+Vue.component('info-card', InfoCard);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    front: {
+      title: '表面',
+      message: '表面のメッセージはここに表示される',
+    },
+    back: {
+      title: '裏面',
+      message: '裏面のメッセージはここに表示される',
+    }
+  }
+});
+ </script>
+</body>
+</html>

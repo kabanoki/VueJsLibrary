@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:15px;
+    }
+    .card {
+      border:1px solid #000;
+      padding:2px;
+      float: left;      
+    }
+    .card img {
+      width: 150px;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div></div>
+  <div>
+    <button class="btn" v-for="item in sortProp" @click="sort(item.key)" :key="item.key" @sort="sortOption='name'">{{item.name}}</button>
+  </div>
+  <isotope ref="cpt" :options="option" :list="list" @sort="sortOption=arguments[0]">
+    <div class="card" v-for="element in list" :key="element.id">
+      <div class=""><img :src="element.image_url"></div>
+      <p>{{element.name}}</p>
+    </div>
+  </isotope>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vueisotope@3.1.2/dist/vue_isotope.min.js"></script>
+
+<script>
+console.log(window);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    list: [
+      {
+        name: 'おじいさん',
+        image_url: "./img/tsue_koukikoureisya_ojiisan.png",
+        age: 76, 
+        height: 170, 
+        weight: 52,
+        gender: '男性'
+      },
+      {
+        name: 'おばあんさん',
+        image_url: "./img/tsue_koukikoureisya_obaasan.png",
+        age: 73, 
+        height: 152, 
+        weight: 46,
+        gender: '女性'
+      },
+      {
+        name: 'おじさん',
+        image_url: "./img/himan_pocchari07_ojisan.png",
+        age: 56, 
+        height: 178, 
+        weight: 80,
+        gender: '男性'
+      },
+      {
+        name: 'お父さん',
+        image_url: "./img/himan_pocchari08_obasan.png",
+        age: 55, 
+        height: 175, 
+        weight: 72,
+        gender: '男性'
+      },
+      {
+        name: 'お母さん',
+        image_url: "./img/agura_kutsurogu3_ojisan.png",
+        age: 54, 
+        height: 160, 
+        weight: 52,
+        gender: '女性'
+      },
+      {
+        name: 'おばさん',
+        image_url: "./img/agura_kutsurogu7_obasan.png",
+        age: 53, 
+        height: 162, 
+        weight: 60,
+        gender: '女性'
+      },
+      {
+        name: '息子',
+        image_url: "./img/kid_seikaku_kachiki_boy.png",
+        age: 10, 
+        height: 160, 
+        weight: 52,
+        gender: '男性'
+      },
+      {
+        name: '娘',
+        image_url: "./img/kid_seikaku_kachiki_girl.png",
+        age: 8, 
+        height: 150, 
+        weight: 40,
+        gender: '女性'
+      },  
+      {
+        name: '従兄弟',
+        image_url: "./img/kid_seikaku_uchiki_boy.png",
+        age: 10, 
+        height: 155, 
+        weight: 42,
+        gender: '男性'
+      }              
+    ],
+    option: {
+      itemSelector: ".element-item",
+      getSortData: {
+        name: function(itemElem) {
+          return itemElem.name.toLowerCase();
+        },
+        age: 'age',
+        height: 'height',
+        weight: 'weight',
+        gender: function(itemElem) {
+          return itemElem.gender.toLowerCase();
+        },
+      },
+    },
+    sortProp: [
+      {key: 'name', name: '名前'},
+      {key: 'age', name: '年齢'},
+      {key: 'height', name: '身長'},
+      {key: 'weight', name: '体重'},
+      {key: 'gender', name: '性別'},
+    ],
+    currentLayout: 'masonry',
+    selected: null,
+    sortOption: "original-order",
+    filterOption: "show all",
+    searchStr: null,
+  },
+  methods: {
+    sort: function(key) {
+      console.log(this.$refs);
+      this.$refs.cpt.sort(key);
+    },
+    filter: function(key) {
+    	this.$refs.cpt.filter(key);
+    }
+  }
+});
+ </script>
+</body>
+</html>

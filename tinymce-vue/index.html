@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <editor
+    ref="editor"
+    api-key="zxa06nwkz8nogxdxiok255pefid262onvgj23qjvd6y0glhu"
+    initialValue="<p>This is the initial content of the editor</p>"
+    :init="{
+      language: 'ja',
+      language_url : './languages/ja.js',
+      height: 500,
+      menubar: false,
+      table_toolbar: [
+        'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol'
+      ],
+      plugins: [
+        'print preview fullpage importcss searchreplace autolink \
+        autosave save directionality visualblocks visualchars fullscreen image link media template codesample \
+        table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount \
+        imagetools textpattern noneditable help charmap quickbars  emoticons'
+      ],
+      toolbar:[
+        'undo redo | formatselect | bold italic backcolor | \
+        alignleft aligncenter alignright alignjustify | \
+        bullist numlist outdent indent | removeformat | help table'
+      ],
+    }"
+    ></editor>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-vue@3.0.1/lib/browser/tinymce-vue.js"></script>
+<script>
+
+
+console.log(window);
+
+Vue.component('editor', Editor);
+
+let app = new Vue({
+  el: '#app',
+});
+
+console.log(app)
+
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:15px;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+    <timeago :datetime="time"></timeago>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-timeago@5.1.2/dist/vue-timeago.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/date-fns@2.7.0/index.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueTimeago = window.VueTimeago;
+
+Vue.use(VueTimeago, {
+  name: 'Timeago', // Component name, `Timeago` by default
+  locale: 'ja', // Default locale
+})
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    time:'2018-03-12'
+  }
+});
+ </script>
+</body>
+</html>

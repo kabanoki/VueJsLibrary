@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+      width: 20%;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <number-input-spinner
+    :min="0"
+    :max="10"
+    :step="1"
+    :integerOnly="true"
+    v-model="yourVModel"
+  ></number-input-spinner>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-number-input-spinner@2.2.0/dist/vue-number-input-spinner.min.js"></script>
+
+<script>
+console.log(window);
+
+console.log(NumberInputSpinner);
+
+Vue.component('number-input-spinner', NumberInputSpinner);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    yourVModel: 0
+  }
+});
+ </script>
+</body>
+</html>

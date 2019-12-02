@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    button {
+      float:left;
+      height: 100px;
+      width: 22%;
+      margin: 3px;
+      background-color: #62caaa;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 30px;
+      border-radius: 10px;
+    }
+    button.right {
+      width: 44%;
+      background-color: #ffcaaa;
+    }
+    .both{
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div id="sidebar">
+    <component :is="id" :right="right">
+      <a id="home" href="#">
+        <span>Home</span>
+      </a>
+      <a id="about" href="#">
+        <span>About</span>
+      </a>
+      <a id="contact" href="#">
+        <span>Contact</span>
+      </a>
+    </component>
+  </div>
+  <div id="page-wrap">
+    <button @click="onChange('slide')">Slide</button>
+    <button @click="onChange('bubble')">Bubble</button>
+    <button @click="onChange('fall-down')">FallDown</button>
+    <button @click="onChange('push')">Push</button>
+    <button @click="onChange('push-rotate')">PushRotate</button>
+    <button @click="onChange('reveal')">Reveal</button>
+    <button @click="onChange('scale-down')">ScaleDown</button>
+    <button @click="onChange('scale-rotate')">ScaleRotate</button>
+    <button @click="onChange('stack')">Stack</button>
+    <button @click="onChange('elastic')">Elastic</button>
+    <div class="both">
+      <button class="right" @click="onRightChange(true)">右</button>
+      <button class="right" @click="onRightChange(false)">左</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-burger-menu@2.0.3/dist/vue-burger-menu.umd.js"></script>
+
+<script>
+console.log(window);
+console.log(window['vue-burger-menu']);
+
+const {
+  Bubble,
+  Elastic,
+  FallDown,
+  Push,
+  PushRotate,
+  Reveal,
+  ScaleDown,
+  ScaleRotate,
+  Slide,
+  Stack
+  } = window['vue-burger-menu'];
+
+Vue.component('slide', Slide);
+Vue.component('bubble', Bubble);
+Vue.component('fall-down', FallDown);
+Vue.component('push', Push);
+Vue.component('push-rotate', PushRotate);
+Vue.component('reveal', Reveal);
+Vue.component('scale-down', ScaleDown);
+Vue.component('scale-rotate', ScaleRotate);
+Vue.component('stack', Stack);
+Vue.component('elastic', Elastic);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    id: 'slide',
+    right: false
+  },
+  methods: {
+    onChange: function(id){
+      this.id = id;
+    },
+    onRightChange: function(bool){
+      this.right = bool;
+    },
+  }
+});
+</script>
+</body>
+</html>

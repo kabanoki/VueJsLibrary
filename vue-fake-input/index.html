@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding: 50px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-fake-input
+    :length="8"
+    :font-size="80"
+    input-color="#31bce6"
+    font-color="#000"
+    :allow-paste="false"
+    v-model="fullValue"
+  ></vue-fake-input>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-fake-input@1.0.5/dist/vue-fake-input.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueFakeInput = window['VueFakeInput'];
+
+Vue.component('vue-fake-input', VueFakeInput);
+let app = new Vue({
+  el: '#app',
+  data: {
+    fullValue:''
+  }
+});
+ </script>
+</body>
+</html>

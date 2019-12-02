@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <vuejs-datepicker ref="picker"></vuejs-datepicker>
+  <button @click="doOpen()">open</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vuejs-datepicker"></script>
+
+<script>
+console.log(window);
+
+new Vue({
+  el: '#app',
+  components: {
+    vuejsDatepicker
+  },
+  methods:{
+    doOpen: function(){
+      if(!this.$refs.picker.isOpen) {
+        this.$refs.picker.$el.querySelector("input").focus();
+        this.$refs.picker.showCalendar();
+      }
+    },
+    doClose: function(){
+      if(this.$refs.picker.isOpen) {
+        this.$refs.picker.close(true);
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

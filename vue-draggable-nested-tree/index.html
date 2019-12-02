@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+    }
+
+
+.he-tree{
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 300px;
+}
+
+.tree-node-inner{
+  padding: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.draggable-placeholder-inner{
+  border: 1px dashed #0088F8;
+  box-sizing: border-box;
+  background: rgba(0, 136, 249, 0.09);
+  color: #0088f9;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.row .col-3 {
+  float: left;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="row">
+    <div class="col-3">
+      <tree :data="tree1data" draggable="draggable" cross-tree="cross-tree">
+        <div slot-scope="{data, store}">
+          <template v-if="!data.isDragPlaceHolder">
+            <b v-if="data.children &amp;&amp; data.children.length" @click="store.toggleOpen(data)">{{data.open ? '-' : '+'}}&nbsp;</b>
+            <span>{{data.text}}</span>
+          </template>
+        </div>
+      </tree>
+    </div>
+    <div class="col-3">
+      <tree :data="tree2data" draggable="draggable" cross-tree="cross-tree">
+        <div slot-scope="{data, store}">
+          <template v-if="!data.isDragPlaceHolder">
+            <b v-if="data.children &amp;&amp; data.children.length" @click="store.toggleOpen(data)">{{data.open ? '-' : '+'}}&nbsp;</b>
+            <span>{{data.text}}</span>
+          </template>
+        </div>
+      </tree>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-draggable-nested-tree@latest/dist/vue-draggable-nested-tree.js"></script>
+<script src="https://unpkg.com/tree-helper@latest/dist/tree-helper.js"></script>
+
+<script>
+console.log(window);
+
+const th = window.treeHelper
+const {DraggableTree} = window.vueDraggableNestedTree;
+
+Vue.component('tree', DraggableTree);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    tree1data: [
+      {text: 'node 1'},
+      {text: 'node 2'},
+      {text: 'node 3 undraggable', draggable: false},
+      {text: 'node 4 undroppable', droppable: false},
+      {text: 'node 5', children: [
+        {text: 'node 6'},
+        {text: 'node 7'},
+      ]},
+    ],
+    tree2data: [
+      {text: 'node 8', children: [
+        {text: 'node 9'},
+        {text: 'node 10 undroppable', droppable: false, children: [
+          {text: 'node 11'},
+          {text: 'node 12'},
+        ]},
+        {text: 'node 13', children: [
+          {text: 'node 14'},
+          {text: 'node 15 undroppable', droppable: false},
+        ]},
+        {text: 'node 16'},
+        {text: 'node 17'},
+        {text: 'node 18'},
+      ]},
+    ]
+  },
+  methods: {
+    expandAll() {
+      th.breadthFirstSearch(this.tree1data, node => {
+        node.open = true
+      })
+    },
+    collapseAll() {
+      th.breadthFirstSearch(this.tree1data, node => {
+        node.open = false
+      })
+    },
+  },
+});
+ </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <z-canvas :views='$options.components'style="width: 50%; height:100%; border: 2px solid red;"></z-canvas>
+  <script type="text/x-template" id="foo">
+    <z-view>Foo View
+      <z-spot
+        slot="extension"
+        :angle="145"
+        to-view="bar1">Bar1
+      </z-spot>
+      <z-spot
+        slot="extension"
+        :angle="45"
+        to-view="bar2">Bar2
+      </z-spot>
+    </z-view>
+  </script>
+  <script type="text/x-template" id="bar1">
+    <z-view>Bar1 View
+      <z-spot
+        slot="extension"
+        :angle="0"
+        to-view="bar1bar1">Bar1bar1
+      </z-spot>
+    </z-view>     
+  </script>
+  <script type="text/x-template" id="bar1bar1">
+    <z-view>Bar1bar1 View</z-view> 
+  </script>
+  <script type="text/x-template" id="bar2">
+    <z-view>Bar2 View
+      <z-spot
+        slot="extension"
+        :angle="145"
+        to-view="bar2bar1">Bar2bar1
+      </z-spot>
+      <z-spot
+        slot="extension"
+        :angle="15"
+        to-view="bar2bar2"><img src="kid_seikaku_kachiki_boy.png">
+      </z-spot>
+    </z-view>     
+  </script>
+  <script type="text/x-template" id="bar2bar1">
+    <z-view>bar2bar1 View</z-view> 
+  </script>
+  <script type="text/x-template" id="bar2bar2">
+    <z-view><img src="kid_seikaku_kachiki_boy.png"></z-view>     
+  </script>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/zircle"></script>
+<link href="https://unpkg.com/zircle/dist/zircle.css" rel="stylesheet">
+
+<script>
+console.log(window);
+
+const foo = {
+  template: '#foo'
+}
+const bar1 = { 
+  template: '#bar1',    
+};
+const bar1bar1 = { 
+  template: '#bar1bar1',    
+};
+const bar2 = { 
+  template: '#bar2',    
+};
+const bar2bar1 = { 
+  template: '#bar2bar1',    
+};
+const bar2bar2 = { 
+  template: '#bar2bar2',    
+};
+
+let app = new Vue({
+  el: '#app',
+  components: {
+    foo,
+    bar1,
+    bar1bar1,
+    bar2,
+    bar2bar1,
+    bar2bar2
+  },
+  mounted () {
+    this.$zircle.config({
+      mode: 'mixed',
+      style: {
+        theme: 'white'
+      }
+    })
+    this.$zircle.setView('foo')
+  }
+});
+</script>
+</body>
+</html>

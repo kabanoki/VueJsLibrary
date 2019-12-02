@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+.good__main-image,
+.good__backside-image {
+  background-color: rgba(0, 0, 0, .05);
+  background-image: url(https://vuejs.org/images/logo.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-origin: center;
+}
+
+.good__backside-image {
+  opacity: .7
+}
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-sticker :d="300" class-name="good" :tip-animation="true"></vue-sticker>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-sticker@1.1.11/dist/vue-sticker.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueSticker  = window.VueSticker.default;
+
+new Vue({
+  el: '#app',
+  components: {
+    'vue-sticker': VueSticker
+  },
+});
+</script>
+</body>
+</html>

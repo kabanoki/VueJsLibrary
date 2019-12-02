@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:25px;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <finder :tree="tree"></finder>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jledentu/vue-finder@1.10.3/dist/vue-finder.css">
+<script src="https://cdn.jsdelivr.net/npm/@jledentu/vue-finder@1.10.3/dist/vue-finder.min.js"></script>
+
+<script>
+console.log(window);
+
+const {Finder} = window['vue-finder'].default;
+
+Vue.component('finder', Finder);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    tree: {
+      id: "root",
+      children: [
+        {
+          id: "meet",
+          label: "肉",
+          children: [
+            {id: "meet-ch1", label: "肉1",},
+            {id: "meet-ch2", label: "肉2",},
+            {id: "meet-ch3", label: "肉3",},
+            {
+              id: "meet-ch4", label: "肉4",
+              children: [
+                {id: "meet-ch-ch1", label: "肉肉1",},
+                {id: "meet-ch-ch2", label: "肉肉2",},
+                {id: "meet-ch-ch3", label: "肉肉3",},
+                {id: "meet-ch-ch4", label: "肉肉4",},
+              ]
+            },
+          ]
+        },
+        {
+          id: "fish",
+          label: "魚",
+          children: [
+            {id: "fish-ch1", label: "魚1",},
+            {id: "fish-ch2", label: "魚2",},
+            {id: "fish-ch3", label: "魚3",},
+            {id: "fish-ch4", label: "魚4",},
+          ]
+        },
+        {
+          id: "fruits",
+          label: "果物",
+          children: [
+            {id: "fruits-ch1", label: "果物1",},
+            {id: "fruits-ch2", label: "果物2",},
+            {id: "fruits-ch3", label: "果物3",},
+            {id: "fruits-ch4", label: "果物4",},
+          ]
+        },
+        {
+          id: "vegetable",
+          label: "野菜",
+          children: [
+            {id: "vegetable-ch1", label: "野菜1",},
+            {id: "vegetable-ch2", label: "野菜2",},
+            {id: "vegetable-ch3", label: "野菜3",},
+            {id: "vegetable-ch4", label: "野菜4",},
+          ]
+        },
+        {
+          id: "othder",
+          label: "その他",
+        }
+      ]
+    }
+  }
+});
+ </script>
+</body>
+</html>

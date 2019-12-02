@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    .input {
+      padding: 15px;
+      margin-bottom: 20px;
+      border:dotted 2px #dcdcdc;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="input">
+    <p><b>追加</b></p>
+    <input type="text" v-model="title" placeholder="タイトル">
+    <input type="text" v-model="content" placeholder="本文">
+    <button type="button" @click="send()">登録</button>
+  </div>
+  <hzqing-vue-timeline 
+    timeline-color="#5bbcd5"  
+    time-content-color="#fff"
+    :data-list="timeline"
+  ></hzqing-vue-timeline>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hzqing-vue-timeline@1.0.3/dist/hzqing-vue-timeline.js"></script>
+
+<script>
+console.log(window);
+
+const hzqingVueTimeline = window.hzqingTimeLine.default;
+
+Vue.use(hzqingVueTimeline);
+
+let app = new Vue({
+  el: '#app',
+  data: {
+    title:'',
+    content: '',
+    timeline: [
+      {
+        time: '2019-11-01 14:36:35',
+        img: 'https://dummyimage.com/130x120/ccc/999.png&text=image',
+        title: 'ここから始まり',
+        content: 'スタート地点です。'
+      },
+      {
+        time: '2019-11-19 14:36:35',
+        img: 'https://dummyimage.com/130x120/ccc/999.png&text=image',
+        title: 'ここは途中',
+        content: '途中です。'
+      },
+      {
+        time: '2019-11-30 14:36:35',
+        img: 'https://dummyimage.com/130x120/ccc/999.png&text=image',
+        title: 'ここで終わる',
+        content: 'ゴールはここです。'
+      }
+    ]
+  },
+  methods: {
+    send:function(){
+      this.timeline.push({
+        time: new Date(),
+        img: 'https://dummyimage.com/130x120/ccc/999.png&text=image',
+        title: this.title,
+        content: this.content
+      });
+      this.title = this.content = '';
+    }
+  }
+});
+</script>
+</body>
+</html>
