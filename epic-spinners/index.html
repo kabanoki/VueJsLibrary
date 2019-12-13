@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 50%;
+      margin: auto;
+      padding-top:150px;
+    }
+    #app > div {
+      /* float: left; */
+      /* padding: 15px; */
+      margin: 70px;
+    }
+  </style>
+  
+</head>
+<body>
+<div id="app">
+<atom-spinner
+  :animation-duration="1000"
+  :size="60"
+  :color="'#ff1d5e'"
+></atom-spinner>
+
+<breeding-rhombus-spinner
+  :animation-duration="2000"
+  :size="65"
+  :color="'#ff1d5e'"
+></breeding-rhombus-spinner>
+
+<circles-to-rhombuses-spinner
+  :animation-duration="1200"
+  :circles-num="3"
+  :circle-size="15"
+  :color="'#ff1d5e'"
+></circles-to-rhombuses-spinner>
+
+<fingerprint-spinner
+  :animation-duration="1500"
+  :size="64"
+  :color="'#ff1d5e'"
+></fingerprint-spinner>
+
+<flower-spinner
+  :animation-duration="2500"
+  :size="70"
+  :color="'#ff1d5e'"
+></flower-spinner>
+
+<fulfilling-bouncing-circle-spinner
+  :animation-duration="4000"
+  :size="60"
+  :color="'#ff1d5e'"
+></fulfilling-bouncing-circle-spinner>
+
+<fulfilling-square-spinner
+  :animation-duration="4000"
+  :size="50"
+  :color="'#ff1d5e'"
+></fulfilling-square-spinner>
+
+<half-circle-spinner
+  :animation-duration="1000"
+  :size="60"
+  :color="'#ff1d5e'"
+></half-circle-spinner>
+
+<hollow-dots-spinner
+  :animation-duration="1000"
+  :dot-size="15"
+  :dots-num="3"
+  :color="'#ff1d5e'"
+></hollow-dots-spinner>
+
+<intersecting-circles-spinner
+  :animation-duration="2500"
+  :size="70"
+  :color="'#ff1d5e'"
+></intersecting-circles-spinner>
+
+<looping-rhombuses-spinner
+  :animation-duration="2500"
+  :rhombus-size="15"
+  :color="'#ff1d5e'"
+></looping-rhombuses-spinner>
+
+<orbit-spinner
+  :animation-duration="1200"
+  :size="55"
+  :color="'#ff1d5e'"
+></orbit-spinner>
+
+<pixel-spinner
+  :animation-duration="2000"
+  :pixel-size="70"
+  :color="'#ff1d5e'"
+></pixel-spinner>
+
+<radar-spinner
+  :animation-duration="2000"
+  :size="60"
+  :color="'#ff1d5e'"
+></radar-spinner>
+
+<scaling-squares-spinner
+  :animation-duration="1250"
+  :size="65"
+  :color="'#ff1d5e'"
+></scaling-squares-spinner>
+
+<self-building-square-spinner
+  :animation-duration="6000"
+  :size="40"
+  :color="'#ff1d5e'"
+></self-building-square-spinner>
+
+<semipolar-spinner
+  :animation-duration="2000"
+  :size="65"
+  :color="'#ff1d5e'"
+></semipolar-spinner>
+    
+<spring-spinner
+  :animation-duration="3000"
+  :size="60"
+  :color="'#ff1d5e'"
+></spring-spinner>
+    
+<swapping-squares-spinner
+  :animation-duration="1000"
+  :size="65"
+  :color="'#ff1d5e'"
+></swapping-squares-spinner>
+
+<trinity-rings-spinner
+  :animation-duration="1500"
+  :size="66"
+  :color="'#ff1d5e'"
+></trinity-rings-spinner>
+  
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/epic-spinners@1.1.0/dist/lib/epic-spinners.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/epic-spinners@1.1.0/dist/lib/epic-spinners.min.css">
+<script>
+console.log(window);
+
+console.log(window['epic-spinners']);
+
+const AtomSpinner = window['epic-spinners'].AtomSpinner;
+const BreedingRhombusSpinner = window['epic-spinners'].BreedingRhombusSpinner;
+const CirclesToRhombusesSpinner = window['epic-spinners'].CirclesToRhombusesSpinner;
+const FingerprintSpinner = window['epic-spinners'].FingerprintSpinner;
+
+
+const FlowerSpinner = window['epic-spinners'].FlowerSpinner;
+const FulfillingBouncingCircleSpinner = window['epic-spinners'].FulfillingBouncingCircleSpinner;
+const FulfillingSquareSpinner = window['epic-spinners'].FulfillingSquareSpinner;
+const HalfCircleSpinner = window['epic-spinners'].HalfCircleSpinner;
+const HollowDotsSpinner = window['epic-spinners'].HollowDotsSpinner;
+const IntersectingCirclesSpinner = window['epic-spinners'].IntersectingCirclesSpinner;
+const LoopingRhombusesSpinner = window['epic-spinners'].LoopingRhombusesSpinner;
+const OrbitSpinner = window['epic-spinners'].OrbitSpinner;
+const PixelSpinner = window['epic-spinners'].PixelSpinner;
+const RadarSpinner = window['epic-spinners'].RadarSpinner;
+const ScalingSquaresSpinner = window['epic-spinners'].ScalingSquaresSpinner;
+const SelfBuildingSquareSpinner = window['epic-spinners'].SelfBuildingSquareSpinner;
+const SemipolarSpinner = window['epic-spinners'].SemipolarSpinner;
+const SpringSpinner = window['epic-spinners'].SpringSpinner;
+const SwappingSquaresSpinner = window['epic-spinners'].SwappingSquaresSpinner;
+const TrinityRingsSpinner = window['epic-spinners'].TrinityRingsSpinner;
+
+let app = new Vue({
+  el: '#app',
+  components: {
+    'atom-spinner':AtomSpinner,
+    'breeding-rhombus-spinner':BreedingRhombusSpinner,
+    'circles-to-rhombuses-spinner':CirclesToRhombusesSpinner,
+    'fingerprint-spinner':FingerprintSpinner,
+    'flower-spinner':FlowerSpinner,
+    'fulfilling-bouncing-circle-spinner':FulfillingBouncingCircleSpinner,
+    'fulfilling-square-spinner':FulfillingSquareSpinner,
+    'half-circle-spinner':HalfCircleSpinner,
+    'hollow-dots-spinner':HollowDotsSpinner,
+    'intersecting-circles-spinner':IntersectingCirclesSpinner,
+    'looping-rhombuses-spinner':LoopingRhombusesSpinner,
+    'orbit-spinner':OrbitSpinner,
+    'pixel-spinner':PixelSpinner,
+    'radar-spinner':RadarSpinner,
+    'scaling-squares-spinner':ScalingSquaresSpinner,
+    'self-building-square-spinner':SelfBuildingSquareSpinner,
+    'semipolar-spinner':SemipolarSpinner,
+    'spring-spinner':SpringSpinner,
+    'swapping-squares-spinner':SwappingSquaresSpinner,
+    'trinity-rings-spinner':TrinityRingsSpinner
+  }
+});
+ </script>
+</body>
+</html>

@@ -20,31 +20,31 @@
 </head>
 <body>
 <div id="app">
-  <validation-observer ref="obs" v-slot="{invalid, validated, valid}">
+  <validation-observer ref="obs" v-slot="ObserverProps">
     <div class="filed">
         <validation-provider name="required" :rules="{ required: { allowFalse: false } }">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input type="checkbox" v-model="value" true-value="on" false-value="">同意する
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <validation-provider name="required2" rules="required">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <select v-model="value2">
               <option value=""></option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
             </select>
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <validation-provider name="required3" rules="required" vid="required3">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <div v-for="(item, index) in oneOf">
                 <input type="radio" name="required3" v-model="value3" :value="item" :key="index">
                 {{item}}
@@ -54,33 +54,35 @@
                 その他
                 
             </div>
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
         <validation-provider name="required3_other" :rules="{required_if: {allowFalse: true, target: 'required3', values: [4]}}">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input type="text" name="required3_other" v-model="value4" value="">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
         <div class="filed">
           <h2>oneOf</h2>
           <validation-provider name="oneOf" :rules="{required_if: {target: 'required3', 'values': ['coffee']}}" >
-            <div slot-scope="{ errors }">
+            <div slot-scope="ProviderProps">
                 <select v-model="value5"> 
                     <option value=""></option> 
                   <option v-for="item in oneOf" value="item">{{item}}</option> 
                   <option value="4">4</option> 
                   <option value="oneOf">oneOf</option> 
                 </select>
-              <p class="error">{{ errors[0] }}</p>
+              <p class="error">{{ ProviderProps.errors[0] }}</p>
             </div>
           </validation-provider>
       </div>
     </div>
-    <button type="button" @click="submit" :disabled="!valid">送信</button>
+    <button type="button" @click="submit" :disabled="!ObserverProps.valid">送信</button>
   </validation-observer>
 </div>
+
+<script>window.Promise || document.write('<script src="https:\/\/www.promisejs.org\/polyfills\/promise-7.0.4.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <!-- コアファイル --> 
 <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script> 
@@ -127,9 +129,9 @@ const ja = {
   }
 };
 
-for(let key of Object.keys(ja.messages)) {
-    VeeValidate.extend(key, VeeValidateRules[key]);
-  }
+for(let key in ja.messages) {
+  VeeValidate.extend(key, VeeValidateRules[key]);
+}  
 
 VeeValidate.localize('ja', ja);
 

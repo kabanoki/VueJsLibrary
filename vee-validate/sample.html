@@ -21,45 +21,45 @@
     <div class="filed">
         <h2>alpha</h2>
         <validation-provider name="alpha" rules="alpha">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="alpha" v-model="alpha">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>alpha_dash</h2>
         <validation-provider name="alpha_dash" rules="alpha_dash">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="alpha_dash" v-model="alpha_dash">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>alpha_num</h2>
         <validation-provider name="alpha_num" rules="alpha_num">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="alpha_num" v-model="alpha_num">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>alpha_spaces</h2>
         <validation-provider name="alpha_spaces" rules="alpha_spaces">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="alpha_spaces" v-model="alpha_spaces">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>between</h2>
         <validation-provider name="between" rules="between:1,11">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="between" v-model="between">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
@@ -67,15 +67,15 @@
       <validation-observer ref="observer2">  
         <h2>confirmed</h2>
         <validation-provider name="confirmed" vid="confirmed" rules="required">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input type="text" v-model="confirmed" name="confirmed" rules="required">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
         <validation-provider name="confirmation" vid="confirmation" rules="required|confirmed:confirmed">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input type="text" v-model="confirmation" name="confirmation">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
 
@@ -84,191 +84,193 @@
     <div class="filed">
         <h2>digits</h2>
         <validation-provider name="digits" rules="digits:3">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="digits" v-model="digits">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>dimensions</h2>
-        <validation-provider name="dimensions" rules="dimensions:150,150" v-slot="{ errors, validate }">
+        <validation-provider name="dimensions" rules="dimensions:150,150" v-slot="ProviderProps">
           <div>
-            <input type="file" name="dimensions" v-model="dimensions"  @change="validate">
-            <p class="error">{{ errors[0] }}</p>
+            <input type="file" name="dimensions" v-model="dimensions"  @change="ProviderProps.validate">
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>email</h2>
         <validation-provider name="email" rules="email">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input  v-model="email">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>  
     <div class="filed">
         <h2>ext</h2>
-        <validation-provider name="ext" rules="ext:jpg,png" v-slot="{ errors, validate }">
+        <validation-provider name="ext" rules="ext:jpg,png" v-slot="ProviderProps">
           <div>
-            <input type="file" name="ext" v-model="ext" @change="validate">
-            <p class="error">{{ errors[0] }}</p>
+            <input type="file" name="ext" v-model="ext" @change="ProviderProps.validate">
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>image</h2>
-        <validation-provider name="image" rules="image" v-slot="{ errors, validate }">
+        <validation-provider name="image" rules="image" v-slot="ProviderProps">
           <div >
-            <input type="file" name="image" v-model="image" @change="validate">
-            <p class="error">{{ errors[0] }}</p>
+            <input type="file" name="image" v-model="image" @change="ProviderProps.validate">
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>oneOf</h2>
         <validation-provider name="oneOf" rules="oneOf:1,2,3">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
               <select v-model="oneOf"> 
                 <option value="1">One</option> 
                 <option value="2">Two</option> 
                 <option value="3">Three</option> 
                 <option value="4">Invalid</option> 
               </select>
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>is</h2>
         <validation-provider name="is" rules="is:hello" vid="is">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="is" v-model="is">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>length</h2>
         <validation-provider name="length" rules="length:4">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="length" v-model="length">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>max</h2>
         <validation-provider name="max" rules="max:4">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="max" v-model="max">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>max_value</h2>
         <validation-provider name="max_value" rules="max_value:4">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="max_value" v-model="max_value">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>mimes</h2>
-        <validation-provider name="mimes" rules="mimes:image/*" v-slot="{ errors, validate }">
+        <validation-provider name="mimes" rules="mimes:image/*" v-slot="ProviderProps">
           <div >
-            <input type="file" name="mimes" v-model="mimes" @change="validate">
-            <p class="error">{{ errors[0] }}</p>
+            <input type="file" name="mimes" v-model="mimes" @change="ProviderProps.validate">
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>min</h2>
         <validation-provider name="min" rules="min:4">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="min" v-model="min">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>min_value</h2>
         <validation-provider name="min_value" rules="min_value:4">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="min_value" v-model="min_value">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>excluded</h2>
         <validation-provider name="excluded" rules="excluded:1,2,3,4">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="excluded" v-model="excluded">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>numeric</h2>
         <validation-provider name="numeric" rules="numeric">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="numeric" v-model="numeric">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>regex</h2>
         <validation-provider name="regex" :rules="{ regex: /^[0-9]+$/ }">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="regex" v-model="regex">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>required</h2>
         <validation-provider name="required" rules="required">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="required" v-model="required">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>required_if</h2>
         <validation-provider name="required_if" vid="required_if_tmp">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <select v-model="required_if_tmp">
               <option value="apple">apple</option>
               <option value="bag">bag</option>
               <option value="cook">cook</option>
             </select>
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
         <validation-provider name="required_if" rules="required_if:required_if_tmp,apple">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input name="required_if" v-model="required_if">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
     <div class="filed">
         <h2>size</h2>
         <validation-provider name="size" rules="size:20">
-          <div slot-scope="{ errors }">
+          <div slot-scope="ProviderProps">
             <input type="file" name="size" v-model="size">
-            <p class="error">{{ errors[0] }}</p>
+            <p class="error">{{ ProviderProps.errors[0] }}</p>
           </div>
         </validation-provider>
     </div>
   </validation-observer>
 </div>
+<script>window.Promise || document.write('<script src="https:\/\/www.promisejs.org\/polyfills\/promise-7.0.4.min.js"><\/script>')</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <!-- コアファイル --> 
 <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script> 
@@ -314,10 +316,10 @@ const ja = {
     "size": "{_field_}は{size}KB以内でなければなりません"
   }
 };
+for(let key in ja.messages) {
+  VeeValidate.extend(key, VeeValidateRules[key]);
+}
 
-for(let key of Object.keys(ja.messages)) {
-    VeeValidate.extend(key, VeeValidateRules[key]);
-  }
 
 VeeValidate.localize('ja', ja);
 

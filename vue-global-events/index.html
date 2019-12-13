@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <global-events
+    @keydown.prevent.ctrl.digit1="minusOne"
+    @keydown.prevent.ctrl.digit2="plusOne"
+    @keydown.prevent.ctrl.-="minusOne"
+    @keydown.prevent.ctrl.+="plusOne"
+    @keydown.space.exact="reset"
+    @click="plusOne"
+    @contextmenu.prevent="minusOne"
+  ></global-events>
+  <h1>
+    {{ counter }}
+  </h1>
+  <dl>
+    <dt>[Ctrl]+[+], [Left Mouse Click], [Ctrl]+[2]</dt>
+    <dd>カウンターを増やす</dd>
+    <dt>[Ctrl]+[-], [Right Mouse Click], [Ctrl]+[1]</dt>
+    <dd>カウンターを減らす</dd>
+    <dt>[Space]</dt>
+    <dd>カウンターリセット</dd>
+  </dl>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-global-events@1.1.2/dist/vue-global-events.js"></script>
+
+<script>
+console.log(window);
+
+Vue.config.keyCodes.digit1 = 49
+Vue.config.keyCodes.digit2 = 50
+
+const GlobalEvents = window.VueGlobalEvents;
+
+new Vue({
+	el: '#app',
+	components: {
+  	GlobalEvents: GlobalEvents
+  },
+  data: {
+  	counter: 0
+  },
+  methods: {
+  	plusOne:function() {
+    	this.counter++
+    },
+    minusOne:function() {
+    	this.counter--
+    },
+    reset:function() {
+    	this.counter = 0
+    }
+  }
+});
+</script>
+</body>
+</html>

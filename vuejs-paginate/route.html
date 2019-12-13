@@ -1,0 +1,79 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css">
+  <style>
+    #app {
+      margin-top: 100px;
+      margin-left: 150px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+    <a href="https://www.kabanoki.net">test</a>
+    <ul>
+      <li v-for="item in getItems">{{item}}</li>
+    </ul>
+    <paginate
+    :page-count="getPageCount"
+    :initial-page="4"
+    :page-range="3"
+    :margin-pages="2"
+    :click-handler="clickCallback"
+    :prev-text="'＜'"
+    :next-text="'＞'"
+    :container-class="'pagination'"
+    :page-class="'page-item'">
+  </paginate>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vuejs-paginate@latest"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<script>
+var items = [];
+
+for(var i=1; i<=105; i++){
+  items.push('item-'+i);
+}
+
+Vue.component('paginate', VuejsPaginate);
+
+const routes = [
+  {path: '/pages/:page'}
+];
+
+const router = new VueRouter({
+  routes: routes
+})
+
+const app = new Vue({
+  router,
+  data: {
+     items: items,
+     parPage: 10,
+     currentPage: 1
+   },
+   mounted:function(){
+     this.currentPage = this.$route.params.page;
+   },
+   methods: {
+    clickCallback: function (pageNum) {
+      this.currentPage = Number(pageNum);
+    }
+   },
+   computed: {
+     getItems: function() {
+      let current = this.currentPage * this.parPage;
+      let start = current - this.parPage;
+      return this.items.slice(start, current);
+     },
+     getPageCount: function() {
+      return Math.ceil(this.items.length / this.parPage);
+     }
+   }
+}).$mount('#app')
+ </script>
+</body>
+</html>

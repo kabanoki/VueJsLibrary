@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <unicon name="car-wash" fill="limegreen"></unicon>
+  <unicon name="layer-group" fill="royalblue" icon-style="monochrome"></unicon>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-unicons@2.0.3/dist/vue-unicons.umd.min.js"></script>
+<script src="./icons.umd.js"></script>
+<script>
+
+console.log(window);
+console.log(icons);
+
+const Unicon = window['vue-unicons'].default;
+
+Unicon.add([icons.uniLayerGroupMonochrome, icons.uniCarWash]);
+
+Vue.use(Unicon)
+
+new Vue({
+	el: '#app'
+});
+</script>
+</body>
+</html>
