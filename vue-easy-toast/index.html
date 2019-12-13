@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      height: 30px;
+      width: 50%;
+      margin: 3px;
+      padding: 3px;
+      font-size: 18px;
+      border-radius: 6px;
+    }
+    button {
+      float:left;
+      height: 30px;
+      width: 12%;
+      margin: 3px;
+      background-color: #62caaa;
+      padding: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 18px;
+      border-radius: 10px;
+    }
+    button.start {
+      height: 45px;
+      padding: 5px;
+      font-size: 24px;
+    }
+    button.choice {
+      background-color: #dcdcdc;
+    }
+    button.choice.on {
+      background-color: #ffcaaa;
+    }
+    .both{
+      clear: both;
+    }
+    label {
+      float: left;
+      clear: both;
+      padding: 10px;
+      margin-top:10px;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="both">
+    <button class="start" @click="doToaste()">起動</button>
+  </div>
+
+  <label>Text</label>
+  <div class="both"> 
+    <input type="text" v-model="text">
+  </div>
+  
+  <label>Horizontal</label>
+  <div class="both"> 
+    <button class="choice" :class="this.horizontalPosition == 'left' ? 'on':''" @click="onChangeHorizontal('left')">Left</button>
+    <button class="choice" :class="this.horizontalPosition == 'center' ? 'on':''" @click="onChangeHorizontal('center')">Center</button>
+    <button class="choice" :class="this.horizontalPosition == 'right' ? 'on':''" @click="onChangeHorizontal('right')">Right</button>
+  </div>
+  <label>Vertical</label>
+  <div class="both"> 
+    <button class="choice" :class="this.verticalPosition == 'top' ? 'on':''" @click="onChangeVertical('top')">Top</button>
+    <button class="choice" :class="this.verticalPosition == 'bottom' ? 'on':''" @click="onChangeVertical('bottom')">Bottom</button>
+  </div>
+  <label>Transitions</label>
+  <div class="both"> 
+    <button class="choice" :class="this.transition == 'fade' ? 'on':''" @click="onChangeTransitions('fade')">Fade</button>
+    <button class="choice" :class="this.transition == 'slide-up' ? 'on':''" @click="onChangeTransitions('slide-up')">slide-up</button>
+    <button class="choice" :class="this.transition == 'slide-down' ? 'on':''" @click="onChangeTransitions('slide-down')">slide-down</button>
+    <button class="choice" :class="this.transition == 'slide-left' ? 'on':''" @click="onChangeTransitions('slide-left')">slide-left</button>
+    <button class="choice" :class="this.transition == 'slide-right' ? 'on':''" @click="onChangeTransitions('slide-right')">slide-right</button>
+  </div>
+  
+  
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-easy-toast@1.0.5/dist/vue-easy-toast.min.js"></script>
+
+<script>
+console.log(window);
+
+const Toast = window['vue-easy-toast'].default;
+
+Vue.use(Toast);
+
+new Vue({
+	el: '#app',
+  data: {
+    text: 'テキストはこんな感じで表示されます。',
+    horizontalPosition: 'left',
+    verticalPosition: 'top',
+    transition: 'fade',
+    duration: 1000,
+    mode: 'queue'
+  },
+	methods: {
+    doToaste: function(){
+      Vue.toast(this.text, {
+        id: 'my-toast',
+        className: ['my-toast', 'toast-warning'],
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: this.duration,
+        mode: this.mode,
+        transition: this.transition
+      });
+    },
+    onChangeHorizontal: function(horizontalPosition){
+      this.horizontalPosition = horizontalPosition;
+    },
+    onChangeVertical: function(verticalPosition){
+      this.verticalPosition = verticalPosition;
+    },
+    onChangeTransitions: function(transition){
+      this.transition = transition;
+    },
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    button.open {
+      float:left;
+      height: 30px;
+      width: 12%;
+      margin: 3px;
+      background-color: #62caaa;
+      padding: 1px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 18px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <button class="open" @click="onAlert()">Open</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuejs-dialog@1.4.1/dist/vuejs-dialog.min.css">
+<script src="https://cdn.jsdelivr.net/npm/vuejs-dialog@1.4.1/dist/vuejs-dialog.min.js"></script>
+<!--カスタムコンポーネントが必要な場合読みこむ -->
+<script src="https://cdn.jsdelivr.net/npm/vuejs-dialog@1.4.1/dist/vuejs-dialog-mixin.min.js"></script>
+
+<script>
+
+console.log(window);
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const VuejsDialog = window.VuejsDialog.main.default;
+
+Vue.use(VuejsDialog);
+
+new Vue({
+  el: '#app',
+  methods: {
+    onAlert:function(){
+      this.$dialog
+      .confirm({
+        title: '最終確認',
+        body: '本当に削除してもよろしいですか？'
+      },{
+        loader: true,
+        okText: 'はい',
+        cancelText: 'キャンセル',
+      })
+      .then(function(dialog) {
+        setTimeout(() => {
+          console.log('Delete action completed ');
+          dialog.close();
+        }, 1500);
+        console.log('Clicked on proceed');
+      })
+      .catch(function() {
+        console.log('Clicked on cancel');
+      });
+    }
+  }
+});
+</script>
+</body>
+</html>
