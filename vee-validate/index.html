@@ -16,25 +16,27 @@
 </head>
 <body>
 <div id="app">
-  <validation-observer ref="obs" v-slot="{ invalid, validated}">
+  <validation-observer ref="obs" v-slot="ObserverProps">
     <label>名前</label>
     <validation-provider name="name" rules="required">
-      <div slot-scope="{ errors }">
+      <div slot-scope="ProviderProps">
         <input v-model="name">
-        <p class="error">{{ errors[0] }}</p>
-      </div>
+        <p class="error">{{ ProviderProps.errors[0] }}</p>
+      </div>Z
     </validation-provider>
 
     <label>メールアドレス</label>
     <validation-provider name="email" rules="required|email">
-      <div slot-scope="{ errors }">
+      <div slot-scope="ProviderProps">
         <input v-model="email">
-        <p class="error">{{ errors[0] }}</p>
+        <p class="error">{{ ProviderProps.errors[0] }}</p>
       </div>
     </validation-provider>
-    <button type="button" @click="submit" :disabled="invalid || !validated">送信</button>
+    <button type="button" @click="submit" :disabled="ObserverProps.invalid || !ObserverProps.validated">送信</button>
   </validation-observer>
 </div>
+
+<script>window.Promise || document.write('<script src="https:\/\/www.promisejs.org\/polyfills\/promise-7.0.4.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.0.11/dist/rules.umd.min.js"></script>
