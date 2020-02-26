@@ -7,22 +7,43 @@
       color: #f00;
     }
     #app {
-      padding:125px;
+      padding:325px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+    .anime_move1 {
+      margin: 0 auto;
+      -webkit-animation: anime_move1 5s linear infinite;
+      animation: anime_move1 5s linear infinite;
+    }
+    @-webkit-keyframes anime_move1 {
+      0% { -webkit-transform: rotateX(0deg) rotate(0deg); }
+      100% { -webkit-transform: rotateX(0deg) rotate(360deg); }
+    }
+    @keyframes anime_move1 {
+      0% { transform: rotateX(0deg) rotate(0deg); }
+      100% { transform: rotateX(0deg) rotate(360deg); }
     }
 
   </style>
 </head>
 <body>
 <div id="app">
-  <vuejs-datepicker ref="picker" :language="ja"></vuejs-datepicker>
-  <button @click="doOpen()">open</button>
+  <img class="anime_move1" src="./loading01.gif">
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://unpkg.com/vuejs-datepicker"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+
 
 <script>
 console.log(window);
+
 (() => {
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
@@ -41,30 +62,13 @@ console.log(window);
   }, 0);
 })();
 
-const ja = window['vdp_translation_ja'].js;
-console.log(ja);
+
+Vue.use(VModal);
 new Vue({
   el: '#app',
-  components: {
-    'vuejs-datepicker':vuejsDatepicker
-  },
-  data: {
-    ja: vdp_translation_ja.js
-  },
-  methods:{
-    doOpen: function(){
-      if(!this.$refs.picker.isOpen) {
-        this.$refs.picker.$el.querySelector("input").focus();
-        this.$refs.picker.showCalendar();
-      }
-    },
-    doClose: function(){
-      if(this.$refs.picker.isOpen) {
-        this.$refs.picker.close(true);
-      }
-    }
-  }
+
 });
+
 </script>
 </body>
 </html>

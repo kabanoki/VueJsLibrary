@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div v-if="$wait.any">
+    リストの読み込み中・・・
+  </div>
+  <v-wait for="myLoad1">
+    <button @click='load'>再読み込み</button>
+    <ul>
+      <li v-for="item in myList">{{ item }}</li>
+    </ul>
+  </v-wait>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-wait@1.4.8/dist/vue-wait.js"></script>
+
+
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const VueWait = window['VueWait'].default;
+
+Vue.use(VueWait);
+
+new Vue({
+  el: '#app',
+  wait: new VueWait(),
+  data: {
+    myList: []
+  },
+  methods: {
+    load: async function() {
+      let self = this;
+      this.myList = [];
+      //待ち開始
+      this.$wait.start('myLoad1');
+      //リストの設定
+      this.myList = await new Promise(function(resolve){
+        setTimeout(function(){
+          let mockData = [];
+          for(let i=0; i<10; i++){
+            mockData.push(i);
+          }
+          return resolve(mockData);
+        }, 3000);
+      });
+      //待ち終了
+      this.$wait.end('myLoad1');
+    }
+  },
+  created: function(){
+    this.load();
+  }
+  
+});
+</script>
+</body>
+</html>

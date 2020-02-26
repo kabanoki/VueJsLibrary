@@ -4,7 +4,7 @@
   <style>
     #app {
       margin-top: 100px;
-      margin-left: 150px;
+      margin-left: 50px;
     }
   </style>
 </head>
@@ -12,6 +12,7 @@
 <div id="app" class="container">
   <a href="">test</a>
   <h2>page {{currentPage}}</h2>
+  <input type="text" v-model="select" placeholder="ID search">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -58,6 +59,9 @@ Vue.component('paginate', VuejsPaginate);
 
 const router = new VueRouter({
   routes: [{
+    path: '/pages/:page/:select',
+    name: 'page-filter'
+  },{
     path: '/pages/:page',
     name: 'page' 
   }]
@@ -67,24 +71,39 @@ new Vue({
   router,
   data: function(){
     return {
+      select: this.$route.params.select ? decodeURI(this.$route.params.select) : '',
       items: items,
       parPage: 5,
-      currentPage: this.currentPage = this.$route.params.page || 1
+      currentPage: this.currentPage = Number(this.$route.params.page) || 1
     }
   },
   methods: {
     clickCallback: function () {
-      this.$router.push({ 
-        name: 'page', 
-        params: { 
-          page: this.currentPage 
-        }
-      });    
+      if(this.select != ''){
+        this.$router.push({ 
+          name: 'page-filter', 
+          params: { 
+            page: this.currentPage,
+            select: encodeURI(this.select) 
+          }
+        });
+      } else {
+        console.log(111);
+        this.$router.push({ 
+          name: 'page', 
+          params: { 
+            page: this.currentPage 
+          }
+        });
+      }     
     }
   },
   computed: {
     getItems: function() {
-      return this.items;
+      let self = this;
+      return this.items.filter(function(item){
+        return String(item.id).indexOf(self.select) !== -1;
+      })
     },
     getLists: function(){
       let current = this.currentPage * this.parPage;
@@ -94,6 +113,12 @@ new Vue({
     },
     getPageCount: function() {
       return Math.ceil(this.getItems.length / this.parPage);
+    }
+  },
+  watch:{
+    select: function(){
+      this.currentPage = 1;
+      this.clickCallback;
     }
   }
 }).$mount('#app');

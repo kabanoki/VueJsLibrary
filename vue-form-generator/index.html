@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="panel-body">
+    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-form-generator@2.3.4/dist/vfg.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-form-generator@2.3.4/dist/vfg.js"></script>
+
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const VueFormGenerator = window['VueFormGenerator']
+
+new Vue({
+  el: '#app',
+  components: {
+		"vue-form-generator": VueFormGenerator.component
+	},
+  data: {
+      model: {
+          id: 1,
+          name: "John Doe",
+          password: "J0hnD03!x4",
+          age: 35,
+          skills: ["Javascript", "VueJS"],
+          email: "john.doe@gmail.com",
+          status: true
+      },
+      schema: {
+          fields: [{
+              type: "input",
+              inputType: "text",
+              label: "ID",
+              model: "id",
+              readonly: true,
+              featured: false,
+              disabled: true
+          }, {
+              type: "input",
+              inputType: "text",
+              label: "Name",
+              model: "name",
+              readonly: false,
+              featured: true,
+              required: true,
+              disabled: false,
+              placeholder: "User's name",
+              validator: VueFormGenerator.validators.string
+          }, {
+              type: "input",
+              inputType: "password",
+              label: "Password",
+              model: "password",
+              min: 6,
+              required: true,
+              hint: "Minimum 6 characters",
+              validator: VueFormGenerator.validators.string
+          }, {
+              type: "input",
+              inputType: "number",
+              label: "Age",
+              model: "age",
+              min: 18,
+              validator: VueFormGenerator.validators.number
+          }, {
+              type: "input",
+              inputType: "email",
+              label: "E-mail",
+              model: "email",
+              placeholder: "User's e-mail address",
+              validator: VueFormGenerator.validators.email
+          }, {
+              type: "checklist",
+              label: "Skills",
+              model: "skills",
+              multi: true,
+              required: true,
+              multiSelect: true,
+              values: ["HTML5", "Javascript", "CSS3", "CoffeeScript", "AngularJS", "ReactJS", "VueJS"]
+          }, {
+              type: "switch",
+              label: "Status",
+              model: "status",
+              multi: true,
+              readonly: false,
+              featured: false,
+              disabled: false,
+              default: true,
+              textOn: "Active",
+              textOff: "Inactive"
+          }]
+      },
+
+      formOptions: {
+          validateAfterLoad: true,
+          validateAfterChanged: true
+      }
+    },
+});
+</script>
+</body>
+</html>

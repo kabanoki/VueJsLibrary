@@ -9,20 +9,34 @@
     #app {
       padding:125px;
     }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
 
   </style>
 </head>
 <body>
 <div id="app">
-  <vuejs-datepicker ref="picker" :language="ja"></vuejs-datepicker>
-  <button @click="doOpen()">open</button>
+  <longpress 
+    ref="btn"
+    class="btn btn-primary"
+    duration="1" 
+    :on-confirm="doDelete"
+    pressing-text="{$rcounter} 秒後に削除します。" 
+    action-text="削除中です・・・">長押しでボタンを削除する</longpress>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://unpkg.com/vuejs-datepicker"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue-longpress@1.0.2/dist/vue-longpress.min.js"></script>
 
 <script>
 console.log(window);
+
 (() => {
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
@@ -41,27 +55,17 @@ console.log(window);
   }, 0);
 })();
 
-const ja = window['vdp_translation_ja'].js;
-console.log(ja);
+const VueLongpress = window['VueLongpress'];
+
 new Vue({
   el: '#app',
   components: {
-    'vuejs-datepicker':vuejsDatepicker
+    longpress: VueLongpress
   },
-  data: {
-    ja: vdp_translation_ja.js
-  },
-  methods:{
-    doOpen: function(){
-      if(!this.$refs.picker.isOpen) {
-        this.$refs.picker.$el.querySelector("input").focus();
-        this.$refs.picker.showCalendar();
-      }
-    },
-    doClose: function(){
-      if(this.$refs.picker.isOpen) {
-        this.$refs.picker.close(true);
-      }
+  methods: {
+    doDelete() {
+      this.$destroy();
+      this.$el.parentNode.removeChild(this.$el);
     }
   }
 });

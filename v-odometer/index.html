@@ -9,20 +9,31 @@
     #app {
       padding:125px;
     }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
 
   </style>
 </head>
 <body>
 <div id="app">
-  <vuejs-datepicker ref="picker" :language="ja"></vuejs-datepicker>
-  <button @click="doOpen()">open</button>
+  <vue-odometer :value="mynumber" animation="smooth" theme="digital" class="odometer"></vue-odometer>
+  <button class="btn btn-info" @click="updateNumber()">Update</button>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://unpkg.com/vuejs-datepicker"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/v-odometer@2.0.1/dist/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/v-odometer@2.0.1/dist/main.prod.js"></script>
 
 <script>
 console.log(window);
+
 (() => {
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
@@ -41,29 +52,18 @@ console.log(window);
   }, 0);
 })();
 
-const ja = window['vdp_translation_ja'].js;
-console.log(ja);
 new Vue({
   el: '#app',
-  components: {
-    'vuejs-datepicker':vuejsDatepicker
-  },
   data: {
-    ja: vdp_translation_ja.js
-  },
-  methods:{
-    doOpen: function(){
-      if(!this.$refs.picker.isOpen) {
-        this.$refs.picker.$el.querySelector("input").focus();
-        this.$refs.picker.showCalendar();
-      }
-    },
-    doClose: function(){
-      if(this.$refs.picker.isOpen) {
-        this.$refs.picker.close(true);
-      }
+		mynumber: 0
+	},
+  methods: {
+    updateNumber: function ()
+    {
+      this.mynumber = Math.floor(Math.random() * (9999 - 1)) + 1
+      console.log(this.mynumber)
     }
-  }
+  },
 });
 </script>
 </body>

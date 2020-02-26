@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+    #main {
+      width: 500px;
+      overflow: auto;
+      padding: 20px;
+      line-height: 1.5;
+      /* height: 400px; */
+      border: 1px solid;
+    }
+    .side-catalog {
+      position: fixed;
+      top: 100px;
+      right: 0px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div id="main">
+    <h1>Vue.js WIKI</h1>
+    <p><a href="https://ja.wikipedia.org/wiki/Vue.js">出典</a></p>
+    <p>
+      Vue.js（ヴュージェイエス）、またはVueは、Webアプリケーションにおけるユーザーインターフェイスを構築するための、オープンソースのJavaScriptフレームワークである[4]。他のJavaScriptライブラリを使用するプロジェクトへの導入において、容易になるように設計されている。一方で高機能なシングルページアプリケーション（SPA）を構築することも可能である。
+    </p>
+    <h2>概要</h2>
+    <p>このプロジェクトは、Web UI開発（コンポーネント、宣言的UI、ホットリロード、タイムトラベルデバッグなど）において、アイデアをより実現させることに焦点を当てている。独断的ではなく開発者がピックアップしやすい。<br>
+      部分的に採用可能なアーキテクチャ（プログレッシブフレームワーク）を採用している。 コアライブラリは、宣言的なレンダリングとコンポーネントの構成に焦点を合わせ、既存のページに埋め込むことができる。 ルーティング、状態管理、ビルドツールなどの複雑なアプリケーションに必要な高度な機能は、正式に維持されているサポートライブラリとパッケージを介して提供される。</p>
+    <h2>歴史</h2>
+    <p>VueはGoogleにおいてAngularJSを使用した開発に携わったエヴァン・ヨーによって開発され、2014年2月にリリースされた。ヨーは「Angularの本当に好きだった部分を抽出して、余分な概念なしに本当に軽いものを作ることができたらどうだろうか？」と考えていた。<br>
+      VueはGitHubでスターの数が、Backbone.js、AngularJS、Angular、jQuery、React等、他の歴史あるライブラリを上回る。</p>
+    <h2>特徴</h2>
+    <h3>テンプレート</h3>
+    <p>HTMLベースのテンプレート構文を使用して、レンダリングされたDOMを基となるインスタンスのデータに宣言的にバインドできる。すべてのVueテンプレートは、モダンブラウザとHTMLパーサによって解析できる有効なHTMLである。 その中で、Vueはテンプレートを仮想DOMレンダー機能にコンパイルする。 リアクティブシステムと組み合わせることで、Vueは最小限の数のコンポーネントを把握して再描画し、アプリの状態が変化したときに最小限のDOM操作を適用することができる。<br>
+      Vueでは、テンプレートシンタックスを使用するか、Reactで使用されるJSX[7][8]を使用してレンダリング関数を直接作成するかを選択できる[9]。 これを行うには、テンプレートオプションをレンダリング関数に置き換える必要がある。レンダリング機能は、強力なコンポーネントベースのパターンを可能とする。例えば、新しいトランジションシステムは完全にコンポーネントベースで、レンダリング機能を内部的に使用する。</p>
+    <h3>リアクティブ</h3>
+    <p>Vueの最も特徴的な機能の1つは、目立たないリアクティブシステムである。 モデルは単純なJavaScriptオブジェクトである。それらが変更されるとViewが更新される。 状態管理は非常に容易で直感的である。 Vueは何もすることなく、最適な再レンダリングを提供する。 各コンポーネントは、レンダリング中にそのリアクティブ依存性を追跡しているため、システムはいつ再レンダリングするか、どのコンポーネントを再レンダリングするかを正確に認識している。</p>
+    <h3>コンポーネント</h3>
+    <p>コンポーネントは、Vueの最も強力な機能の1つである。 大規模なアプリケーションでは、開発全体を管理しやすくするために、アプリ全体を小さな独立した再利用可能なコンポーネントに分割する必要がある。 コンポーネントは、基本的なHTML要素を拡張して再利用可能なコードをカプセル化する。 高レベルではコンポーネントは、Vueのコンパイラが動作をアタッチするカスタム要素である。 コンポーネントは基本的に事前定義されたオプションを持つVueインスタンスである。<br>
+      以下のコードスニペットには、Vueコンポーネントの例が含まれている。コンポーネントはボタンを表示し、ボタンがクリックされた回数を表示する。</p>
+    <h3>トランジション</h3>
+    <p>Vueは、アイテムがDOMに挿入、更新、または削除されたときにトランジション効果を適用するさまざまな方法を提供する。以下のツールが含まれる。<br>
+      ・CSSトランジションとアニメーションのクラスを自動的に適用する<br>
+      ・Animate.cssなどのサードパーティのCSSアニメーションライブラリを統合する<br>
+      ・トランジションフック中にJavaScriptを使用してDOMを直接操作する<br>
+      ・Velocity.jsなどのサードパーティのJavaScriptアニメーションライブラリを統合する<br>
+      トランジションコンポーネントにラップされた要素が挿入または削除されると、以下のようになる。<br><br>    
+      ・Vueは、ターゲットエレメントにCSSトランジションまたはアニメーションが適用されているかどうかを自動的に検出する。 そうであれば、CSSトランジションクラスは適切なタイミングで追加/削除される。<br>
+      ・トランジションコンポーネントがJavaScriptフックを提供した場合、これらのフックは適切なタイミングで呼び出される。<br>
+      ・CSSトランジション/アニメーションが検出されず、JavaScriptフックが提供されていない場合、挿入または削除のDOM操作は次のフレームで直ちに実行される。</p>
+    <h3>ルーティング</h3>
+    <p>シングルページアプリケーション（SPA）の一番の欠点は、特定のウェブページ内の正確なサブページへのリンクを共有できないことである。SPAはサーバーからのURLベースの応答（通常index.htmlまたはindex.vueを提供）を1人だけユーザに提供するため、ブックマークに保存したり、特定の記事へのリンクを共有することは不可能である。</p>
+  　<p>この問題を解決するために、フロントエンドルータはもともとhashbang（#!）分割されたハッシュベースのURLを提供している。モダンブラウザはHTML5をサポートしている。Vueのようなライブラリは、どのように変更されたかに関係なく、現在のURLパスに基づいてページに表示される内容を変更するための簡単なインターフェイスを提供する（電子メールによるリンク、更新、またはページ内リンクによるかどうかにかかわらず）。</p>
+    <p>さらに、フロントエンドルータを使用することにより、特定のブラウザイベント（すなわちクリック）がボタンまたはリンク上で発生した場合に、ブラウザパスの意図的な移行が可能になる。Vue自体はフロントエンドハッシュルーティング機能を持っていないが、オープンソースの「vue-router」パッケージでブラウザのURLを変更したり、バックボタン（ハッシュ履歴）を使用したり、URLで提供されている認証パラメータを使用して電子メールパスワードのリセットや電子メールの確認リンクを使用するAPIを提供する。</p>     
+    <p>ネストされたルートをネストされたコンポーネントにマッピングすることをサポートし、きめ細かな移行制御を提供する。 Vue+vue-routerを使用したフロントエンドルーティングシングルページアプリケーションの作成は容易である。 Vueでは、開発者は既に大きなコンポーネントを構築する小さなビルディングブロックでアプリケーションを作成してる。vue-routerをミックスに追加すると、コンポーネントは所属するルートにマッピングするだけで、親ルートルートは子ノードのレンダリング先を示す必要がある。</p>  
+    <h2>サポートライブラリ</h2>
+    <p>
+      <ul><li>vue-router<sup id="cite_ref-17" class="reference"><a href="#cite_note-17">[17]</a></sup></li>
+        <li>vuex<sup id="cite_ref-18" class="reference"><a href="#cite_note-18">[18]</a></sup></li>
+        <li>vue-loader<sup id="cite_ref-19" class="reference"><a href="#cite_note-19">[19]</a></sup></li>
+        <li>vueify&#8202;<sup id="cite_ref-20" class="reference"><a href="#cite_note-20">[20]</a></sup></li>
+        <li>vue-cli<sup id="cite_ref-21" class="reference"><a href="#cite_note-21">[21]</a></sup></li></ul>
+    </p>
+    <h2>関連項目</h2>
+    <p>
+      <ul><li><a href="https://en.wikipedia.org/wiki/en:Comparison_of_JavaScript_frameworks" class="extiw" title="w:en:Comparison of JavaScript frameworks">w:en:Comparison of JavaScript frameworks</a></li>
+        <li><a href="/wiki/React" title="React">React</a></li>
+        <li><a href="/wiki/AngularJS" title="AngularJS">AngularJS</a></li>
+        <li><a href="/wiki/Model_View_ViewModel" title="Model View ViewModel">Model View ViewModel</a></li>
+        <li><a href="/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF" title="ソフトウェアフレームワーク">ソフトウェアフレームワーク</a></li>
+        <li><a href="/wiki/%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA" title="ライブラリ">ライブラリ</a></li></ul>
+    </p>
+  </div>
+  <side-catalog 
+    v-bind="catalogProps"
+  ></side-catalog>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-side-catalog@1.0.4/lib/vue-side-catalog.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-side-catalog@1.0.4/lib/vue-side-catalog.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const SideCatalog = window['vue-side-catalog'].default;
+
+new Vue({
+  el: '#app',
+  components: {
+    'side-catalog':SideCatalog
+  },
+  data: {
+    catalogProps:{
+        containerElementSelector: '#main',
+        openDomWatch: true,
+    }
+  }
+});
+
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+</script>
+</body>
+</html>

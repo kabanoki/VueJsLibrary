@@ -9,20 +9,33 @@
     #app {
       padding:125px;
     }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
 
   </style>
 </head>
 <body>
 <div id="app">
-  <vuejs-datepicker ref="picker" :language="ja"></vuejs-datepicker>
-  <button @click="doOpen()">open</button>
+
 </div>
+
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://unpkg.com/vuejs-datepicker"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-mermaid@0.0.12/dist/vue-mermaid.js"></script>
 
 <script>
 console.log(window);
+
+new Vue({
+  el: '#app',
+
+});
+
 (() => {
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
@@ -40,31 +53,6 @@ console.log(window);
     console.table(table);
   }, 0);
 })();
-
-const ja = window['vdp_translation_ja'].js;
-console.log(ja);
-new Vue({
-  el: '#app',
-  components: {
-    'vuejs-datepicker':vuejsDatepicker
-  },
-  data: {
-    ja: vdp_translation_ja.js
-  },
-  methods:{
-    doOpen: function(){
-      if(!this.$refs.picker.isOpen) {
-        this.$refs.picker.$el.querySelector("input").focus();
-        this.$refs.picker.showCalendar();
-      }
-    },
-    doClose: function(){
-      if(this.$refs.picker.isOpen) {
-        this.$refs.picker.close(true);
-      }
-    }
-  }
-});
 </script>
 </body>
 </html>

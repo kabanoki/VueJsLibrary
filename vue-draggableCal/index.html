@@ -7,22 +7,32 @@
       color: #f00;
     }
     #app {
-      padding:125px;
+      padding:325px;
     }
-
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+    #app .container {
+      width: 650px;
+      border:1px solid #000;
+    }
   </style>
 </head>
 <body>
 <div id="app">
-  <vuejs-datepicker ref="picker" :language="ja"></vuejs-datepicker>
-  <button @click="doOpen()">open</button>
+  <draggable-cal></draggable-cal>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://unpkg.com/vuejs-datepicker"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-draggable-cal@2.6.0/dist/draggableCal.umd.min.js"></script>
 
 <script>
 console.log(window);
+
 (() => {
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
@@ -41,29 +51,13 @@ console.log(window);
   }, 0);
 })();
 
-const ja = window['vdp_translation_ja'].js;
-console.log(ja);
+const DraggableCal  = window['draggableCal'];
+
 new Vue({
   el: '#app',
   components: {
-    'vuejs-datepicker':vuejsDatepicker
+    'draggable-cal':DraggableCal,
   },
-  data: {
-    ja: vdp_translation_ja.js
-  },
-  methods:{
-    doOpen: function(){
-      if(!this.$refs.picker.isOpen) {
-        this.$refs.picker.$el.querySelector("input").focus();
-        this.$refs.picker.showCalendar();
-      }
-    },
-    doClose: function(){
-      if(this.$refs.picker.isOpen) {
-        this.$refs.picker.close(true);
-      }
-    }
-  }
 });
 </script>
 </body>

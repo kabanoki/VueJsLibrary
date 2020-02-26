@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="simple-example">
+    <vue-meeting-selector
+      class="simple-example__meeting-selector"
+      v-model="meeting"
+      :date="date"
+      :loading="loading"
+      :class-names="classNames"
+      :meetings-days="meetingsDays"
+      @next-date="nextDate"
+      @previous-date="previousDate"
+    ></vue-meeting-selector>
+    <p>meeting Selected: {{ meeting ? meeting : 'No Meeting selected' }}</p>
+  </div>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-meeting-selector@1.0.3/dist/lib/vue-meeting-selector.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+
+const today = new Date();
+const day1 = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1);
+const day2 = new Date(today.getFullYear(), today.getMonth(), today.getDate()+2);
+const day3 = new Date(today.getFullYear(), today.getMonth(), today.getDate()+3);
+
+const VueMeetingSelector = window['vue-meeting-selector'].default;
+
+new Vue({
+  el: '#app',
+  components: {
+    'vue-meeting-selector': VueMeetingSelector
+  },
+  data: function() {
+    return {
+      date: new Date(),
+      meetingsDays: [],
+      meeting: null,
+      loading: true,
+      nbDaysToDisplay: 5,
+    };
+  },
+  computed: {
+    classNames() {
+      return {
+        tabLoading: 'loading-div',
+      };
+    },
+  },
+  methods: {
+    getNewDates: function(start, end, interval, randomSlotsToDelete=0) {
+      let startStamp = start.getTime();
+      const endStamp = end.getTime();
+      const slots = [];
+
+      for (; startStamp <= endStamp; startStamp += interval * 60000) {
+        let slot = {
+          date: new Date(startStamp),
+        };
+        slots.push(slot);
+      }
+
+      for (let i = 0; i < randomSlotsToDelete; i += 1) {
+        const indexToDelete = Math.floor(Math.random() * (slots.length - 0) + 0)
+        slots.splice(indexToDelete, 1);
+      }
+
+      console.log(slots);
+
+      return slots;
+    },
+    nextDate: async function() {
+      this.loading = true;
+      this.date = newDate;
+      this.meetingsDays = await this.getNewDates(this.date);
+      this.loading = false;
+    },
+    previousDate: async function() {
+      this.loading = true;
+      this.date = newDate;
+      this.meetingsDays = await this.getNewDates(this.date);
+      this.loading = false;
+    },
+  },
+  created: async function () {
+    this.meetingsDays = this.getNewDates(
+      today,
+      day3,
+      30,
+      30
+    );
+    this.loading = false;
+  }
+});
+</script>
+</body>
+</html>

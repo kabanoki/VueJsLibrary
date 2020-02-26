@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <froala id="edit" :tag="'textarea'" :config="config" v-model="froalaData"></froala>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_style.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-froala-wysiwyg@3.0.6/dist/vue-froala.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/plugins.pkgd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/languages/ja.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/third_party/embedly.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/third_party/font_awesome.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/third_party/image_tui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/third_party/spell_checker.min.js"></script>
+
+
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const VueFroala = window['vue-froala-wysiwyg'].default;
+
+Vue.use(VueFroala)
+Vue.config.productionTip = false
+
+new Vue({
+  el: '#app',
+  data: {
+    froalaData: 'Edit Your Content Here!',
+    config: {
+      events: {
+        initialized: function () {
+          console.log('initialized')
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

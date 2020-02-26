@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+    #app > div {
+      margin-top: 25px;
+      padding: 10px;
+      width: 45%;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="content">
+    <div class="alert alert-secondary" role="alert">
+      [Status]{{statusText}}
+    </div>
+    <button type="button" class="btn btn-primary btn-lg" @click="removeCookie">Cookieを削除</button>
+  </div>
+  <vue-cookie-accept-decline
+    :ref="'myPanel1'"
+    :elementId="'myPanel1'"
+    :debug="false"
+    :position="'bottom-left'"
+    :type="'floating'"
+    :disableDecline="false"
+    :transitionName="'slideFromBottom'"
+    :showPostponeButton="false"
+    @status="cookieStatus"
+    @clicked-accept="cookieClickedAccept"
+    @clicked-decline="cookieClickedDecline"
+    @clicked-postpone="cookieClickedPostpone"
+    @removed-cookie="cookieRemovedCookie">
+    <div slot="postponeContent">
+        &times;
+    </div>
+    <div slot="message">
+      クッキーを使用して、お客様が当社のウェブサイトで最高の体験を得られるようにします。<a href="https://cookiesandyou.com/" target="_blank">Learn More...</a>
+    </div>
+    <div slot="declineContent">
+      拒否
+    </div>
+    <div slot="acceptContent">
+      許可
+    </div>
+  </vue-cookie-accept-decline>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-cookie-accept-decline@5.3.1/dist/vue-cookie-accept-decline.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-cookie-accept-decline@5.3.1/dist/vue-cookie-accept-decline.umd.js"></script>
+
+<script>
+console.log(window);
+
+const VueCookieAcceptDecline = window['VueCookieAcceptDecline'].default;
+
+Vue.component('vue-cookie-accept-decline', VueCookieAcceptDecline);
+
+new Vue({
+  el: '#app',
+  data:{
+    status: null
+  },
+  methods: {
+    cookieStatus:function (status) {
+        console.log('status: ' + status)
+        this.status = status
+    },
+    cookieClickedAccept:function () {
+        console.log('here in accept')
+        this.status = 'accept'
+    },
+    cookieClickedDecline:function () {
+        console.log('here in decline')
+        this.status = 'decline'
+    },
+    cookieClickedPostpone:function () {
+        console.log('here in postpone')
+        this.status = 'postpone'
+    },
+    cookieRemovedCookie:function () {
+        console.log('here in cookieRemoved')
+        this.status = null
+        this.$refs.myPanel1.init()
+    },
+    removeCookie:function () {
+        console.log('Cookie removed')
+        this.$refs.myPanel1.removeCookie()
+    }
+  },
+  computed: {
+    statusText:function () {
+        return this.status || 'Cookieを使用していません'
+    }
+  }
+});
+
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+</script>
+</body>
+</html>

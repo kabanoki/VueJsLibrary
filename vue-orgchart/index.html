@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    #chart-container {
+      border: 1px solid #dcdcdc;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <vo-basic :data="ds" :pan="true" :zoom="true"></vo-basic>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-orgchart@1.1.7/dist/style.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-orgchart@1.1.7/dist/vue-orgchart.min.js"></script>
+<script>
+console.log(window);
+
+const OrgChart = window['vue-orgchart'];
+const VoBasic = OrgChart['VoBasic'];
+const VoEdit = OrgChart['VoEdit'];
+
+console.log(OrgChart);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+
+
+new Vue({
+  el: '#app',
+  data: {
+    ds: {
+      'name': 'HOME',
+      'title': 'HOME',
+      'children': [
+        { 'name': 'ABOUT', 'title': 'ABOUT' },
+        { 'name': 'BLOG', 'title': 'BLOG',
+          'children': [
+            { 'name': 'POST1', 'title': 'POST1' },
+            { 'name': 'CATEGORY', 'title': 'CATEGORY',
+              'children': [
+                { 'name': 'Vue.js', 'title': 'Vue.js' },
+                { 'name': 'Wordpress', 'title': 'Wordpress' }
+              ]
+            }
+          ]
+        },
+        { 'name': 'CONTACT', 'title': 'CONTACT' },
+        { 'name': 'WORK', 'title': 'WORK' }
+      ]
+    }
+  }
+});
+</script>
+</body>
+</html>

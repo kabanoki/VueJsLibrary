@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+    #app > div {
+      margin-top: 25px;
+      padding: 10px;
+      width: 45%;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-magnifier-min :configs="configs" :img="img" />
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-magnifier-min@0.1.1/dist/vue-magnifier-min.min.js"></script>
+
+<script>
+console.log(window);
+
+const vueMagnifier = window['vueMagnifier'];
+
+new Vue({
+  el: '#app',
+  components: {
+    'vue-magnifier': vueMagnifier
+  },
+  data: {
+    configs:{
+        mainWidth: 600,
+        mainHeight: 500,
+        isRotate: true
+      },
+      img: {
+        src: 'https://www.kabanoki.net/wp-content/uploads/2020/02/21af7cc82f592f2a1881c684f61c65e4.png',
+        name: 'kabanoki.net'
+      },
+  }
+});
+
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+</script>
+</body>
+</html>

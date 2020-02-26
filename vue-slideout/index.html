@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+    .slideout-menu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 256px;
+    height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 0;
+    display: none;
+    background-color: #1D1F20;
+    color: white;
+  }
+
+.slideout-menu-left {
+  left: 0;
+}
+
+.slideout-menu-right {
+  right: 0;
+}
+
+.slideout-panel {
+  background-color: #4B5;
+  color: white;
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  min-height: 100vh;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <slideout menu="#menu" panel="#panel" :toggleSelectors="['.toggle-button']" @on-open="open">
+    <nav id="menu">
+      <div>Menu</div>
+    </nav>
+    <main id="panel">
+      <header>
+        <div>
+          <button class="toggle-button">☰</button>
+          Panel
+        </div>
+      </header>
+    </main>
+  </slideout>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-slideout@1.8.0/lib/vue-slideout.js"></script>
+
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const Slideout = window['vue-slideout'].default;
+
+new Vue({
+  el: '#app',
+  components:{
+    'slideout': Slideout,
+  },
+  methods: {
+    open: function () {
+      console.log('slideoutOpen')
+    }
+  }
+});
+</script>
+</body>
+</html>

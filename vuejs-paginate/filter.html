@@ -9,13 +9,13 @@
   </style>
 </head>
 <body>
-<div id="app" class="container">
-  <a href="">test</a>
+<div id="app">
   <h2>page {{currentPage}}</h2>
+  <div>search: <input type="text" v-model="select" placeholder="ID search"></div>
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>No</th>
         <th>Title</th>
       </tr>
     </thead>
@@ -32,7 +32,6 @@
     :initial-page="4"
     :page-range="3"
     :margin-pages="2"
-    :click-handler="clickCallback"
     :prev-text="'＜'"
     :next-text="'＞'"
     :container-class="'pagination'"
@@ -42,12 +41,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <script src="https://unpkg.com/vuejs-paginate@2.1.0"></script>
-<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
 <script>
-const items = [];
+var items = [];
 
-for(let i=1; i<=105; i++){
+for(var i=1; i<=105; i++){
   items.push({
     id: i,
     title: 'item-'+i
@@ -56,35 +54,20 @@ for(let i=1; i<=105; i++){
 
 Vue.component('paginate', VuejsPaginate);
 
-const router = new VueRouter({
-  routes: [{
-    path: '/pages/:page',
-    name: 'page' 
-  }]
-});
-
 new Vue({
-  router,
-  data: function(){
-    return {
-      items: items,
-      parPage: 5,
-      currentPage: this.currentPage = this.$route.params.page || 1
-    }
-  },
-  methods: {
-    clickCallback: function () {
-      this.$router.push({ 
-        name: 'page', 
-        params: { 
-          page: this.currentPage 
-        }
-      });    
-    }
+  el: '#app',
+  data: {
+    select: '',
+    items: items,
+    parPage: 10,
+    currentPage: 1
   },
   computed: {
     getItems: function() {
-      return this.items;
+      let self = this;
+      return this.items.filter(function(item){
+        return String(item.id).indexOf(self.select) !== -1;
+      });
     },
     getLists: function(){
       let current = this.currentPage * this.parPage;
@@ -95,8 +78,13 @@ new Vue({
     getPageCount: function() {
       return Math.ceil(this.getItems.length / this.parPage);
     }
+  },
+  watch:{
+    select: function(){
+      this.currentPage = 1;
+    }
   }
-}).$mount('#app');
- </script>
+});
+</script>
 </body>
 </html>

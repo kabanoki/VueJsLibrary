@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+      margin-right: 50px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div>
+    <h2>Basic checkbox</h2>
+    <p-check class="p-default">Default</p-check>
+    <p-check class="p-default p-fill">Fill</p-check>
+    <p-check class="p-default p-thick">Thick</p-check>
+    <p-check class="p-default p-curve">Curve</p-check>
+    <p-check class="p-default p-round">Round</p-check>
+  </div>
+  
+  <div>
+    <h2>Switch</h2>
+    <p-check class="p-switch">Default</p-check>
+    <p-check class="p-switch p-fill">Fill</p-check>
+    <p-check class="p-switch p-slim">Thick</p-check>
+  </div>
+  <div>
+    <h2>Colors</h2>
+    <p-check class="p-default" color="primary">Primary</p-check>
+    <p-check class="p-default" color="success">Success</p-check>
+    <p-check class="p-default" color="info">Info</p-check>
+    <p-check class="p-default" color="warning">Warning</p-check>
+    <p-check class="p-default" color="danger">Danger</p-check>
+  </div>
+  <div>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+    <h2>Font icons</h2>
+    <p-check class="p-icon p-round">
+      <i class="icon mdi mdi-check" slot="extra"></i>
+      Pay Bills
+    </p-check>
+    <p-check class="p-icon p-curve">
+        <i class="icon mdi mdi-close" slot="extra"></i>
+        Fuel refill
+    </p-check>
+    <p-check class="p-icon">
+        <i class="icon mdi mdi-close-outline" slot="extra"></i>
+        Buy groceries
+    </p-check>
+  </div>
+  <div>
+    <h2>Animations</h2>
+    <p-check class="p-icon p-curve p-smooth">
+      <i slot="extra" class="icon mdi mdi-check"></i>
+      Smooth
+    </p-check>
+    <p-check class="p-icon p-curve p-jelly" color="primary">
+      <i slot="extra" class="icon mdi mdi-check"></i>
+      Jelly
+    </p-check>
+    <p-check class="p-icon p-curve p-tada"  color="primary">
+      <i slot="extra" class="icon mdi mdi-check"></i>
+      Tada
+    </p-check>  
+    <p-check class="p-icon p-rotate" color="success">
+      <i slot="extra" class="icon mdi mdi-check"></i>
+      Rotate
+    </p-check>
+    <p-check class="p-icon p-pulse" color="success">
+      <i slot="extra" class="icon mdi mdi-check"></i>
+      Pulse
+    </p-check>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/pretty-checkbox-vue@1.1/dist/pretty-checkbox-vue.min.js"></script>
+
+
+
+<script>
+console.log(window);
+
+Vue.use(PrettyCheckbox);
+new Vue({
+  el: '#app',
+});
+
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+</script>
+</body>
+</html>

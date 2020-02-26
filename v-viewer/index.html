@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <viewer :images="images">
+    <div class="img" v-for="src in images">
+      <img :src="src" :key="src">
+    </div>
+  </viewer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.5.0/dist/viewer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/viewerjs@1.5.0/dist/viewer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/v-viewer@1.5.1/dist/v-viewer.min.js"></script>
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+
+const VueViewer = window['VueViewer'].default;
+
+Vue.use(VueViewer);
+new Vue({
+  el: '#app',
+  data: {
+    images: [
+      'https://dummyimage.com/150x150/fcc/000.png&text=thumb1', 
+      'https://dummyimage.com/150x150/fcc/000.png&text=thumb2',
+      'https://dummyimage.com/150x150/fcc/000.png&text=thumb3',
+      'https://dummyimage.com/150x150/fcc/000.png&text=thumb4'
+    ]
+  }
+});
+</script>
+</body>
+</html>

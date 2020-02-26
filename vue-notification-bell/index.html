@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <notification-bell
+    :size="100"
+    :count="list.length"
+    upper-limit="50"
+    counter-location="upperRight"
+    counter-style="roundRectangle"
+    counter-background-color="#FF0000"
+    counter-text-color="#FFFFFF"
+    icon-color="#000000"
+    font-size="25px"
+    :animated="true"
+  ></notification-bell>
+  <ul class="list-group">
+    <li class="list-group-item" v-for="(item, index) in list" :key="index">{{'item-'+item.no}} - <button class="btn btn-danger" type="button" @click="deleteItem(index)">削除する</button></li>
+  </ul>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue-notification-bell@0.8.14/dist/NotificationBell.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const NotificationBell = window['NotificationBell'].default;
+new Vue({
+  el: '#app',
+  components: {
+    'notification-bell':NotificationBell 
+  },
+  data: {
+    list: [
+      {no:1},
+      {no:2},
+      {no:3},
+      {no:4},
+      {no:5},
+    ]
+  },
+  methods: {
+    deleteItem: function(index){
+      this.list.splice(index, 1);
+    }
+  }
+});
+</script>
+</body>
+</html>

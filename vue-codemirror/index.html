@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <codemirror v-model="code" :options="cmOptions"></codemirror>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.51.0/lib/codemirror.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.51.0/theme/rubyblue.css">
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.51.0/lib/codemirror.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.51.0/mode/javascript/javascript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-codemirror@4.0.6/dist/vue-codemirror.js"></script>
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const VueCodemirror = window.VueCodemirror;
+Vue.use(VueCodemirror);
+
+new Vue({
+  el: '#app',
+  data: {
+    code: 'const a = 10',
+    cmOptions: {
+      tabSize: 4,
+      styleActiveLine: true,
+      lineNumbers: true,
+      line: true,
+      mode: 'text/javascript',
+      lineWrapping: true,
+      theme: 'rubyblue'
+    }
+  },
+});
+</script>
+</body>
+</html>

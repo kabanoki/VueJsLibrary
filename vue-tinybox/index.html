@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <tinybox
+    v-model="index"
+    :images="images"
+  ></tinybox>
+  <img
+        v-for="(img, idx) in images"
+        :src="img.thumbnail"
+        :alt="img.alt"
+        class="open-tinybox img-thumbnail rounded"
+        @click="index = idx"
+    >
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-tinybox"></script>
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+
+const Tinybox = window['Tinybox'];
+new Vue({
+  el: '#app',
+  components: {
+    'tinybox': Tinybox
+  },
+  data: {
+    index: null,
+    images: [
+      {
+        src:'https://www.kabanoki.net/wp-content/uploads/2020/01/himan_pocchari07_ojisan.png',
+        alt: 'himan_pocchari07_ojisan',
+        thumbnail: 'https://www.kabanoki.net/wp-content/uploads/2020/01/himan_pocchari07_ojisan.png'	
+      },
+      {
+        src:'https://www.kabanoki.net/wp-content/uploads/2020/01/himan_pocchari08_obasan.png',
+        alt: 'himan_pocchari08_obasan',
+        thumbnail: 'https://www.kabanoki.net/wp-content/uploads/2020/01/himan_pocchari08_obasan.png'	
+      },
+      {
+        src:'https://www.kabanoki.net/wp-content/uploads/2020/01/agura_kutsurogu7_obasan.png',
+        alt: 'agura_kutsurogu7_obasan',
+        thumbnail: 'https://www.kabanoki.net/wp-content/uploads/2020/01/agura_kutsurogu7_obasan.png'	
+      },
+      {
+        src:'https://www.kabanoki.net/wp-content/uploads/2020/01/agura_kutsurogu3_ojisan.png',
+        alt: 'agura_kutsurogu3_ojisan',
+        thumbnail: 'https://www.kabanoki.net/wp-content/uploads/2020/01/agura_kutsurogu3_ojisan.png'	
+      }
+    ]
+  }
+});
+</script>
+</body>
+</html>

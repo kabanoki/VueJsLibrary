@@ -7,22 +7,31 @@
       color: #f00;
     }
     #app {
-      padding:125px;
+      padding:325px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
     }
 
   </style>
 </head>
 <body>
 <div id="app">
-  <vuejs-datepicker ref="picker" :language="ja"></vuejs-datepicker>
-  <button @click="doOpen()">open</button>
+  <button class="btn btn-success" v-promise-btn @click="getData">Get Data</button>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://unpkg.com/vuejs-datepicker"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-promise-btn@2.0.2/dist/vue-promise-btn.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-promise-btn@2.0.2/dist/vue-promise-btn.umd.js"></script>
 
 <script>
 console.log(window);
+
 (() => {
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
@@ -41,27 +50,16 @@ console.log(window);
   }, 0);
 })();
 
-const ja = window['vdp_translation_ja'].js;
-console.log(ja);
+
+const VuePromiseBtn = window['VuePromiseBtn'];
+Vue.use(VuePromiseBtn);
 new Vue({
   el: '#app',
-  components: {
-    'vuejs-datepicker':vuejsDatepicker
-  },
-  data: {
-    ja: vdp_translation_ja.js
-  },
-  methods:{
-    doOpen: function(){
-      if(!this.$refs.picker.isOpen) {
-        this.$refs.picker.$el.querySelector("input").focus();
-        this.$refs.picker.showCalendar();
-      }
-    },
-    doClose: function(){
-      if(this.$refs.picker.isOpen) {
-        this.$refs.picker.close(true);
-      }
+  methods: {
+    getData:function(){
+      return new Promise(function(resolve, reject){
+        setTimeout(resolve, 2000);
+      });
     }
   }
 });

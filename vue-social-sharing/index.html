@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    #social span{
+      cursor: pointer;
+      padding: 8px;
+      display: inline-block;
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <social-sharing id="social" url="https://www.kabanoki.net/"
+                      title="|カバの樹"
+                      description="ライブラリのテスト"
+                      quote="ライブラリのテスト"
+                      hashtags="カバの樹,vue-social-sharing,vuejs,javascript,framework"
+                      twitter-user="dikkbsw"
+                      inline-template>
+    <div>
+        <network network="email">
+            <i class="fa fa-envelope"></i> Email
+        </network>
+        <network network="facebook">
+          <i class="fa fa-facebook"></i> Facebook
+        </network>
+        <network network="googleplus">
+          <i class="fa fa-google-plus"></i> Google +
+        </network>
+        <network network="line">
+          <i class="fa fa-line"></i> Line
+        </network>
+        <network network="linkedin">
+          <i class="fa fa-linkedin"></i> LinkedIn
+        </network>
+        <network network="odnoklassniki">
+          <i class="fa fa-odnoklassniki"></i> Odnoklassniki
+        </network>
+        <network network="pinterest">
+          <i class="fa fa-pinterest"></i> Pinterest
+        </network>
+        <network network="reddit">
+          <i class="fa fa-reddit"></i> Reddit
+        </network>
+        <network network="skype">
+          <i class="fa fa-skype"></i> Skype
+        </network>
+        <network network="sms">
+          <i class="fa fa-commenting-o"></i> SMS
+        </network>
+        <network network="telegram">
+          <i class="fa fa-telegram"></i> Telegram
+        </network>
+        <network network="twitter">
+          <i class="fa fa-twitter"></i> Twitter
+        </network>
+        <network network="vk">
+          <i class="fa fa-vk"></i> VKontakte
+        </network>
+        <network network="weibo">
+          <i class="fa fa-weibo"></i> Weibo
+        </network> 
+        <network network="whatsapp">
+          <i class="fa fa-whatsapp"></i> Whatsapp
+        </network>
+    </div>
+  </social-sharing>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-social-sharing@2.4.7/dist/vue-social-sharing.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const SocialSharing  = window['VueSocialSharing'];
+Vue.use(SocialSharing);
+
+new Vue({
+  el: '#app',
+});
+</script>
+</body>
+</html>

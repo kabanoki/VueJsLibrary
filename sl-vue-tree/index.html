@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <sl-vue-tree v-model="nodes2">
+    <template slot="title" slot-scope="{ node }">
+      <span class="item-icon">
+        <i class="fa fa-file" v-if="node.isLeaf"></i>
+        <i class="fa fa-folder" v-if="!node.isLeaf"></i>
+      </span>
+      {{ node.title }}
+    </template>
+  </sl-vue-tree>
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sl-vue-tree@1.8.4/dist/sl-vue-tree.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sl-vue-tree@1.8.4/dist/sl-vue-tree-dark.css">
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+new Vue({
+  el: '#app',
+  components: {
+    'sl-vue-tree':SlVueTree  
+  },
+  data: {
+    nodes: [
+      {title: 'Item1', isLeaf: true},
+      {title: 'Item2', isLeaf: true, data: { visible: false }},
+      {title: 'Folder1'},
+      {
+        title: 'Folder2', isExpanded: true, children: [
+          {title: 'Item3', isLeaf: true},
+          {title: 'Item4', isLeaf: true}
+        ]
+      }
+    ],
+    nodes2: [
+        {
+            "title": "Item1",
+            "isLeaf": true,
+            "isSelected": true,
+            "data": {
+                "visible": true
+            }
+        },
+        {
+            "title": "Item2",
+            "isLeaf": true,
+            "data": {
+                "visible": false
+            }
+        },
+        {
+            "title": "Folder1"
+        },
+        {
+            "title": "Folder2",
+            "isExpanded": true,
+            "children": [
+                {
+                    "title": "Item3",
+                    "isLeaf": true
+                },
+                {
+                    "title": "Item4",
+                    "isLeaf": true
+                },
+                {
+                    "title": "Folder3",
+                    "children": [
+                        {
+                            "title": "Item5",
+                            "isLeaf": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Folder5",
+            "isExpanded": false
+        },
+        {
+            "title": "Item6",
+            "isLeaf": true
+        },
+        {
+            "title": "Item7",
+            "isLeaf": true,
+            "data": {
+                "visible": false
+            }
+        },
+        {
+            "title": "Folder6",
+            "children": [
+                {
+                    "title": "Folder7",
+                    "children": [
+                        {
+                            "title": "Item8",
+                            "isLeaf": true
+                        },
+                        {
+                            "title": "Item9",
+                            "isLeaf": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+  }
+});
+</script>
+</body>
+</html>

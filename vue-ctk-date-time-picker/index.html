@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+    #app > div {
+      margin-top: 25px;
+      padding: 10px;
+      width: 45%;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div>
+    <h2>Basic</h2>
+    <vue-ctk-date-time-picker label="基本" v-model="value1" format="YYYY-MM-DD hh:mm a" formatted="YYYY-MM-DD hh:mm a" ></vue-ctk-date-time-picker>
+    {{value1}}
+  </div>
+  <div>
+    <h2>Range</h2>
+    <vue-ctk-date-time-picker label="範囲" v-model="value2" format="YYYY-MM-DD" formatted="YYYY-MM-DD" range></vue-ctk-date-time-picker>
+  </div>
+  <div>
+    <h2>Date Only</h2>
+    <vue-ctk-date-time-picker label="日付のみ" v-model="value3" format="YYYY-MM-DD"  formatted="YYYY-MM-DD" only-date></vue-ctk-date-time-picker>
+  </div>
+  <div>
+    <h2>Time Only</h2>
+    <vue-ctk-date-time-picker label="時間のみ" v-model="value4" format="hh:mm a" formatted="hh:mm a" only-time></vue-ctk-date-time-picker>
+  </div>
+  <div>
+    <h2>Inline</h2>
+    <vue-ctk-date-time-picker label="時間のみ" v-model="value4" inline no-header></vue-ctk-date-time-picker>
+  </div>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.4.0/dist/vue-ctk-date-time-picker.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.4.0/dist/vue-ctk-date-time-picker.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueCtkDateTimePicker = window['vue-ctk-date-time-picker'];
+
+Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker);
+
+new Vue({
+  el: '#app',
+  data: {
+    value1: null,
+    value2: null,
+    value3: null,
+    value4: null
+  }
+});
+
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+</script>
+</body>
+</html>

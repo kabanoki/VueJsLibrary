@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <h2>フォーマット変換</h2>
+  <vuejs-datepicker 
+    ref="picker" 
+    :language="ja" 
+    :format="DatePickerFormat" 
+    v-model="date"></vuejs-datepicker>
+  <p><span>{{ date | moment("YYYY年MM月DD日") }}</span></p>
+
+  <h2>日付の比較</h2>
+  <div>
+    開始日：<vuejs-datepicker 
+    :format="DatePickerFormat" 
+    :language="ja" 
+    v-model="start"></vuejs-datepicker>
+  </div>
+  <div>
+    終了日:<vuejs-datepicker 
+    :format="DatePickerFormat" 
+    :language="ja" 
+    v-model="end"></vuejs-datepicker>
+  </div>
+  <p>結果（開始日>終了日）：<span>{{isAfter(start, end)}}</span></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue-moment@4.1.0/dist/vue-moment.min.js"></script>
+
+<script src="https://unpkg.com/vuejs-datepicker"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+
+<script>
+console.log(window);
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+const vueMoment = window['vueMoment'];
+Vue.use(vueMoment);
+
+new Vue({
+  el: '#app',
+  components: {
+    'vuejs-datepicker':vuejsDatepicker
+  },
+  data() {
+    return {
+      date: this.$moment().format(),
+      start: this.$moment().format(),
+      end: this.$moment().add(1, 'days').format(),
+      DatePickerFormat: 'yyyy-MM-dd',
+      ja: vdp_translation_ja.js
+    };
+  },
+  methods: {
+    isAfter: function(start, end) {
+      return this.$moment(start).isAfter(end);
+    }
+  }
+});
+</script>
+</body>
+</html>
