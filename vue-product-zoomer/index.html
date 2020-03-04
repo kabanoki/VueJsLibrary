@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <product-zoomer
+    :base-images="images"
+    :base-zoomer-options="zoomerOptions"
+  ></product-zoomer>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-product-zoomer@3.0.0/dist/assets/js/app.bundle.min.js"></script>
+
+<script>
+console.log(window);
+const ProductZoomer = window['ProductZoomer'].default;
+Vue.use(ProductZoomer);
+new Vue({
+  el: '#app',
+  data: {
+    images: {
+      'thumbs': [
+        {'id':'id-1', 'url': 'https://www.kabanoki.net/wp-content/uploads/2020/03/0bb0967c26c457fa1721279ec265e655-150x150.png'},
+        {'id':'id-2', 'url': 'https://www.kabanoki.net/wp-content/uploads/2020/02/ae5f1e3a35457c937f15951b9c061c88-150x150.png'}
+      ],
+      'normal_size':[
+        {'id':'id-1', 'url': 'https://www.kabanoki.net/wp-content/uploads/2020/03/0bb0967c26c457fa1721279ec265e655-300x174.png'},
+        {'id':'id-2', 'url': 'https://www.kabanoki.net/wp-content/uploads/2020/02/ae5f1e3a35457c937f15951b9c061c88-300x155.png'}
+      ],
+      'large_size':[
+        {'id':'id-1', 'url': 'https://www.kabanoki.net/wp-content/uploads/2020/03/0bb0967c26c457fa1721279ec265e655.png'},
+        {'id':'id-2', 'url': 'https://www.kabanoki.net/wp-content/uploads/2020/02/ae5f1e3a35457c937f15951b9c061c88.png'}
+      ]
+    },
+    zoomerOptions: {
+        zoomFactor: 3, 
+        pane: 'pane', // ['pane', 'container-round', 'container']
+        hoverDelay: 300,
+        namespace: 'zoomer',
+        move_by_click:false,
+        scroll_items: 5,
+        choosed_thumb_border_color: "#bbdefb",
+        scroller_button_style: "line",
+        scroller_position: "left",
+        zoomer_pane_position: "right"
+    }
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding:125px;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p><input type="text" v-model="text" class="form-control"></p>
+    <h2><vue-typer :text="text" :initial-action="'erasing'"></vue-typer></h2>
+  </div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-typer/dist/vue-typer.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueTyper = window.VueTyper.VueTyper
+
+new Vue({
+  el: '#app',
+  components: {
+    'vue-typer': VueTyper
+  },
+  data: {
+    text: 'Hello World! I was registered locally!',
+    text2: [
+      'World! ',
+      'I was ',
+      'registered ',
+      'locally!'
+    ]
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+
+</script>
+</body>
+</html>
