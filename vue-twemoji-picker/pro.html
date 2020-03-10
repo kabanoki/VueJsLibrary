@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vanilla Sandbox Example</title>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="https://unpkg.com/vue@2.6.11/dist/vue.runtime.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@kevinfaguiar/vue-twemoji-picker@5.4.0/dist/vue-twemoji-picker.min.js"></script>
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function() {
+        (async function(){
+          const fetchedDataAllResponse = await fetch(
+            "https://unpkg.com/@kevinfaguiar/vue-twemoji-picker@5.4.0/emoji-data/en/emoji-all-groups.json"
+          );
+          window.EmojiDataAll = await fetchedDataAllResponse.json();
+
+          const fetchedGroupsResponse = await fetch(
+            "https://unpkg.com/@kevinfaguiar/vue-twemoji-picker@5.4.0/emoji-data/emoji-groups.json"
+          );
+          window.EmojiGroups = await fetchedGroupsResponse.json();
+
+          console.log(window.EmojiGroups);
+
+          // const TwemojiPickerComponent = new window.VueTwemojiPicker.TwemojiPicker(
+          //   {
+          //     propsData: {
+          //       emojiData: window.EmojiDataAll,
+          //       emojiGroups: window.EmojiGroups,
+          //       searchEmojisFeat: true,
+          //       searchEmojiPlaceholder: "Search here.",
+          //       searchEmojiNotFound: "Emojis not found.",
+          //       isLoadingLabel: "Loading..."
+          //     }
+          //   }
+          // );
+
+          // TwemojiPickerComponent.$mount("#twemoji-picker");
+
+          const TwemojiTextareaComponent = new window.VueTwemojiPicker.TwemojiTextarea(
+            {
+              propsData: {
+                emojiData: window.EmojiDataAll,
+                emojiGroups: window.EmojiGroups,
+                maxlength: 5
+              }
+            }
+          );
+
+          TwemojiTextareaComponent.$on("enterKey", function(msg) {
+            console.log(msg)
+          });
+          TwemojiTextareaComponent.$mount("#twemoji-textarea");
+        })();
+      });
+    </script>
+  </head>
+
+  <body>
+    <div style="margin: 5% 10%;"><div id="twemoji-picker"></div></div>
+    <div style="margin: 5% 10%;"><div id="twemoji-textarea"></div></div>
+  </body>
+</html>
