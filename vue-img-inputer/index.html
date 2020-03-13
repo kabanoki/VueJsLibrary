@@ -7,7 +7,7 @@
       color: #f00;
     }
     #app {
-      padding:125px;
+      padding:165px;
     }
     input {
       margin-bottom: 20px;
@@ -26,7 +26,11 @@
 </head>
 <body>
 <div id="app">
-  <img-inputer v-model="file" theme="light" size="large" placeholder="ファイルをここにドラッグする" />
+  <img-inputer v-model="file" 
+               theme="light" 
+               size="large" 
+               placeholder="ファイルをここにドラッグする" 
+               bottom-text="ファイルをドロップするかここをクリックしてください" />
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-img-inputer@2.1.6/dist/index.css">
