@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+    .box {
+      height: 1500px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-loading-button 
+    class="button"
+    @click.native="handleClick"
+    :loading="isLoading"
+    :styled="isStyled"
+  ></vue-loading-button>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-loading-button@0.2.0/dist/vue-loading-button.umd.js"></script>
+
+<script>
+console.log(window);
+
+const VueLoadingButton   = window['VueLoadingButton'].default;
+
+new Vue({
+  el: '#app',
+  components: {
+    VueLoadingButton,
+  },
+  data: {
+    isLoading: false,
+    isStyled: false
+  },
+  methods: {
+    handleClick:function() {
+      let self = this;
+      this.isLoading = true;
+      setTimeout(function(){
+        self.isLoading = false;
+      }, 3000);
+    }
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
