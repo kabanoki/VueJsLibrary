@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .error {
+      color: #f00;
+    }
+    #app {
+      padding: 50px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <fake3d-image-effect
+        centered
+        fill-height-content
+        tag="div"
+        image="./0bb0967c26c457fa1721279ec265e655.png"
+        image-map="./0bb0967c26c457fa1721279ec265e655.png"
+    >
+    </fake3d-image-effect>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@luxdamore/vue-fake3d-image-effect@1.3.0/dist/Fake3dImageEffect.css">
+<script src="https://cdn.jsdelivr.net/npm/@luxdamore/vue-fake3d-image-effect@1.3.0/dist/Fake3dImageEffect.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const Fake3dImageEffect = window['Fake3dImageEffect']['Fake3dImageEffect'];
+
+new Vue({
+  el: "#app",
+  components: {
+    'fake3d-image-effect': Fake3dImageEffect
+  }
+});
+  
+  (() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+      .filter((key) => {
+        return typeof iframe.contentWindow[key] === 'undefined';
+      })
+      .reduce((obj, key) => {
+        obj[key] = {value: window[key]};
+        return obj;
+      }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+ </script>
+</body>
+</html>
