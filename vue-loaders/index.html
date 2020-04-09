@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+  <style>
+
+.vue-loaders{
+  margin : 15px;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-loaders name="ball-beat" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-clip-rotate-multiple" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-clip-rotate-pulse" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-clip-rotate" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-grid-beat" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-grid-pulse" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-pulse-rise" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-pulse-sync" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-pulse" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-rotate" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-scale-multiple" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-scale-ripple-multiple" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-scale-ripple" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-scale" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-spin-fade-loader" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-triangle-path" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-zig-zag-deflect" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="ball-zig-zag" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="cube-transition" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="line-scale-party" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="line-scale-pulse-out-rapid" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="line-scale-pulse-out" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="line-scale" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="line-spin-fade-loader" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="pacman" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="semi-circle-spin" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="square-spin" color="red" scale="1"></vue-loaders>
+  <vue-loaders name="triangle-skew-spin" color="red" scale="1"></vue-loaders>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loaders@3.3.0/dist/vue-loaders.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-loaders@3.3.0/dist/vue-loaders.umd.js"></script>
+
+<script>
+console.log(window);
+const VueLoaders = window['VueLoaders'];
+Vue.use(VueLoaders);
+new Vue({
+  el: '#app', 
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

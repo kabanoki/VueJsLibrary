@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+	  
+
+.agile__actions{
+  margin-top: 20px
+}
+.agile__nav-button {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 24px;
+  transition-duration: .3s;
+}
+.agile__nav-button:hover {
+  color: #888
+}
+.agile__dot{
+  margin: 0 10px;
+}
+.agile__dot button{
+  background-color: #eee;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
+  height: 10px;
+  font-size: 0;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+  transition-duration: .3s;
+  width: 10px;
+}
+#app .agile__dot--current button, 
+#app .agile__dot:hover button{
+  background-color: #888
+}
+#app .slide {
+  align-items: center;
+  color: #fff;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  background-color: #f1c40f;
+}
+.slide h3{
+  font-size: 32px;
+  font-weight: 300;
+}
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <agile :autoplay="true" :autoplay-speed="5000">
+		<div class="slide" v-for="n in 4">
+			<h3>slide {{n}}</h3>
+		</div>
+	</agile>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-agile@1.0.11/dist/VueAgile.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-agile@1.0.11/dist/VueAgile.umd.min.js"></script>
+
+<script>
+console.log(window);
+
+const VueAgile = window['VueAgile'];
+new Vue({
+  el: '#app',
+  components: {
+    'agile':VueAgile
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
