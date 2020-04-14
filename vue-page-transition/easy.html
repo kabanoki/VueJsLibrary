@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+    main {
+      padding: 15px;
+      font-size: 130%;
+    }
+  </style>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="container">
+    <ul>
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/fade/default">Fade</router-link></li>
+      <li><router-link to="/zoom/default">Zoom</router-link></li>
+      <li><router-link to="/flip/x">Flip</router-link></li>
+      <li><router-link to="/overlay/up">Overlay</router-link></li>
+    </ul>
+    <main>
+      <vue-page-transition >
+        <router-view></router-view>
+      </vue-page-transition>
+    </main>
+  </div>  
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-page-transition@0.2.2/dist/vue-page-transition.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-page-transition@0.2.2/dist/vue-page-transition.browser.js"></script>
+
+<script>
+console.log(window);
+
+const router = new VueRouter({
+  routes: [
+  {
+    path: '/',
+    name: 'Vue Page Transition',
+    component: {
+      template: '<div>Vue Page Transition</div>' 
+    },
+    meta: { transition: 'fade' },
+  },
+  {
+    path: '/fade/default',
+    name: 'Default Fade - Vue Page Transition',
+    component: {
+      template: '<div>Default Fade - Vue Page Transition</div>' 
+    },
+    meta: { transition: 'fade' },
+  },
+  {
+    path: '/zoom/default',
+    name: 'Default Zoom - Vue Page Transition',
+    component: {
+      template: '<div>Default Zoom - Vue Page Transition</div>' 
+    },
+    meta: { transition: 'zoom' },
+  },
+  {
+    path: '/flip/x',
+    name: 'Flip X - Vue Page Transition',
+    component: {
+      template: '<div>Flip X - Vue Page Transition</div>' 
+    },
+    meta: { transition: 'flip-x' },
+  },
+  {
+    path: '/overlay/up',
+    name: 'Overlay Up - Vue Page Transition',
+    component: {
+      template: '<div>Overlay Up - Vue Page Transition</div>' 
+    },
+    meta: { transition: 'overlay-up' },
+  }, 
+]
+});
+const VuePageTransition = window['VuePageTransition'].default;
+Vue.use(VuePageTransition)
+
+new Vue({
+  el: '#app',
+  router
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
