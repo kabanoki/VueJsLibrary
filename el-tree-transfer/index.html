@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <tree-transfer :title="title" :from_data='fromData' :to_data='toData' :default-props="{label:'label'}" @addBtn='add' @removeBtn='remove' :mode='mode' height='540px' filter openAll></tree-transfer>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/el-tree-transfer@2.2.9/dist/treeTransfer.min.js"></script>
+
+<script>
+const treeTransfer = window.default;
+console.log(treeTransfer);
+new Vue({
+  el: '#app', 
+  comporents:{
+    'tree-transfer': treeTransfer
+  },
+  data: {
+    title: 'kabanoki.net',
+    mode: "transfer", // transfer addressList
+    fromData:[
+      {
+        id: "1",
+        pid: 0,
+        label: "一级 1",
+        children: [
+          {
+            id: "1-1",
+            pid: "1",
+            label: "二级 1-1",
+            disabled: true,
+            children: []
+          },
+          {
+            id: "1-2",
+            pid: "1",
+            label: "二级 1-2",
+            children: [
+              {
+                id: "1-2-1",
+                pid: "1-2",
+                children: [],
+                label: "二级 1-2-1"
+              },
+              {
+                id: "1-2-2",
+                pid: "1-2",
+                children: [],
+                label: "二级 1-2-2"
+              }
+            ]
+          }
+        ]
+      },
+    ],
+    toData:[]
+  },
+  methods:{
+      changeMode:function() {
+        if (this.mode == "transfer") {
+          this.mode = "addressList";
+        } else {
+          this.mode = "transfer";
+        }
+      },
+      add:function(fromData,toData,obj){
+        console.log("fromData:", fromData);
+        console.log("toData:", toData);
+        console.log("obj:", obj);
+      },
+      remove:function(fromData,toData,obj){
+        console.log("fromData:", fromData);
+        console.log("toData:", toData);
+        console.log("obj:", obj);
+      }
+    }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

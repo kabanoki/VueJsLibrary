@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <vfa-picker v-model="v">
+    <template v-slot:activator="{ on }">
+      <input v-model="v" @click="on" placeholder="Icon Class" type="text" />
+    </template>
+  </vfa-picker>
+</div>
+
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link  rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"/>
+<script src="https://cdn.jsdelivr.net/npm/vfa-picker@5.9.1/dist/vfa-picker.umd.min.js"></script>
+
+<script>
+const VueFontAwesomePicker = window['vfa-picker'].default;
+Vue.use(VueFontAwesomePicker);
+new Vue({
+  el: '#app', 
+  data: {
+    v: undefined
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <hotel-date-picker :i18n="ja"></hotel-date-picker>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-hotel-datepicker@2.7.8/dist/vue-hotel-datepicker.min.js"></script>
+
+<script>
+const HotelDatePicker = window['HotelDatePicker'].default;
+new Vue({
+  el: '#app', 
+  components: {
+    'hotel-date-picker': HotelDatePicker,
+  },
+  data: {
+    ja: {
+      night: '日',
+      nights: '日間',
+      'day-names': ['日', '月', '火', '水', '木', '金', '土'],
+      'check-in': 'チェックイン',
+      'check-out': 'チェックアウト',
+      'month-names': ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    }
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <vue-particles-use
+    :number="30"
+    :area="2000"
+    color="#ff0000"
+    shape="star"
+    :lineWidth="5"
+    lineColor="#ff0000"
+    :opacity="0.5"
+    :speed="20"
+    hoverMode="grab"
+    clickMode="bubble"
+  >
+  </vue-particles-use>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-particles-use@1.0.1/dist/vue-particles-use.umd.min.js"></script>
+
+
+
+<script>
+const VueParticlesUse = window['vue-particles-use'].default;
+
+
+Vue.use(VueParticlesUse)
+new Vue({
+  el: '#app'
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
