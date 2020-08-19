@@ -18,6 +18,7 @@
     :fields="['name', 'nickname', 'email', 'gender']"
     :api-mode="false"
     :data="localData"
+    per-page="3"
   >
     <div slot="gender-slot" slot-scope="props">
       <span v-if="props.rowData.gender === 'M'" class="ui teal label"><i class="large man icon"></i>Male</span>
@@ -29,22 +30,16 @@
   </vuetable>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script src="https://unpkg.com/vuetable-2@next"></script>
+<script src="https://unpkg.com/vuetable-2@1.6.0"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetable-2@1.7.5/dist/vuetable-2.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.css">
 
 <script>
-console.log(window);
-
-const {Vuetable} = window.Vuetable;
-
-console.log(Vuetable)
+const Vuetable = window.Vuetable;
+Vue.use(Vuetable);
 
 new Vue({
 	el: '#app',
-  components: {
-    vuetable: Vuetable
-  },
   data: {
     localData: [
       {"id":1,"name":"Noelia O'Kon","nickname":"asperiores","email":"otho.smitham@example.com","birthdate":"1978-06-28 00:00:00","gender":"F","salary":"13098.00","group_id":2,"created_at":"2017-01-01 07:21:10","updated_at":"2017-01-01 07:21:10","age":41,"group":{"id":2,"name":"Exec","description":"Executives"},"address":{"id":1,"user_id":1,"line1":"0888 Aniyah Locks\nLake Bridie, NJ 51086","line2":"Cayman Islands","zipcode":"92991-2805","mobile":"1-742-816-9238x848","fax":"(484)438-4697x8638"}},
@@ -65,6 +60,24 @@ new Vue({
     ]
   }
 });
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+  <style>
+.tooltip {
+    display: block!important;
+    z-index: 10000
+}
+.tooltip .tooltip-inner {
+    background: #000;
+    color: #fff;
+    border-radius: 16px;
+    padding: 5px 10px 4px
+}
+.tooltip .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: #000;
+    z-index: 1
+}
+.tooltip[x-placement^=top] {
+    margin-bottom: 5px
+}
+.tooltip[x-placement^=top] .tooltip-arrow {
+    border-width: 5px 5px 0;
+    border-left-color: transparent!important;
+    border-right-color: transparent!important;
+    border-bottom-color: transparent!important;
+    bottom: -5px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0
+}
+.tooltip[x-placement^=bottom] {
+    margin-top: 5px
+}
+.tooltip[x-placement^=bottom] .tooltip-arrow {
+    border-width: 0 5px 5px;
+    border-left-color: transparent!important;
+    border-right-color: transparent!important;
+    border-top-color: transparent!important;
+    top: -5px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0
+}
+.tooltip[x-placement^=right] {
+    margin-left: 5px
+}
+.tooltip[x-placement^=right] .tooltip-arrow {
+    border-width: 5px 5px 5px 0;
+    border-left-color: transparent!important;
+    border-top-color: transparent!important;
+    border-bottom-color: transparent!important;
+    left: -5px;
+    top: calc(50% - 5px);
+    margin-left: 0;
+    margin-right: 0
+}
+.tooltip[x-placement^=left] {
+    margin-right: 5px
+}
+.tooltip[x-placement^=left] .tooltip-arrow {
+    border-width: 5px 0 5px 5px;
+    border-top-color: transparent!important;
+    border-right-color: transparent!important;
+    border-bottom-color: transparent!important;
+    right: -5px;
+    top: calc(50% - 5px);
+    margin-left: 0;
+    margin-right: 0
+}
+.tooltip.popover .popover-inner {
+    background: #f9f9f9;
+    color: #000;
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0 5px 12px rgba(0,0,0,.1)
+}
+.tooltip.popover .popover-arrow {
+    border-color: #f9f9f9
+}
+.tooltip[aria-hidden=true] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s,visibility .15s
+}
+.tooltip[aria-hidden=false] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .15s
+}
+.mention-item {
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.mention-selected {
+  background: rgb(192, 250, 153);
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <mentionable
+    :keys="['@', '#']"
+    :items="items"
+    offset="6"
+    @open="onOpen"
+  >
+    <textarea v-model="text" class="form-control"></textarea>
+    <template #no-result>
+      <div class="dim">
+        No result
+      </div>
+    </template>
+    <template #item-@="{ item }">
+      <div class="user">
+        {{ item.value }}
+        <span class="dim">
+          ({{ item.firstName }})
+        </span>
+      </div>
+    </template>
+    <template #item-#="{ item }">
+      <div class="issue">
+        <span class="number">
+          #{{ item.value }}
+        </span>
+        <span class="dim">
+          {{ item.label }}
+        </span>
+      </div>
+    </template>
+  </mentionable>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/v-tooltip"></script>
+<script>
+const vTooltip  = VTooltip;
+Vue.use(VTooltip);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vue-mention@0.1.7/dist/vue-mention.min.js"></script>
+
+<script>
+const Mentionable  = window['VueMention'].Mentionable;
+
+new Vue({
+  el: '#app',
+  components: {
+    'mentionable': Mentionable,
+  },
+  data: {
+    text: '',
+    items: [],
+    users: [
+      {
+        value: 'akryum',
+        firstName: 'Guillaume',
+      },
+      {
+        value: 'posva',
+        firstName: 'Eduardo',
+      },
+      {
+        value: 'atinux',
+        firstName: 'Sébastien',
+      },
+    ],
+    issues: [
+      {
+        value: 123,
+        label: 'Error with foo bar',
+        searchText: 'foo bar'
+      },
+      {
+        value: 42,
+        label: 'Cannot read line',
+        searchText: 'foo bar line'
+      },
+      {
+        value: 77,
+        label: 'I have a feature suggestion',
+        searchText: 'feature'
+      }
+    ]
+  },
+  methods: {
+    onOpen:function (key) {
+      this.items = key === '@' ? this.users : this.issues
+    },
+  },
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

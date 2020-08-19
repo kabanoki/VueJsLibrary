@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    
     #app {
-      padding:165px;
+      padding:65px;
       width: 100%;
     }
     .error {
@@ -18,51 +17,59 @@
       padding: 5px;
       display: inline-block;
     }
-
   </style>
   <style>
-
+    .box {
+      height: 2000px;
+    }
   </style>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
 <div id="app">
-  <gb-social-button
-    :icon-path="iconPath"
-    network="wordpress"
-    size="small"
-    theme="light"
-  >
-    Wordpress
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="facebook"
-    size="small"
-    theme="light"
-  >
-    FaceBook
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="twitter"
-    size="small"
-    theme="light"
-  >
-  Twitter
-  </gb-social-button>
+  <p>この端末は「<strong>{{ViewportLabel()}}</strong>」ですね？</p>
 </div>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script>
-  const VueDarkMode =[];
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@growthbunker/vuesocial@0.1.2/dist/vuesocial.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-viewports@3.1.2/dist/vue-viewports.js"></script>
 
 <script>
+const VueViewports = window['VueViewports'];
+
+Vue.use(VueViewports, [
+  {
+    rule: '350px',
+    label: 'mobile'
+  },
+  {
+    rule: '380px',
+    label: 'tablet'
+  },
+  {
+    rule: '450px',
+    label: 'desktop'
+  },
+  {
+    rule: '1920px',
+    label: 'hd-desktop'
+  },
+  {
+    rule: '2560px',
+    label: 'qhd-desktop'
+  },
+  {
+    rule: '3840px',
+    label: 'uhd-desktop'
+  }
+]);
 new Vue({
   el: '#app',
   data: {
-    iconPath:'https://raw.githubusercontent.com/growthbunker/vuesocial/09bfd3fa5befaf32a8bf341428929cc04b5ec581/assets/networks/'
+    options: options
+  },
+  methods: {
+    ViewportLabel:function(){
+      return this.$currentViewport.label;
+    }
   }
 });
 

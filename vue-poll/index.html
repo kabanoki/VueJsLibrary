@@ -5,7 +5,7 @@
   <style>
     
     #app {
-      padding:165px;
+      padding:65px;
       width: 100%;
     }
     .error {
@@ -18,51 +18,41 @@
       padding: 5px;
       display: inline-block;
     }
-
   </style>
   <style>
-
+    .box {
+      height: 2000px;
+    }
   </style>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
 <div id="app">
-  <gb-social-button
-    :icon-path="iconPath"
-    network="wordpress"
-    size="small"
-    theme="light"
-  >
-    Wordpress
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="facebook"
-    size="small"
-    theme="light"
-  >
-    FaceBook
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="twitter"
-    size="small"
-    theme="light"
-  >
-  Twitter
-  </gb-social-button>
+  <vue-poll v-bind="options" @addvote="addVote"/>
 </div>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-poll@0.1.8/dist/vue-poll.min.js"></script>
 <script>
-  const VueDarkMode =[];
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@growthbunker/vuesocial@0.1.2/dist/vuesocial.min.js"></script>
+const VuePoll = window['VuePoll'].install;
+Vue.use(VuePoll);
 
-<script>
 new Vue({
   el: '#app',
   data: {
-    iconPath:'https://raw.githubusercontent.com/growthbunker/vuesocial/09bfd3fa5befaf32a8bf341428929cc04b5ec581/assets/networks/'
+    options: {
+      question: 'あなたのお気に入りの <strong>JS</strong> フレームワークは何ですか?',
+      answers: [
+        { value: 1, text: 'Vue', votes: 53 },
+        { value: 2, text: 'React', votes: 35 },
+        { value: 3, text: 'Angular', votes: 30 },
+        { value: 4, text: 'Other', votes: 10 } 
+      ]
+    }
+  },
+  methods: {
+    addVote: function(obj){
+      console.log('You voted ' + obj.value + '!');
+    }
   }
 });
 

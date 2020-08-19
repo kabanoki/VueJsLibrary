@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    
+    #app {
+      padding:165px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+
+  </style>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div :key="annotations.type">
+    <div>
+      <h3>
+        <rough-notation
+          :type="annotations.type"
+          :color="annotations.color"
+          :is-show="annotations.show"
+        >{{ annotations.type }}</rough-notation>
+      </h3>
+      <p>
+        {{ annotations.content.p1 }}
+        <rough-notation
+          :type="annotations.type"
+          :color="annotations.color"
+          :is-show="annotations.show"
+        >{{ annotations.type }}</rough-notation>
+        {{ annotations.content.p2 }}
+      </p>
+      <button @click="changeStatus">{{buttonText}}</button>
+      <select v-model="annotations.type">
+        <option v-for="item in type" :value="item">{{item}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-rough-notation@0.1.10/dist/vue-rough-notation.min.js"></script>
+
+<script>
+const VueRoughNotation = window['VueRoughNotation'];  
+Vue.use(VueRoughNotation);
+new Vue({
+  el: '#app', 
+  data: {
+    annotations: 
+    {
+      show: false,
+      type: "underline",
+      color: "#b71c1c",
+      content: {
+        p1: "Create a sketchy",
+        draw: "underline",
+        p2: "below an element."
+      }
+    },
+    type: [
+      'underline',
+      'box',
+      'circle',
+      'highlight',
+      'strike-through',
+      'crossed-off',
+    ],
+    buttonText: 'Show'
+  },
+  methods: {
+    changeStatus: function(){
+      this.annotations.show = this.annotations.show == false;
+      this.buttonText = this.annotations.show == false ? 'Show':'Hide';
+    }
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

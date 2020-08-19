@@ -5,7 +5,7 @@
   <style>
     
     #app {
-      padding:165px;
+      padding:65px;
       width: 100%;
     }
     .error {
@@ -18,52 +18,52 @@
       padding: 5px;
       display: inline-block;
     }
-
   </style>
   <style>
-
+    .box {
+      height: 2000px;
+    }
   </style>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
 <div id="app">
-  <gb-social-button
-    :icon-path="iconPath"
-    network="wordpress"
-    size="small"
-    theme="light"
-  >
-    Wordpress
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="facebook"
-    size="small"
-    theme="light"
-  >
-    FaceBook
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="twitter"
-    size="small"
-    theme="light"
-  >
-  Twitter
-  </gb-social-button>
+  <vue-roll-list
+  v-if="list.length"
+  :list="list"
+  :fetch="getData"
+  :count="count"
+  :set-loading="true"
+>
+  <ul slot-scope="{ list }">
+    <li
+      v-for="item in list"
+      :key="item.id"
+      :style="{ width: `${item.width}px`, backgroundColor: item.style.color }"
+    >
+      {{ item.index + 1 }}
+    </li>
+  </ul>
+  <ul slot="loading">
+    <li
+      v-for="item in count"
+      :key="item"
+    >
+      loading
+    </li>
+  </ul>
+</vue-roll-list>
 </div>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script>
-  const VueDarkMode =[];
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@growthbunker/vuesocial@0.1.2/dist/vuesocial.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-roll-list@0.1.19/dist/vue-roll-list.umd.min.js"></script>
 
 <script>
+const VueRollList = window['vue-roll-list'];  
 new Vue({
-  el: '#app',
-  data: {
-    iconPath:'https://raw.githubusercontent.com/growthbunker/vuesocial/09bfd3fa5befaf32a8bf341428929cc04b5ec581/assets/networks/'
-  }
+  el: '#app', 
+  components: {
+    'vue-roll-list': VueRollList
+  },
 });
 
 (() => {

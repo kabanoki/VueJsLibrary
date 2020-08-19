@@ -5,7 +5,7 @@
   <style>
     
     #app {
-      padding:165px;
+      padding:65px;
       width: 100%;
     }
     .error {
@@ -18,52 +18,30 @@
       padding: 5px;
       display: inline-block;
     }
-
   </style>
   <style>
-
+    .box {
+      height: 2000px;
+    }
   </style>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
 <div id="app">
-  <gb-social-button
-    :icon-path="iconPath"
-    network="wordpress"
-    size="small"
-    theme="light"
-  >
-    Wordpress
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="facebook"
-    size="small"
-    theme="light"
-  >
-    FaceBook
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="twitter"
-    size="small"
-    theme="light"
-  >
-  Twitter
-  </gb-social-button>
+  <k-progress :percent="10"></k-progress>
+  <k-progress :percent="20" active></k-progress>
+  <k-progress :percent="80" status="success" type="lump" ></k-progress>
+  <k-progress :percent="40" status="error" :line-height="12"></k-progress>
 </div>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script>
-  const VueDarkMode =[];
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@growthbunker/vuesocial@0.1.2/dist/vuesocial.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/k-progress@1.5.0/dist/k-progress.umd.min.js"></script>
 
 <script>
+const KProgress = window['k-progress'].default;  
+Vue.component('k-progress', KProgress);
 new Vue({
-  el: '#app',
-  data: {
-    iconPath:'https://raw.githubusercontent.com/growthbunker/vuesocial/09bfd3fa5befaf32a8bf341428929cc04b5ec581/assets/networks/'
-  }
+  el: '#app', 
+
 });
 
 (() => {

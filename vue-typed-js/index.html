@@ -26,44 +26,20 @@
 </head>
 <body>
 <div id="app">
-  <gb-social-button
-    :icon-path="iconPath"
-    network="wordpress"
-    size="small"
-    theme="light"
-  >
-    Wordpress
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="facebook"
-    size="small"
-    theme="light"
-  >
-    FaceBook
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="twitter"
-    size="small"
-    theme="light"
-  >
-  Twitter
-  </gb-social-button>
+  <vue-typed-js :strings="['First text', 'Second Text']" :loop="true" :type-speed="100">
+    <h1 class="typing"></h1>
+  </vue-typed-js>
 </div>
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script>
-  const VueDarkMode =[];
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@growthbunker/vuesocial@0.1.2/dist/vuesocial.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-typed-js@0.1.2/dist/vue-typed-js.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-typed-js@0.1.2/dist/vue-typed-js.browser.js"></script>
 
 <script>
+const VueTypedJs = window['VueTypedJs'].default;
+Vue.use(VueTypedJs);
 new Vue({
-  el: '#app',
-  data: {
-    iconPath:'https://raw.githubusercontent.com/growthbunker/vuesocial/09bfd3fa5befaf32a8bf341428929cc04b5ec581/assets/networks/'
-  }
+  el: '#app', 
 });
 
 (() => {

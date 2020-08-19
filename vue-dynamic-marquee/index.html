@@ -7,6 +7,7 @@
     #app {
       padding:165px;
       width: 100%;
+      height: 1000px;
     }
     .error {
       color: #f00;
@@ -26,44 +27,19 @@
 </head>
 <body>
 <div id="app">
-  <gb-social-button
-    :icon-path="iconPath"
-    network="wordpress"
-    size="small"
-    theme="light"
-  >
-    Wordpress
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="facebook"
-    size="small"
-    theme="light"
-  >
-    FaceBook
-  </gb-social-button>
-  <gb-social-button
-    :icon-path="iconPath"
-    network="twitter"
-    size="small"
-    theme="light"
-  >
-  Twitter
-  </gb-social-button>
+  <dynamic-marquee>
+    <div  v-for="i in 10" :key="i">{{i}}</div>
+  </dynamic-marquee>
 </div>
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<script>
-  const VueDarkMode =[];
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@growthbunker/vuesocial@0.1.2/dist/vuesocial.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-dynamic-marquee@0.1.6/dist/vue-dynamic-marquee.umd.min.js"></script>
 
 <script>
+const DynamicMarquee  = window['vue-dynamic-marquee'];
+Vue.component('dynamic-marquee', DynamicMarquee);
 new Vue({
-  el: '#app',
-  data: {
-    iconPath:'https://raw.githubusercontent.com/growthbunker/vuesocial/09bfd3fa5befaf32a8bf341428929cc04b5ec581/assets/networks/'
-  }
+  el: '#app'
 });
 
 (() => {
