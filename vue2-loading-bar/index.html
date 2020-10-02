@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      padding:65px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+  </style>
+  <style>
+    .box {
+      height: 2000px;
+    }
+
+    #app .LoadingBar{
+  height: 15px;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <loading-bar
+    :on-error-done="errorDone"
+    :on-progress-done="progressDone"
+    :progress="progress"
+    :direction="direction"
+    :error="error" >
+  </loading-bar>
+  <div>
+    <p align="center">Progress is {{ progress }}%</p>
+    <div class="button-container">
+      <button type="button" @click="progressTo(30)">Progress to 30</button>
+      <button type="button" @click="progressTo(50)">Progress to 50</button>
+      <button type="button" @click="progressTo(100)">Progress to 100</button>
+      <button type="button" @click="changeDirection">Change Direction</button>
+      <button class="error" type="button" @click="setToError(true)">Give An Error</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue2-loading-bar@0.0.1/build/vue2-loading-bar.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue2-loading-bar@0.0.1/src/css/loading-bar.css">
+
+<script>
+const LoadingBar = window['LoadingBar'];
+
+new Vue({
+  el: '#app',
+  components: {
+    LoadingBar: LoadingBar
+  },
+  data: {
+    progress: 0,
+    error: false,
+    direction: 'right'
+  },
+  methods: {
+    progressTo: function (val) {
+      this.progress = val;
+    },
+    setToError: function (bol) {
+      this.error = bol;
+    },
+    changeDirection: function (direction) {
+      if(this.progress >= 0){
+        this.progress = 100;
+      }
+      this.direction = this.direction === 'right' ? 'left' : 'right';
+    },
+    // Callback
+    errorDone:function(){
+      this.error = false
+    },
+    progressDone:function() {
+      this.progress = 0
+    },
+  },
+  mounted: function () {
+    var me = this;
+    me.progress = 10;
+    for (var i = 0; i < 30; i++) {
+      if(i > 20 && i < 29){
+        setTimeout(function () {
+          me.progress += 5;
+        },50*i);
+      }else{
+        setTimeout(function () {
+          me.progress ++;
+        },10*i);
+      }
+    }
+    setTimeout(function () {
+      me.progress = 100;
+    },1500);
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      padding:65px;
+      width: 100%;
+    }
+    .error {
+      color: #f00;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    .img {
+      padding: 5px;
+      display: inline-block;
+    }
+  </style>
+  <style>
+    .box {
+      height: 2000px;
+    }
+
+
+  </style>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<div id="app">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon1"  @click="setCookie()">Set Cookie Button</button>
+    </div>
+    <input type="text" class="form-control" placeholder="Enter cookie value" aria-label="Example text with button addon" aria-describedby="button-addon1" v-model="CookieValue">
+  </div>
+  <pre v-html="getCookie()"></pre>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-cookies@1.7.3/vue-cookies.js"></script>
+
+<script>
+new Vue({
+  el: '#app',
+  data:{
+    CookieValue: ''
+  },
+  methods: {
+    getCookie:function(key){
+      return "【Get Cookie Value】 "+this.$cookies.get('CookieValue');
+    },
+    setCookie:function(){
+      this.$cookies.config(60 * 60 * 24 * 30,'');
+      this.$cookies.set('CookieValue', this.CookieValue);
+      location.reload();
+    }
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
