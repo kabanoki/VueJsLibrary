@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 100%;
+      height: 300px;
+    }
+    .error {
+      color: #f00;
+    }
+  </style>
+  <style>
+    .box {
+      padding: 10px;
+      border: dotted 1px;
+      width: 10%;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <p style="clear: both;"><button @click="show = !show">TOGGLE</button></p>
+  <fade-transition duration="600">
+    <div class="box" v-show="show">
+      <p>Fade transition</p>
+    </div>
+  </fade-transition>
+  <zoom-center-transition duration="600">
+    <div class="box" v-show="show">
+      <p>ZoomCenter transition</p>
+    </div>
+  </zoom-center-transition>
+  <zoom-x-transition duration="600">
+    <div class="box" v-show="show">
+      <p>ZoomX transition</p>
+    </div>
+  </zoom-x-transition>
+  <zoom-y-transition duration="600">
+    <div class="box" v-show="show">
+      <p>ZoomY transition</p>
+    </div>
+  </zoom-y-transition>
+  <collapse-transition duration="600">
+    <div class="box" v-show="show">
+      <p>Collapse transition</p>
+    </div>
+  </collapse-transition>
+  <scale-transition duration="600">
+    <div class="box" v-show="show">
+      <p>Scale transition</p>
+    </div>
+  </scale-transition>
+  <slide-x-left-transition duration="600">
+    <div class="box" v-show="show">
+      <p>SlideXLeft transition</p>
+    </div>
+  </slide-x-left-transition>
+  <slide-x-right-transition duration="600">
+    <div class="box" v-show="show">
+      <p>SlideXRight transition</p>
+    </div>
+  </slide-x-right-transition>
+  <slide-y-up-transition duration="600">
+    <div class="box" v-show="show">
+      <p>SlideYUp transition</p>
+    </div>
+  </slide-y-up-transition>
+  <slide-y-down-transition duration="600">
+    <div class="box" v-show="show">
+      <p>SlideYDown transition</p>
+    </div>
+  </slide-y-down-transition>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue2-transitions@0.3.0/dist/vue2-transitions.min.js"></script>
+
+<script>
+const FadeTransition = window['vue2Transitions'].FadeTransition;
+const ZoomCenterTransition = window['vue2Transitions'].ZoomCenterTransition;
+const ZoomXTransition = window['vue2Transitions'].ZoomXTransition;
+const ZoomYTransition = window['vue2Transitions'].ZoomYTransition;
+const CollapseTransition = window['vue2Transitions'].CollapseTransition;
+const ScaleTransition = window['vue2Transitions'].ScaleTransition;
+const SlideXLeftTransition = window['vue2Transitions'].SlideXLeftTransition;
+const SlideXRightTransition = window['vue2Transitions'].SlideXRightTransition;
+const SlideYUpTransition = window['vue2Transitions'].SlideYUpTransition;
+const SlideYDownTransition = window['vue2Transitions'].SlideYDownTransition;
+
+new Vue({
+  el: '#app',
+  components: {
+    FadeTransition,
+    ZoomCenterTransition,
+    ZoomXTransition,
+    ZoomYTransition,
+    CollapseTransition,
+    ScaleTransition,
+    SlideXLeftTransition,
+    SlideXRightTransition,
+    SlideYUpTransition,
+    SlideYDownTransition
+  },
+  data: {
+    show: true
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
