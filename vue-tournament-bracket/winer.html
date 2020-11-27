@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 100%;
+      height: 300px;
+      margin: 300px;
+    }
+    .error {
+      color: #f00;
+    }
+  </style>
+  <style>
+    #app .vtb-item-players{
+      margin-top: 2px;
+    }
+    #app .vtb-item-players .defeated{
+      background-color: white;
+      color: black;
+      border: solid 1px grey;
+    }
+    #app .vtb-item-players .defeated.highlight{
+      background-color: #dcdcdc;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <bracket :rounds="rounds">
+    <template #player="{ player }" #player-extension-bottom="{ match }">
+      <span @click="setWiner(player, match)">{{ player.name }}</span>
+    </template>
+  </bracket>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-tournament-bracket@2.1.2/dist/vue-tournament-bracket.umd.min.js"></script>
+
+<script>
+const Bracket = window['vue-tournament-bracket'];
+
+const rounds = [
+    //Semi finals
+    {
+        games: [
+            {
+                id: 1,
+                next: 3,
+                player1: { id: "1", name: "Competitor 1", winner: false },
+                player2: { id: "4", name: "Competitor 4", winner: false },
+            },
+            {
+                id: 2,
+                next: 3,
+                player1: { id: "5", name: "Competitor 5", winner: false },
+                player2: { id: "8", name: "Competitor 8", winner: false },
+            }
+        ]
+    },
+    //Final
+    {
+        games: [
+            {
+                id: 3,
+                player1: { id: "999", name: "?", winner: false },
+                player2: { id: "1000", name: "?", winner: false },
+            }
+        ]
+    }
+];
+new Vue({
+  el: '#app',
+  components: {
+    bracket: Bracket
+  },
+  data: {
+    rounds: rounds
+  },
+  methods: {
+    setWiner: function(player) {
+      console.log(player);
+
+      if(confirm(player.name + "を勝者としますか？"))
+
+    }
+  },
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
