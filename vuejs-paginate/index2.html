@@ -1,0 +1,141 @@
+<html>
+<head>
+  <style>
+    #app {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div id="app" class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="col-md-6">
+        <input type="text" v-model="search" class="form-control" placeholder="Search Word">
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>no</th>
+            <th>title</th>
+            <th>author</th>
+            <th>email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in getLists">
+            <td>{{item.no}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.author}}</td>
+            <td>{{item.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <paginate
+        v-model="currentPage"
+        id="datatable_pagination"
+        :page-count="getPageCount"
+        :initial-page="4"
+        :page-range="3"
+        :margin-pages="2"
+        :click-handler="addPage"
+        :hide-prev-next="true"
+        :prev-text="'＜'"
+        :next-text="'＞'"
+        :container-class="'pagination'"
+        :page-class="'paginate_item page-item'"
+        :page-link-class="'paginate_button page-link'"
+        :prev-class="'paginate_item page-item'"
+        :prev-link-class="'paginate_button previous page-link'"
+        :next-class="'paginate_item page-item'"
+        :next-link-class="'paginate_button next page-link'">
+      </paginate>
+    </div>
+  </div>
+</div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vuejs-paginate@latest"></script>
+<script src="https://unpkg.com/vue-router@3.1.5/dist/vue-router.js"></script>
+
+<script>
+var items = [];
+
+for(var i=1; i<=105; i++){
+  items.push({
+    no : i,
+    title: 'item-'+i,
+    author: 'kabanoki'+i,
+    email: 'hoge@hoge.com'+i
+  });
+}
+
+const router = new VueRouter({
+  base: '/',
+  routes: [{
+    path: '/pages/:page',
+    name: 'page' 
+  }],
+});
+
+Vue.component('paginate', VuejsPaginate)
+
+new Vue({
+  router,
+  data:function(){
+    return {
+        search: this.$route.query.search ? decodeURI(this.$route.query.search) : '',
+        items: items,
+        parPage: 5,
+        currentPage: Number(this.$route.params.page) || 1
+    }
+  },
+   methods: {
+    addPage: function (pageNum) {
+      this.$router.push({
+        name: 'page',
+        params: {
+          page: this.currentPage
+        },
+        query: Object.assign({}, this.$route.query)
+      }).catch(function(err){console.log(err)});
+    }
+   },
+   computed:{
+      getItems: function () {
+        let self = this;
+        return self.items.filter(function (item) {
+          return (
+            (String(item.title).indexOf(String(self.search)) !== -1)
+          )
+        });
+      },
+      getLists: function(){
+        let current = this.currentPage * this.parPage;
+        let start = current - this.parPage;
+
+        return this.getItems.slice(start, current);
+      },
+      getPageCount: function() {
+        return Math.ceil(this.getItems.length / this.parPage);
+      }
+    },
+    watch:{
+        search: function(newValue){
+            // queryに設定
+            this.$route.query.search = newValue;
+            // paramsに変更がないとqueryが適用されない
+            this.currentPage = 0;
+            this.addPage();
+            this.currentPage = 1;
+            this.addPage();
+        }
+    }
+ }).$mount('#app');
+ </script>
+</body>
+</html>
