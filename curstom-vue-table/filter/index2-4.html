@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Section 2-4</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <lable for="search">検索:</lable>
+              <input type="text" id="search" class="form-control" v-model="search">
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <lable for="cateogry">カテゴリー:</lable>
+              <select id="cateogry" class="form-control" v-model="selectCategory">
+                <option value="">カテゴリーを選択</option>
+                <option v-for="category in categories" :value="category.id">{{category.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <lable for="date">日付:</lable>
+              <vuejs-datepicker
+                wrapper-class="input-group-merge"
+                :bootstrap-styling="true"
+                :format="format"
+                :language="ja"
+                :clear-button="true"
+                v-model="selectDate"></vuejs-datepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th v-for="column in columns">{{column}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in getRows">
+            <td v-for="column in columns">{{getRowValue(row, column)}}</td>
+          </tr>
+        </tbody>
+        <tfoot class="thead-light">
+          <tr>
+            <th v-for="column in columns">{{column}}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>  
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vuejs-datepicker@1.6.2/dist/vuejs-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuejs-datepicker@1.6.2/dist/locale/translations/ja.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.25.3/moment.min.js"></script>
+<script src="https://unpkg.com/vue-router@3.1.5/dist/vue-router.js"></script>
+
+<script>
+let categories = [
+  {id:1, name:'管理者'},
+  {id:2, name:'一般'},
+  {id:3, name:'グループ'},
+  {id:4, name:'企業'},
+];
+
+let rows = [];
+for(let n=1; n<=100; n++){
+  let i = n%7;
+  let s = n%4;
+  rows.push({
+      'id': n,
+      'name': 'name'+n,
+      'email': 'info'+n+'@hoge.com',
+      'category': categories[s],
+      'created_at': moment().subtract(i, 'days').toDate()
+  });
+}
+
+const router = new VueRouter();
+
+new Vue({
+  el: '#app',
+  router,
+  data: function(){
+    return {
+      columns: [
+        'id',
+        'name',
+        'email',
+        'category',
+        'created_at'
+      ],
+      rows: rows,
+      categories: categories,
+      format: 'yyyy-MM-dd',
+      ja: vdp_translation_ja.js,
+      search: this.$route.query.search ? decodeURI(this.$route.query.search) : '',
+      selectCategory: this.$route.query.selectCategory ? decodeURI(this.$route.query.selectCategory) : '',
+      selectDate: this.$route.query.selectDate ? decodeURI(this.$route.query.selectDate) : null
+    }
+  },
+  components: {
+    'vuejs-datepicker':vuejsDatepicker
+  },
+  computed: {
+    getRows: function(){
+      let self = this;
+      return this.rows.filter(function(row){
+          return (
+            (String(row.id).indexOf(self.search) !== -1)
+            || (String(row.name).indexOf(self.search) !== -1)
+            || (String(row.email).indexOf(self.search) !== -1)
+          ) && (
+            (String(row.category.id).indexOf(String(self.selectCategory)) !== -1)
+          ) && (
+            (self.selectDate === null)
+            || (moment(row.created_at).isSame(self.selectDate, 'day'))
+          );
+      });
+    }
+  },
+  methods: {
+    getRowValue: function(row, column){
+      let value = row[column];
+
+      if(column === 'category')
+        return value['name'];
+
+      if(column === 'created_at')
+        return moment(value).format('yyyy-MM-DD');
+
+      return value;
+    },
+    updateRoutQuery:function(query){
+      this.$router.replace({
+          name: 'page',
+          params: Object.assign({}, {page: this.currentPage}),
+          query: query
+      }).catch(function(err){console.log(err)});
+    },
+    updateWatchRoutQuery:function(key, newValue){
+      if(this.$route.query[key] == newValue)
+          return;
+
+      let query = Object.assign({}, this.$route.query);
+      query[key] = newValue;
+
+      if(query[key] == '')
+          delete query[key];
+
+      this.currentPage = 1;
+      this.updateRoutQuery(query);
+    }
+  },
+  watch: {
+    $route (to, from) {
+        const watch = [
+            {queryKey: 'search', dataKey:'search', defaultValue:''},
+            {queryKey: 'selectCategory', dataKey:'selectCategory', defaultValue:''},
+            {queryKey: 'selectDate', dataKey:'selectDate', defaultValue: null},
+        ];
+
+        for (let i=0; i<watch.length; ++i) {
+            let key = watch[i].queryKey;
+            let defaultValue = watch[i].defaultValue;
+            let dataKey = watch[i].dataKey;
+            if(this.$route.query[key] || (from.query[key] && !this.$route.query[key]))
+                this[dataKey] = this.$route.query[key] ? decodeURI(this.$route.query[key]) : defaultValue;
+        }
+    },
+    search: function(newValue){
+        let key = 'search';
+        this.updateWatchRoutQuery(key, newValue);
+    },
+    selectCategory: function(newValue){
+        let key = 'selectCategory';
+        this.updateWatchRoutQuery(key, newValue);
+    },
+    selectDate: function(newValue){
+        let key = 'selectDate';
+        let value = null;
+
+        if(newValue !== null)
+          value = moment(newValue).format('yyyy-MM-DD');
+
+        this.updateWatchRoutQuery(key, value);
+    }
+  }
+}).$mount('#app');
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

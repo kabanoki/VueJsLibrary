@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      width: 100%;
+      height: 300px;
+      margin: 120px 300px;
+    }
+    .error {
+      color: #f00;
+    }
+  </style>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-mouse-menu@2.1.2/dist/index.js"></script>
+<!-- https://github.com/zgj233/vue-mouse-menu#readme -->
+<script>
+
+
+new Vue({
+  el: '#app',
+
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>
