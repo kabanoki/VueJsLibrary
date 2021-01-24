@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+
+  </style>
+</head>
+<body>
+  <div id="app">
+    <histogram-slider
+    style="margin: 200px auto"
+    :width="600"
+    :bar-height="100"
+    :data="data"
+    :prettify="prettify"
+    :drag-interval="true"
+    :force-edges="false"
+    :colors="['#4facfe', '#00f2fe']"
+  ></histogram-slider>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-histogram-slider@0.3.8/dist/histogram-slider.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue-histogram-slider@0.3.8/dist/histogram-slider.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+  
+<script>
+const HistogramSlider = window['histogram-slider'];
+const DateList = [];
+
+for(let i=120; i>=0; i--)
+{
+  DateList.push(moment().subtract(i, 'M').format());
+}
+
+new Vue({
+  el: '#app',
+  components: {
+    HistogramSlider
+  },
+  data() {
+    return {
+      data: DateList.map(d => new Date(d).valueOf()),
+      prettify: function(ts) {
+        return new Date(ts).toLocaleDateString('ja', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        })
+      }
+    }
+  },  
+  methods: {
+    finish(val) {
+      console.log(val)
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$refs.hist.update({ from: this.data[20], to: this.data[69] })
+    }, 2000)
+  }
+});
+ </script>
+</body>
+</html>

@@ -21,17 +21,12 @@
 </head>
 <body>
 <div id="app">
-  <kalendar :events="events"></kalendar>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kalendar-vue@2.0.2/dist/KalendarVue.css">
-<script src="https://cdn.jsdelivr.net/npm/kalendar-vue@2.0.2/dist/KalendarVue.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/kalendar-vue@2.0.2/dist/KalendarVue.umd.min.0.worker.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/portal-vue@2.1.7/dist/portal-vue.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kalendar-vue@2.1.1/dist/kalendar-vue.umd.js"></script>
 <script>
-console.log(window);
-
 (() => {
   var iframe = document.createElement('iframe');
   iframe.style.display = 'none';
@@ -50,17 +45,9 @@ console.log(window);
   }, 0);
 })();
 
-const KalendarVue = window['KalendarVue'];
-const Kalendar = KalendarVue.Kalendar;
 
 new Vue({
   el: '#app',
-  components: {
-    "kalendar": Kalendar
-  },
-  data: {
-    events: [],
-  }
 });
 </script>
 </body>

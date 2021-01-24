@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .silentbox-item{
+      width: 30%;     
+    }
+    .silentbox-item img {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <silent-box :gallery="images"></silent-box>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-silentbox@2.3.2/dist/vue-silentbox.umd.min.js"></script>
+  
+<script>
+const VueSilentbox = window['VueSilentbox'].default;
+
+Vue.use(VueSilentbox);
+new Vue({
+  el: '#app',
+  data: {
+    images: [
+      {
+          src: 'http://placekitten.com/800/600',
+          description: 'Sunken dreams II. by Arbebuk',
+      },
+      {
+          src: 'http://placekitten.com/800/601',
+          description: 'Tunnel View Sunrise by Porbital',
+      },
+      {
+          src: 'http://placekitten.com/800/602',
+          description: 'description',
+      }
+    ]
+  },
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+ </script>
+</body>
+</html>
