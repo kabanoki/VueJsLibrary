@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Section 4-1</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+  <div class="container">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr is="draggable" tag="tr" v-model="columns">
+          <th v-for="(column, index) in columns" :key="'h'+index">{{column}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="row in rows">
+          <td v-for="column in columns">{{row[column]}}</td>
+        </tr>
+      </tbody>
+      <tfoot class="thead-light">
+        <tr is="draggable" tag="tr" v-model="columns">
+          <th v-for="(column, index) in columns" :key="'f'+index">{{column}}</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.23.2/vuedraggable.umd.min.js"></script>
+
+<script>
+let rows = [];
+
+for(let n=1; n<=10; n++){
+  rows.push({
+      'id': n,
+      'name': 'name'+n,
+      'email': 'info'+n+'@hoge.com',
+      'category': 'category'+n,
+      'created_at': '2021-01-01'
+  });
+}
+
+const draggable = window['vuedraggable'];
+
+new Vue({
+  el: '#app',
+  components: {
+    'draggable': draggable,
+  },
+  data: {
+    columns: [
+      'id',
+      'name',
+      'email',
+      'category',
+      'created_at'
+    ],
+    rows: rows
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+</script>
+</body>
+</html>

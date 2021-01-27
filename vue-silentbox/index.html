@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <style>
     .silentbox-item{
-      width: 30%;     
+      width: 33%;     
     }
     .silentbox-item img {
       width: 100%;
@@ -12,11 +12,11 @@
   </style>
 </head>
 <body>
-  <div id="app">
-    <silent-box :gallery="images"></silent-box>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-silentbox@2.3.2/dist/vue-silentbox.umd.min.js"></script>
+<div id="app">
+  <silent-box :gallery="images"></silent-box>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-silentbox@2.3.2/dist/vue-silentbox.umd.min.js"></script>
   
 <script>
 const VueSilentbox = window['VueSilentbox'].default;
@@ -27,16 +27,16 @@ new Vue({
   data: {
     images: [
       {
-          src: 'http://placekitten.com/800/600',
-          description: 'Sunken dreams II. by Arbebuk',
+        src: 'http://placekitten.com/800/600',
+        description: 'Sunken dreams II. by Arbebuk',
       },
       {
-          src: 'http://placekitten.com/800/601',
-          description: 'Tunnel View Sunrise by Porbital',
+        src: 'http://placekitten.com/800/603',
+        description: 'Tunnel View Sunrise by Porbital',
       },
       {
-          src: 'http://placekitten.com/800/602',
-          description: 'description',
+        src: 'http://placekitten.com/800/602',
+        description: 'description',
       }
     ]
   },
