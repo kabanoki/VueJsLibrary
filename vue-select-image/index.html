@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h2>Single</h2>
+  <vue-select-image
+    :data-images="images"
+    @onselectimage="onSelectImage">
+  </vue-select-image>
+  <p>選択中:{{SelectImage}}</p>
+  <h2>Multiple</h2>
+  <vue-select-image
+    :data-images="images"
+    :is-multiple="true"
+    :selected-images="initialSelected"
+    @onselectmultipleimage="onSelectMultipleImage">
+  </vue-select-image>
+  <p>初期値:{{initialSelected}}</p>
+  <p>選択中:{{SelectMultipleImage}}</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-select-image@1.9.0/dist/vue-select-image.css">
+<script src="https://cdn.jsdelivr.net/npm/vue-select-image@1.9.0/dist/vue-select-image.js"></script>
+
+<script>
+const VueSelectImage = window['VueSelectImage'].default;
+
+Vue.use(VueSelectImage);
+new Vue({
+  el: '#app',
+  data: {
+    images: [{
+      id: '1',
+      src: 'https://unsplash.it/200?random',
+      alt: 'Alt Image 1'
+    }, {
+      id: '2',
+      src: 'https://unsplash.it/200?random',
+      alt: 'Alt Image 2'
+    }, {
+      id: '3',
+      src: 'https://unsplash.it/200?random',
+      alt: 'Alt Image 3',
+      disabled: true
+    }, {
+      id: '4',
+      src: 'https://unsplash.it/200?random',
+      alt: 'Alt Image 4',
+    }, {
+      id: '5',
+      src: 'https://unsplash.it/200?random',
+      alt: 'Alt Image 5',
+    }],
+    initialSelected:[{
+      id: '5'
+    }],
+    SelectImage: '',
+    SelectMultipleImage:['id:5']
+  },
+  methods: {
+    onSelectImage:function(selected){
+      this.SelectImage = "id:" + selected.id
+    },
+    onSelectMultipleImage:function(selected){
+      let arr = [];
+      for(let i=0; i<selected.length; i++){
+        arr.push("id:" + selected[i].id);
+      }
+      this.SelectMultipleImage = arr;
+    }
+  }
+});
+
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+ </script>
+</body>
+</html>
