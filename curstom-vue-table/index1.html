@@ -8,51 +8,112 @@
 <body>
 <div id="app">
   <div class="container">
+    
     <table class="table table-bordered">
       <thead class="thead-light">
         <tr>
-          <th v-for="column in columns">{{column}}</th>
+          <th v-for="(column, i) in columns" :key="'head-'+i">{{column.label}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in rows">
-          <td v-for="column in columns">{{row[column]}}</td>
+        <tr v-for="(row, i) in rows" :key="'row-'+i" v-bind:class="[(i+1) % 2 === 0 ? 'table-info':'table-default']">
+          <td v-for="(column, i) in columns" :key="'column'+i">{{row[column.key]}}</td>
         </tr>
       </tbody>
       <tfoot class="thead-light">
         <tr>
-          <th v-for="column in columns">{{column}}</th>
+          <th v-for="(column, i) in columns" :key="'foot-'+i">{{column.label}}</th>
         </tr>
       </tfoot>
     </table>
+
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 
 <script>
-let rows = [];
-
-for(let n=1; n<=10; n++){
-  rows.push({
-      'id': n,
-      'name': 'name'+n,
-      'email': 'info'+n+'@hoge.com',
-      'category': 'category'+n,
-      'created_at': '2021-01-01'
-  });
-}
-
 new Vue({
   el: '#app',
   data: {
     columns: [
-      'id',
-      'name',
-      'email',
-      'category',
-      'created_at'
+      {key:'id', label:'ID'},
+      {key:'name', label:'名前'},
+      {key:'email', label:'メールアドレス'},
+      {key:'category', label:'カテゴリー'},
+      {key:'created_at', label:'登録日'},
     ],
-    rows: rows
+    rows: [
+      {
+        "id": 1,
+        "name": "name1",
+        "email": "info1@hoge.com",
+        "category": "category1",
+        "created_at": "2021-01-01"
+      },
+      {
+        "id": 2,
+        "name": "name2",
+        "email": "info2@hoge.com",
+        "category": "category2",
+        "created_at": "2021-01-02"
+      },
+      {
+        "id": 3,
+        "name": "name3",
+        "email": "info3@hoge.com",
+        "category": "category3",
+        "created_at": "2021-01-03"
+      },
+      {
+        "id": 4,
+        "name": "name4",
+        "email": "info4@hoge.com",
+        "category": "category3",
+        "created_at": "2021-01-03"
+      },
+      {
+        "id": 5,
+        "name": "name5",
+        "email": "info5@hoge.com",
+        "category": "category3",
+        "created_at": "2021-01-03"
+      },
+      {
+        "id": 6,
+        "name": "name6",
+        "email": "info6@hoge.com",
+        "category": "category6",
+        "created_at": "2021-01-06"
+      },
+      {
+        "id": 7,
+        "name": "name7",
+        "email": "info7@hoge.com",
+        "category": "category6",
+        "created_at": "2021-01-06"
+      },
+      {
+        "id": 8,
+        "name": "name8",
+        "email": "info8@hoge.com",
+        "category": "category8",
+        "created_at": "2021-01-08"
+      },
+      {
+        "id": 9,
+        "name": "name9",
+        "email": "info9@hoge.com",
+        "category": "category9",
+        "created_at": "2021-01-09"
+      },
+      {
+        "id": 10,
+        "name": "name10",
+        "email": "info10@hoge.com",
+        "category": "category10",
+        "created_at": "2021-01-10"
+      }
+    ]
   }
 });
 
