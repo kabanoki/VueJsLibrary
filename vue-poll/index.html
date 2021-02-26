@@ -42,16 +42,26 @@ new Vue({
     options: {
       question: 'あなたのお気に入りの <strong>JS</strong> フレームワークは何ですか?',
       answers: [
-        { value: 1, text: 'Vue', votes: 53 },
-        { value: 2, text: 'React', votes: 35 },
-        { value: 3, text: 'Angular', votes: 30 },
-        { value: 4, text: 'Other', votes: 10 } 
+        {id:1, value: 1, text: 'Vue', votes: 1 },
+        { value: 2, text: 'React', votes: 0 },
+        { value: 3, text: 'Angular', votes: 0 },
+        { value: 4, text: 'Other', votes: 0 } 
       ]
     }
   },
   methods: {
     addVote: function(obj){
+      console.log(obj);
       console.log('You voted ' + obj.value + '!');
+      let answers = this.options.answers;
+      
+      // for(let i=0; i<answers.length; i++){
+      //   if(obj.value == answers[i].value){
+      //     this.options.answers.votes++;
+      //   }
+      // }
+
+      console.log(this.options.answers);
     }
   }
 });
