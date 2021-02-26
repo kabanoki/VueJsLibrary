@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja" class="h-100">
+  <head>
+    <meta charset="UTF-8">
+    <title>TITLE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+      .item:first-child {
+        margin-top: 0;
+      }
+      .item{
+          margin-top: 500px;
+          height: 500px;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column h-100">
+    <div id="app" >
+      <flow-form v-bind:questions="questions" v-bind:language="language" />
+    </div>  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ditdot-dev/vue-flow-form@1.1.6/dist/vue-flow-form.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ditdot-dev/vue-flow-form@1.1.6/dist/vue-flow-form.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ditdot-dev/vue-flow-form@1.1.6/dist/vue-flow-form.theme-green.css">
+    <script>
+    
+
+
+    new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          language: new FlowForm.LanguageModel({
+            enterKey:'エンターキー',
+            shiftKey:'シフトキー',
+            ok:'OK',
+            continue:'続ける',
+            skip:'スキップ',
+            pressEnter:':enterKey を押してください',
+            multipleChoiceHelpText:'好きなだけ選択してください',
+            multipleChoiceHelpTextSingle:'回答を1つだけ選択してください',
+            otherPrompt:'その他',
+            placeholder:'ここに答えを入力してください...',
+            submitText:'送信する',
+            longTextHelpText:':shiftKey + :enterKey で改行します。',
+            prev:'前へ',
+            next:'次へ',
+            percentCompleted:':percent% が完成',
+            invalidPrompt:'フィールドに正しく入力してください',
+            thankYouText:'回答終了です。ありがとうございます！',
+            successText:'送信が送信されました。',
+            ariaOk:'押して続行',
+            ariaRequired:'このステップは必須です',
+            ariaPrev:'前のステップ',
+            ariaNext:'次のステップ',
+            ariaSubmitText:'押して送信',
+            ariaMultipleChoice:':letter を押して選択します',
+            ariaTypeAnswer:'ここに答えを入力してください',
+          }),
+          questions: [
+            new FlowForm.QuestionModel({
+              title: '問題',
+              type: FlowForm.QuestionType.MultipleChoice,
+              required: true,
+              options: [
+                new FlowForm.ChoiceOption({
+                  label: '回答1'
+                }),
+                new FlowForm.ChoiceOption({
+                  label: '回答2'
+                }),
+                new FlowForm.ChoiceOption({
+                  label: '回答3'
+                }),
+                new FlowForm.ChoiceOption({
+                  label: '回答4'
+                })
+              ]
+            }),
+            new FlowForm.QuestionModel({
+              title: '選択したいければ選択してください。',
+              type: FlowForm.QuestionType.MultipleChoice,
+              options: [
+                new FlowForm.ChoiceOption({
+                  label: '回答1'
+                }),
+                new FlowForm.ChoiceOption({
+                  label: '回答2'
+                }),
+                new FlowForm.ChoiceOption({
+                  label: '回答3'
+                }),
+                new FlowForm.ChoiceOption({
+                  label: '回答4'
+                })
+              ]
+            }),
+            new FlowForm.QuestionModel({
+              title: '今日の日付は？',
+              type: FlowForm.QuestionType.Date,
+              required: true,
+            }),
+            new FlowForm.QuestionModel({
+              title: 'お名前を入力してください。',
+              type: FlowForm.QuestionType.Text,
+              required: true,
+            }),
+            new FlowForm.QuestionModel({
+              title: 'パスワードを入力してください',
+              type: FlowForm.QuestionType.Password,
+              required: true,
+            }),
+          ]
+        }
+      }
+    });
+
+
+    (() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+    </script>
+  </body>
+</html>
