@@ -1,6 +1,6 @@
-"# vue" 
+"# vue"
 
-~~~
+```
 // デフォルト以外のグローバル変数を取得
 (() => {
   var iframe = document.createElement('iframe');
@@ -19,4 +19,4 @@
     console.table(table);
   }, 0);
 })();
-~~~
+```
