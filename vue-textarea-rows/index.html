@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      margin-top: 50px;
+    }
+.example {
+  padding: 5px;
+  border: 2px solid #dcdcdc;
+  background-color: #dcdcdc;
+}
+.box {
+  padding: 15px;
+  border: 2px solid #dcdcdc;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <datepicker v-model="date" 
+              :preview-format="format"
+              :format="format"
+              :enable-time-picker="true"
+              week-start="0"
+              locale="jp" 
+              placeholder="日付を選択"
+              select-text="選択"
+              cancel-text="キャンセル"
+              :show-now-button="false"
+              now-button-label="現在を選択"
+              ></datepicker>
+</div>
+
+
+<!-- bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- bootstrap end -->
+<!-- Vue 3.2.26 -->
+<script src="https://unpkg.com/vue@3.2.26/dist/vue.global.js"></script>
+<!-- Vue 3.2.26 end -->
+
+<script src="https://unpkg.com/@vuepic/vue-datepicker@3.6.5/dist/vue-datepicker.iife.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@vuepic/vue-datepicker@3.6.5/dist/main.css">
+
+
+<script>
+const App = {
+  data() {
+    const date = new Date();
+    const format = function(date){
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+
+      return `${year}年${month}月${day}日 ${hours}時${minutes}分`;
+    }
+    return {
+      date: new Date(),
+      format: format, 
+    }
+  },
+  components: { Datepicker: VueDatePicker },
+}
+
+Vue.createApp(App).mount('#app');
+
+
+// Check add Window const
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+ </script>
+</body>
+</html>

@@ -21,27 +21,53 @@
 
   </style>
   <style>
+  .height-200{
+    height: 200px  
+  }
+  
+  .my-editor {
+    /* we dont use `language-` classes anymore so thats why we need to add background and text color manually */
+    background: #2d2d2d;
+    color: #ccc;
 
+    /* you must provide font-family font-size line-height. Example:*/
+    font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 5px;
+  }
+
+  /* optional class for removing the outline */
+  .prism-editor__textarea:focus {
+    outline: none;
+  }
   </style>
 </head>
 <body>
 <div id="app">
-  <vue-prism-editor v-model="code" :code="code" language="js" line-numbers="true"></vue-prism-editor>
+  <prism-editor class="my-editor height-200" v-model="code" :highlight="highlighter" line-numbers></prism-editor>
 </div>
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/prismjs@1.15.0/themes/prism-tomorrow.css">
-<link rel="stylesheet" href="https://unpkg.com/vue-prism-editor/dist/VuePrismEditor.css">
-<script src="https://unpkg.com/vue-prism-editor"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-prism-editor@1.3.0/dist/prismeditor.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/vue-prism-editor@1.3.0/dist/prismeditor.umd.production.min.js"></script>
 <script src="https://unpkg.com/prismjs"></script>
 <script>
-const VuePrismEditor = window['VuePrismEditor'];
-Vue.component('vue-prism-editor', VuePrismEditor);  
+const VuePrismEditor = window['PrismEditor'];
+Vue.component('PrismEditor', VuePrismEditor.PrismEditor);  
 new Vue({
   el: '#app',
-  data: {
-    code: 'console.log("test");' + "\n" + "function(){\n alert('test'); \n}"
-  }
+  data: function(){
+    return {
+      code: "console.log('hello world')"
+    }
+  },
+  methods: {
+    highlighter: function(code) {
+      return Prism.highlight(code, Prism.languages.js, "js");
+    }
+  },
 });
 
 (() => {

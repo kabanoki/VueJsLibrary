@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #app {
+      margin-top: 50px;
+    }
+.example {
+  padding: 5px;
+  border: 2px solid #dcdcdc;
+  background-color: #dcdcdc;
+}
+.box {
+  padding: 15px;
+  border: 2px solid #dcdcdc;
+}
+  </style>
+</head>
+<body>
+<div id="app">
+  <typical
+  :steps="['Hello', 1000, 'Hello world!', 500]"
+  :wrapper="'h2'"
+></typical>
+<typical
+  class="typicalWrapper"
+  :steps="['こんにちは', 1000,'みなさん!', 1000, 'カバノキです！', 3000]"
+  :loop="Infinity"
+  :wrapper="'h3'"
+></typical>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-typical@1.6.2/dist/typical.umd.min.js"></script>
+
+<script>
+  const typical = window['typical'];
+  new Vue({
+    el: '#app',
+    components: {
+      typical
+    }
+  });
+
+
+
+// Check add Window const
+(() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+ </script>
+</body>
+</html>

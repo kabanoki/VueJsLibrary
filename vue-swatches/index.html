@@ -21,16 +21,69 @@
 </head>
 <body>
 <div id="app">
-  <h1 :style="{'color':color}">カバの樹</h1>
-  <swatches v-model="color"></swatches>
+    <h2 :style="{'color':color}">カバの樹</h2>
+    
+    <h3>Simple</h3>
+    <div class="form__input">
+        <swatches v-model="color" popover-x="left"></swatches>
+    </div>
+    <br>
+    <h3>Using a Preset</h3>
+    <div class="form__input">
+        <swatches v-model="color" popover-x="left" swatches="text-advanced"></swatches>
+    </div>
+    <br>
+    <h3>Using a Custom Trigger
+  </h3>
+    <div class="form__input">
+        <swatches v-model="color">
+          <input slot="trigger" :value="color" class="form__input__element" readonly>
+        </swatches>
+    </div>
+    <br>
+    <h3>Custom Colors</h3>
+    <div class="form__input">
+        <swatches
+          v-model="color"
+          :swatches="swatches"
+          row-length="6"
+          shapes="circles"
+          show-border
+          popover-x="left"
+        ></swatches>
+    </div>
+    <br>
+    <h3>Inline Mode</h3>
+    <div class="form__input">
+        <swatches v-model="color" inline></swatches>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/vue-swatches/dist/vue-swatches.min.css">
-<script src="https://unpkg.com/vue-swatches"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-swatches@2.1.1/dist/vue-swatches.css">
+<script src="https://unpkg.com/vue-swatches@2.1.1/dist/vue-swatches.umd.min.js"></script>
+
 
 <script>
-console.log(window);
+const Swatches = window['vue-swatches'];
+
+console.log(Swatches);
+
+new Vue({
+  el: '#app',
+  components: {
+    'swatches':Swatches
+  },
+  data: {
+    color: '#1CA085',
+    swatches: [
+        ['#F64272', '#F6648B', '#F493A7', '#F891A6', '#FFCCD5' ],
+        ['#8b5aff', '#a27bff', '#b99cff', '#d0bdff', '#e8deff' ],
+        ['#51e5db', '#74ebe3', '#96f0ea', '#b9f5f1', '#dcfaf8' ],
+        ['#ffa51a', '#ffb748', '#ffc976', '#ffdba3', '#ffedd1' ]
+      ]
+  }
+});
 
 (() => {
   var iframe = document.createElement('iframe');
@@ -49,18 +102,6 @@ console.log(window);
     console.table(table);
   }, 0);
 })();
-
-const Swatches = window['VueSwatches'].default;
-
-new Vue({
-  el: '#app',
-  components: {
-    'swatches':Swatches
-  },
-  data: {
-    color: '#1CA085'
-  }
-});
 </script>
 </body>
 </html>

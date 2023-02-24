@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="app" class="container">
+          
+          <v-tooltip>
+            <a>Sponsor me</a>
+          
+            <template #popper>
+              Help me fund my Open Source work!
+            </template>
+          </v-tooltip>
+
+
+          <button v-tooltip="'You have new messages.'">aaaaaaaaaaaaaaaaaaaa</button>
+        </div>
+         
+          <!-- bootstrap -->
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          <!-- bootstrap end -->
+          <!-- Vue 3.2.26 -->
+          <script src="https://unpkg.com/vue@3.2.26/dist/vue.global.js"></script>
+          <!-- Vue 3.2.26 end -->
+          <script src="https://cdn.jsdelivr.net/npm/floating-vue@2.0.0-beta.3/dist/floating-vue.umd.min.js"></script>
+          <link rel="stylsheet" href="https://unpkg.com/floating-vue@^2.0.0-beta.1/dist/style.css" />
+
+    
+    
+<script>
+const FloatingVue = window['FloatingVue'];
+console.log(FloatingVue);
+console.log(FloatingVue.Tooltip);
+const App = {
+  data() {
+    return {
+      msg: ''
+    }
+  },
+}
+const app = Vue.createApp(App);
+app.use(FloatingVue);
+// app.directive('tooltip', FloatingVue.VTooltip);
+// app.directive('close-popper', FloatingVue.VClosePopper);
+
+// app.component('VDropdown', FloatingVue.Dropdown);
+// app.component('VTooltip', FloatingVue.Tooltip);
+// app.component('VMenu', FloatingVue.Menu);
+app.mount('#app');
+
+
+// デフォルト以外のグローバル変数をコンソールに表示
+              (() => {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  setTimeout(() => {
+    var table = Object.keys(window)
+            .filter((key) => {
+              return typeof iframe.contentWindow[key] === 'undefined';
+            })
+            .reduce((obj, key) => {
+              obj[key] = {value: window[key]};
+              return obj;
+            }, {});
+    document.body.removeChild(iframe);
+    console.table(table);
+  }, 0);
+})();
+          </script>
+    </body>
+</html>

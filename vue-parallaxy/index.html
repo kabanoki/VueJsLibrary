@@ -12,22 +12,35 @@
 </head>
 <body>
 <div id="app">
-    <parallax direction="down" fixed="true">
-        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
-    </parallax>
-    <div class="content"></div>
-    <parallax>
-        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
-    </parallax>
-    <div class="content"></div>
-    <parallax parallax="false">
-        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
-    </parallax>
-    <div class="content"></div>
-    <parallax>
-        <img src="https://i1.wp.com/www.kabanoki.net/wp-content/uploads/2019/07/5cb5cfeb-f1cf-4e47-ac2c-ff53b702b2c0.png?resize=512%2C350&ssl=1" alt="very cool bg">
-    </parallax>
-    <div class="content"></div>
+    <div style="position: relative; z-index: 999; background-color: #fff;">
+      <parallax>
+          <img src="https://picsum.photos/1920/1080?image=1">
+      </parallax>
+      <div class="content"></div>
+    </div>
+
+    <div style="position: relative; z-index: 999; background-color: #fff;">
+      <parallax>
+        <img src="https://picsum.photos/1920/1080?image=2">
+      </parallax>
+      <div class="content"></div>
+    </div>
+
+    <div style="position: relative;">
+      <parallax  direction="up" fixed="true">
+        <img src="https://picsum.photos/1920/1080?image=4">
+      </parallax>
+      <div class="content"></div>
+    </div>
+
+    <div style="position: relative; z-index: 99; background-color: #fff;">
+      <parallax parallax="false" fixed="true">
+        <img src="https://picsum.photos/1920/1080?image=3">
+      </parallax>
+      <div class="content"></div>
+    </div>
+
+
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 
