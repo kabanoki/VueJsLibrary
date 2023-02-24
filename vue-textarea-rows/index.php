@@ -6,21 +6,15 @@
     #app {
       margin-top: 50px;
     }
-.example {
-  padding: 5px;
-  border: 2px solid #dcdcdc;
-  background-color: #dcdcdc;
-}
-.box {
-  padding: 15px;
-  border: 2px solid #dcdcdc;
-}
   </style>
 </head>
 <body>
 <div id="app">
   <div class="container">
-    <textarea class="form-control" rows="10" v-model="text"></textarea>
+    <form method="post" action>
+      <textarea class="form-control" rows="10" name="text" v-model="text"></textarea>
+      <button>送信</button>
+    </form>
     <hr>
     <pre>{{text}}</pre>
   </div>
@@ -35,12 +29,11 @@
 <!-- Vue 3.2.26 end -->
 
 <script>
-const json = json_encode([text:'aaaa\naa\naaa']);  
-console.log(json);
+const text = `<?php echo $_POST['text'] ?? '' ?>`;  
 const App = {
   data() {
     return {
-      text : json.text
+      text :text
     }
   },
 }
